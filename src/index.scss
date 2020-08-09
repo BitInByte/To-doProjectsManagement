@@ -1,0 +1,50 @@
+// * ====== RESET ======
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+// * ====== UNIVERSAL PROPERTIES ======
+html {
+
+    font-size: 62.5%; // 1rem = 10px; 10px/16px = 62.5%
+
+    // @include respond(tab-port) {
+    //     font-size: 50%;
+    // }
+
+    // @include respond(mid) {
+    //     font-size: 40%;
+    // }
+
+    // @include respond(phone-small) {
+    //     font-size: 30%;
+    // }
+
+    
+}
+
+body {
+    box-sizing: border-box;
+
+    // Min height for the background image. minimum is 100vh but can be bigger if the content is bigger
+    // min-height: 100vh;
+
+   
+
+    // @include respond(tab-port) {
+    //     padding: 4rem 1.5rem;
+    // }
+
+    // @include respond(mid) {
+    //     padding: 2rem .75rem;
+    // }
+
+}
+
+main {
+}
