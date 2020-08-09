@@ -1,0 +1,17 @@
+ARCHIVE
+import ArchiveIcon from '@material-ui/icons/Archive';
+
+SETTINGS
+import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
+
+TO-DO
+import ViewListIcon from '@material-ui/icons/ViewList';
+
+FASHBOARD
+import DashboardIcon from '@material-ui/icons/Dashboard';
+
+LOGOUT
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+PROJECTS
+import FolderIcon from '@material-ui/icons/Folder';
