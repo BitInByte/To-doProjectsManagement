@@ -1,4 +1,5 @@
 @import './styles/abstracts/variables';
+@import './styles/base/typography';
 
 // * ====== RESET ======
 
@@ -33,6 +34,7 @@ html {
 body {
     box-sizing: border-box;
     background-color: $color-body-bg;
+    // font-family: 'Rubik', sans-serif;
 
     // Min height for the background image. minimum is 100vh but can be bigger if the content is bigger
     // min-height: 100vh;
