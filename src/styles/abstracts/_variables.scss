@@ -3,9 +3,17 @@
 // https://flatuicolors.com/palette/se
 // https://flatuicolors.com/palette/gb
 
+// === BODY ===
+$color-body-bg: #70a1ff; // #686de0
+$color-body-bg-dark: #30336b;
+
 // === NAV ===
 $color-nav-bg: #1e272e;
 $color-nav-icons: #ffd32a;
+$color-nav-icons-hover: #ffc048;
+
+    // / USER /
+    $color-user-bg: #D6A2E8;
 
 // === FOOTER ===
 $color-footer-bg: #1e272e;
@@ -13,6 +21,10 @@ $color-footer-font: #d1d8e0;
 
 // === FONTS ===
 $color-font: #2f3640;
+
+// === GENERAL ===
+$color-white: #fff;
+$color-black: #111;
 
 // * SIZES *
 

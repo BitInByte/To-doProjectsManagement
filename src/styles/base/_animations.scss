@@ -1,0 +1,33 @@
+@keyframes navSlideTitle {
+    0% {
+        transform: scaleY(0);
+        width: .5rem;
+        opacity: 1;
+        visibility: visible;
+        color: transparent;
+        transform-origin: 50%;
+    }
+
+    45% {
+        transform: scaleY(1);
+        width: .5rem;
+        color: transparent;
+    }
+
+    80% {
+        color: transparent;
+    }
+    
+    95% {
+        width: 25rem;
+        color: inherit;
+    }
+
+    100% {
+        width: 25rem;
+        opacity: 1;
+        visibility: visible;
+    }
+
+
+}

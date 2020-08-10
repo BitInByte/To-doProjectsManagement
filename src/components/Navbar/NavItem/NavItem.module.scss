@@ -1,0 +1,52 @@
+@import '../../../styles/abstracts/variables';
+@import '../../../styles/base/animations';
+
+
+.NavItem {
+    height: 5rem;
+    width: 31.5rem;
+    margin: 1rem 0; 
+    display: flex;
+    position: relative;
+    z-index: 99;
+    color: $color-nav-icons-hover;
+
+    &__icon {
+        width: 6.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $color-nav-icons;         
+
+        &:hover {
+            color: $color-nav-icons-hover;
+            cursor: pointer;
+        }
+
+        &:hover + .NavItem__title {
+            animation: navSlideTitle .6s ease-out forwards;
+        }
+
+        transition: .4s all ease-out;
+    }
+
+    &__title {
+        position: relative;
+        width: 25rem;
+        height: 5rem;
+        visibility: hidden;
+        opacity: 0;
+        background-color: $color-nav-bg;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: inherit;
+        font-size: 2rem;
+
+        // Text was breaking the animation so we set the z-index to -1 to be behind the nav
+        z-index: -1;
+        line-height: $lh-h3;
+        text-transform: uppercase;
+
+    }
+}

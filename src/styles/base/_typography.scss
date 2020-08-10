@@ -7,3 +7,10 @@ body {
     line-height: 2.1rem;
     font-size: 1.6rem;
 }
+
+.heading-4 {
+    font-size: $font-h4;
+    text-transform: uppercase;
+    line-height: $lh-h4;
+
+}

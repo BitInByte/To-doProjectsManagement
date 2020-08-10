@@ -1,0 +1,23 @@
+@import '../../../../styles/abstracts/variables';
+
+.DrawerToggleButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 4rem;
+    height: 3.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
+    &:focus {
+        outline: none;
+    }
+
+    &__line {
+        width: 100%;
+        height: .4rem;
+        background: $color-nav-icons;
+    }
+}

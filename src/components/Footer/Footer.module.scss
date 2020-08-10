@@ -1,0 +1,13 @@
+@import '../../styles/abstracts/variables';
+
+.Footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 8rem;
+    background-color: $color-footer-bg;
+    color: $color-footer-font;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: 300;
+}

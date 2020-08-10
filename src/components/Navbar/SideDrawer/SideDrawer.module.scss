@@ -1,0 +1,53 @@
+@import '../../../styles/abstracts/variables';
+@import '../../../styles//abstracts/mixins';
+
+.SideDrawer {
+    width: 70%;
+    max-width: 20rem;
+    height: 100%;
+    background-color: $color-nav-bg;
+    box-shadow: 2rem 0 1.5rem rgba(255, 255, 255, .5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+
+    transform: translateX(-120%);
+    transition: transform .4s ease-out;
+
+    @include respond(desktop) {
+        display: none;
+    }
+
+    & ul {
+        width: 100%;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        // justify-content: center;
+        align-items: center;
+        margin: 2rem 0;
+    }
+
+    & li {
+        margin: .8rem 0;
+    }
+
+    & a {
+        color: $color-nav-icons;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 2rem;
+
+        transition: .4s all ease-out;
+
+        &:hover, &:active {
+            color: $color-nav-icons-hover;
+            cursor: pointer;
+        }
+    }
+
+    &Open {
+        transform: translateX(0);
+    }
+}
