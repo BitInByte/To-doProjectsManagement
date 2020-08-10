@@ -8,12 +8,14 @@ import BackDrop from '../../components/UI/BackDrop/BackDrop';
 import Footer from '../../components/Footer/Footer';
 
 //Import scoped class modules
-//import classes from './Layout.module.css';
+import classes from './Layout.module.scss';
 
 //Stateless component
-const Layout = () => {
+const Layout = (props) => {
 
     const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
+
+    const { children } = props;
 
     // Toggle at click the SideDrawer variable to true or false
     const drawerToggleClickHandler = () => {
@@ -39,6 +41,9 @@ const Layout = () => {
             <SideDrawer show={sideDrawerOpen} />
             {backdrop}
             {/* MAIN */}
+            <main className={classes.Content}>
+                {children}
+            </main>
             {/* FOOTER */}
             <Footer />
         </>

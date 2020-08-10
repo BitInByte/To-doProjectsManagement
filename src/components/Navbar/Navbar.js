@@ -31,20 +31,22 @@ const navbar = props => {
                 JP
             </div>
             {/* ICONS */}
-            <div className={classes.Nav}>
-                <NavItem title="Dashboard">
-                    <DashboardIcon style={{ fontSize: '4.5rem' }} />
-                </NavItem>
-                <NavItem title="TO-DO">
-                    <ViewListIcon style={{ fontSize: '5rem' }} />
-                </NavItem>
-                <NavItem title="PROJECTS">
-                    <FolderIcon style={{ fontSize: '4.5rem' }} />
-                </NavItem>
-                <NavItem title="ARCHIVE">
-                    <ArchiveIcon style={{ fontSize: '4.5rem' }} />
-                </NavItem>
-            </div>
+            <nav className={classes.Nav}>
+                <ul>
+                    <NavItem link='/' exact title="Dashboard">
+                        <DashboardIcon style={{ fontSize: '4.5rem' }} />
+                    </NavItem>
+                    <NavItem link='/todos' title="TO-DO">
+                        <ViewListIcon style={{ fontSize: '5rem' }} />
+                    </NavItem>
+                    <NavItem link='/projects' title="PROJECTS">
+                        <FolderIcon style={{ fontSize: '4.5rem' }} />
+                    </NavItem>
+                    <NavItem link='/archive' title="ARCHIVE">
+                        <ArchiveIcon style={{ fontSize: '4.5rem' }} />
+                    </NavItem>
+                </ul>
+            </nav>
             {/* LOGOUT */}
             <div className={classes.Logout}>
                 <ExitToAppIcon style={{ fontSize: '4.5rem' }} />

@@ -2,6 +2,9 @@
 @import '../../../styles/base/animations';
 
 
+a {
+    text-decoration: none;
+}
 .NavItem {
     height: 5rem;
     width: 31.5rem;
@@ -10,6 +13,7 @@
     position: relative;
     z-index: 99;
     color: $color-nav-icons-hover;
+
 
     &__icon {
         width: 6.5rem;
