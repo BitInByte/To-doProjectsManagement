@@ -15,7 +15,7 @@ const navItem = (props) => {
 
     return (
         <li>
-            <NavLink to={link} exact={exact}>
+            <NavLink to={link} exact={exact} activeClassName={classes.NavItem__active}>
                 <div className={classes.NavItem}>
                     <div className={classes.NavItem__icon}>
                         {children}
