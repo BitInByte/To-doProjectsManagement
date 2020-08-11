@@ -34,6 +34,7 @@ html {
 body {
     box-sizing: border-box;
     background-color: $color-body-bg;
+    // min-height: calc(100vh - 8rem);
     // font-family: 'Rubik', sans-serif;
 
     // Min height for the background image. minimum is 100vh but can be bigger if the content is bigger
@@ -49,6 +50,19 @@ body {
     //     padding: 2rem .75rem;
     // }
 
+}
+
+a:active,
+a:hover {
+    outline: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    display: block;
 }
 
 main {

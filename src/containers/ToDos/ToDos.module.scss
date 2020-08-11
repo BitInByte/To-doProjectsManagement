@@ -1,0 +1,9 @@
+.Todos {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+    // min-height: calc(100vh - 8rem);
+    align-items: center;    
+    height: inherit;
+}
