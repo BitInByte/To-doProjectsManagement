@@ -1,0 +1,11 @@
+.Project {
+    width: 100%;
+    text-align: center;
+    // height: 100%;
+    // min-height: calc(100vh - 12rem);
+
+    &__boards {
+        width: 100%;
+        display: flex;
+    }
+}

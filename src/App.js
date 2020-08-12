@@ -17,12 +17,15 @@ const App = () => {
 
   const Archive = React.lazy(() => import('./containers/Archive/Archive'));
 
+  const Project = React.lazy(() => import('./components/Project/Project'));
+
   let routes = (
     <Switch>
       <Route path='/todos' render={(...props) => <ToDos />} />
       <Route path='/projects' render={(...props) => <Projects />} />
       <Route path='/archive' render={(...props) => <Archive />} />
       <Route path='/settings' render={(...props) => <Settings />} />
+      <Route path='/project' render={(...props) => <Project />} />
       <Route path='/' exact component={Dashboard} />
       <Redirect to='/' />
     </Switch>

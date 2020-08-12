@@ -23,19 +23,21 @@ const ToDos = (props) => {
             {/* Title */}
             <Title title={'To-Dos'} />
             {/* To-Dos */}
-            <TodoWrapper>
-                <ToDo click={todoCheckHandler} isChecked />
-                <ToDo click={todoCheckHandler} />
-                <ToDo click={todoCheckHandler} />
-                <ToDo click={todoCheckHandler} />
-                <ToDo click={todoCheckHandler} />
-                <ToDo click={todoCheckHandler} />
-                <ToDo click={todoCheckHandler} />
-                <ToDo click={todoCheckHandler} />
-                <ToDo click={todoCheckHandler} />
-                <ToDo click={todoCheckHandler} />
-                <ToDo click={todoCheckHandler} />
-            </TodoWrapper>
+            <div className={classes.Todos__container}>
+                <TodoWrapper>
+                    <ToDo click={todoCheckHandler} hasChecbox isChecked />
+                    <ToDo click={todoCheckHandler} hasChecbox />
+                    <ToDo click={todoCheckHandler} hasChecbox />
+                    <ToDo click={todoCheckHandler} hasChecbox />
+                    <ToDo click={todoCheckHandler} hasChecbox />
+                    <ToDo click={todoCheckHandler} hasChecbox />
+                    <ToDo click={todoCheckHandler} hasChecbox />
+                    <ToDo click={todoCheckHandler} hasChecbox />
+                    <ToDo click={todoCheckHandler} hasChecbox />
+                    <ToDo click={todoCheckHandler} hasChecbox />
+                    <ToDo click={todoCheckHandler} hasChecbox />
+                </TodoWrapper>
+            </div>
             {/* Controllers */}
             <Controllers />
         </div>
