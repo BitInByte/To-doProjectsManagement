@@ -8,10 +8,10 @@ import Checkbox from '../UI/Checkbox/Checkbox.js';
 import classes from './ToDo.module.scss';
 
 //Stateless component
-const toDo = ({ click, isChecked, hasChecbox, isDraggable, dragStart, hasDragClass, dragEnter }) => (
+const toDo = ({ click, isChecked, hasChecbox, isDraggable, dragStart, hasDragClass, dragEnter, title }) => (
     <div className={hasDragClass ? [classes.ToDo, classes.ToDo__current].join(' ') : classes.ToDo} draggable={isDraggable} onDragStart={dragStart} onDragEnter={dragEnter} >
         <div className={classes.ToDo__content}>
-            <h3 className={isChecked ? [classes.ToDo__title, classes.ToDo__checked].join(' ') : classes.ToDo__title}>ToDo</h3>
+            <h3 className={isChecked ? [classes.ToDo__title, classes.ToDo__checked].join(' ') : classes.ToDo__title}>{title}</h3>
             <p className={isChecked ? [classes.ToDo__timestamp, classes.ToDo__checked].join(' ') : classes.ToDo__timestamp}>Today</p>
             <p className={isChecked ? classes.ToDo__checked : null}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, pariatur necessitatibus nobis explicabo voluptate expedita esse ratione voluptatibus! Consequatur nulla sint earum inventore iste eius dolores incidunt voluptatibus tenetur nihil!</p>
         </div>
