@@ -43,4 +43,11 @@
     &__checked {
         text-decoration: line-through;
     }
+
+    &__current {
+        // background-color: #000;
+        // background-color: rgba($color: #fff, $alpha: .5);
+        opacity: .5;
+        // visibility: hidden;
+    }
 }
