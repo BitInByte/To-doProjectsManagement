@@ -25,17 +25,17 @@ const ToDos = (props) => {
             {/* To-Dos */}
             <div className={classes.Todos__container}>
                 <TodoWrapper>
-                    <ToDo click={todoCheckHandler} hasChecbox isChecked />
-                    <ToDo click={todoCheckHandler} hasChecbox />
-                    <ToDo click={todoCheckHandler} hasChecbox />
-                    <ToDo click={todoCheckHandler} hasChecbox />
-                    <ToDo click={todoCheckHandler} hasChecbox />
-                    <ToDo click={todoCheckHandler} hasChecbox />
-                    <ToDo click={todoCheckHandler} hasChecbox />
-                    <ToDo click={todoCheckHandler} hasChecbox />
-                    <ToDo click={todoCheckHandler} hasChecbox />
-                    <ToDo click={todoCheckHandler} hasChecbox />
-                    <ToDo click={todoCheckHandler} hasChecbox />
+                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox isChecked />
+                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
+                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
+                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
+                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
+                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
+                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
+                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
+                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
+                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
+                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
                 </TodoWrapper>
             </div>
             {/* Controllers */}

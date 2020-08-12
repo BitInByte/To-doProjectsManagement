@@ -98,9 +98,12 @@ const Project = (props) => {
                 <Board title='In Progress' />
                 <Board title='Completed' /> */}
                 {list.map((grp, grpI) => (
-                    <div key={grp} className={classes.Board}>
+                    <div key={grp.title} className={classes.Board}>
                         <h2>{grp.title}</h2>
-                        <div className={classes.Board__wrapper}>
+                        <div
+                            // key={grp.title}
+                            className={classes.Board__wrapper}
+                            onDragEnter={dragging && !grp.items.length ? (e) => handleDragEnter(e, { grpI, itemI: 0 }) : null} >
                             {/* Make the ToDo draggable */}
                             {/* With handleDragStart we pass the event, the item id and the board id */}
                             {grp.items.map((item, itemI) => (
@@ -140,7 +143,7 @@ const Project = (props) => {
                 ))}
             </div>
             {/* CONTROLLERS */}
-        </div>
+        </div >
 
     );
 };
