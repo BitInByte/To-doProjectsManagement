@@ -7,6 +7,6 @@ import React from 'react';
 import classes from './BackDrop.module.scss';
 
 //Stateless component
-const BackDrop = props => <div className={classes.BackDrop} onClick={props.click} />;
+const backDrop = props => <div className={classes.BackDrop} onClick={props.click} />;
 
-export default BackDrop;
+export default backDrop;

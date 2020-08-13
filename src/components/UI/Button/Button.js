@@ -7,6 +7,6 @@ import React from 'react';
 import classes from './Button.module.scss';
 
 //Stateless component
-const Button = ({ name }) => <button className={classes.Button}>{name}</button>;
+const button = ({ name, click, disabled }) => <button className={classes.Button} onClick={click} disabled={disabled} >{name}</button>;
 
-export default Button;
+export default button;

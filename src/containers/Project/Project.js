@@ -2,9 +2,13 @@
 import React, { useState, useRef } from 'react';
 
 //Import components
-import Title from '../UI/Title/Title';
+import Title from '../../components/UI/Title/Title';
 // import Board from '../Board/Board';
-import ToDo from '../ToDo/ToDo';
+import ToDo from '../../components/ToDo/ToDo';
+import Controllers from '../../components/Controllers/Controllers';
+import Modal from '../../components/UI/Modal/Modal';
+// import Input from '../../components/Forms/Input/Input';
+import AddNew from '../AddNew/AddNew';
 
 
 //Import scoped class modules
@@ -23,6 +27,12 @@ const Project = (props) => {
 
     const [dragging, setDragging] = useState(false);
 
+    // Perform an action on click to open the add new modal
+    const [openAddNewModal, setOpenAddNewModal] = useState(false);
+
+    // Perform an action on click to open the Archive modal
+    const [openArchiveModal, setOpenArchiveModal] = useState(false);
+
     // Reference to hold the item when drag starts
     const dragItem = useRef();
 
@@ -39,7 +49,7 @@ const Project = (props) => {
         dragNode.current = e.target;
         // Set an eventListener to the node
         dragNode.current.addEventListener('dragend', handleDragEnd);
-        // Apply the style to the element on the board and no to the element
+        // Apply the style to the element on the board and not to the element
         // dragging
         setTimeout(() => {
             // Set the darring variable to true
@@ -86,6 +96,26 @@ const Project = (props) => {
             console.log('Im moving now change my styles');
             return true;
         };
+    };
+
+    let modal = null;
+    if (openAddNewModal) {
+        modal = (
+            <div className={classes.Modal} >
+                <Modal click={() => setOpenAddNewModal(false)}>
+                    <h2>Add a new Task</h2>
+                    <AddNew />
+                </Modal>
+            </div>
+        );
+    } else if (openArchiveModal) {
+        modal = (
+            <div className={classes.Modal} >
+                <Modal click={() => setOpenArchiveModal(false)}>
+                    Archive
+                </Modal>
+            </div>
+        );
     };
 
     return (
@@ -143,8 +173,9 @@ const Project = (props) => {
                 ))}
             </div>
             {/* CONTROLLERS */}
+            <Controllers btn1="Add New" btn1Click={() => setOpenAddNewModal(!openAddNewModal)} btn2="Archive Project" btn2Click={() => setOpenArchiveModal(!openArchiveModal)} />
+            {modal}
         </div >
-
     );
 };
 

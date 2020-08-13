@@ -8,13 +8,13 @@ import Button from '../UI/Button/Button';
 import classes from './Controllers.module.scss';
 
 //Stateless component
-const Controllers = (props) => (
+const controllers = ({ btn1, btn2, btn1Click, btn2Click }) => (
     <div className={classes.Controllers}>
         {/* ADD NEW BUTTON */}
-        <Button name="Add new" />
+        <Button name={btn1} click={btn1Click} />
         {/* HIDE COMPLETED */}
-        <Button name="Show done" />
+        <Button name={btn2} click={btn2Click} />
     </div>
 );
 
-export default Controllers;
+export default controllers;

@@ -17,7 +17,7 @@ const App = () => {
 
   const Archive = React.lazy(() => import('./containers/Archive/Archive'));
 
-  const Project = React.lazy(() => import('./components/Project/Project'));
+  const Project = React.lazy(() => import('./containers/Project/Project'));
 
   let routes = (
     <Switch>

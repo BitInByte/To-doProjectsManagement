@@ -28,4 +28,10 @@
     &:active {
         transform: scale(.9);
     }
+
+    &:disabled {
+        background-color: #aaa;
+        color: #ddd;
+        cursor: not-allowed;
+    }
 }

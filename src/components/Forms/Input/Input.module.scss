@@ -1,0 +1,88 @@
+.Input {
+    width: 100%;
+    position: relative;
+    // z-index: 150;
+}
+
+.Label {
+    display: block;
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+    padding: .3rem 0;
+}
+
+.InputElement {
+    position: relative;
+    z-index: 150;
+    outline: none;
+    display: block;
+    width: 100%;
+    font-size: 1.4rem;
+    height: 100%;
+    padding: .3rem;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: none;
+    border-bottom: .15rem solid #ccc;
+    font-family: 'Rubik', sans-serif;
+
+    color: #000;
+
+    transition: all .4s ease-out;
+
+}
+
+.Input::-webkit-input-placeholder {
+    font-family: 'Rubik', sans-serif;
+  }
+  
+.Input:-ms-input-placeholder {
+    font-family: 'Rubik', sans-serif;
+}
+
+.Input:-moz-placeholder {
+    font-family: 'Rubik', sans-serif;
+}
+
+.Input::-moz-placeholder {
+    font-family: 'Rubik', sans-serif;
+}
+
+// .InputElement:focus {
+//     outline: none;
+//     border: ;
+// }
+
+.Invalid {
+    border-bottom: .15rem solid #f00;
+}
+
+.Valid {
+    border-bottom: .15rem solid #0f0;
+}
+
+.Paragraph {
+    position: relative;
+    z-index: 140;
+    margin: .6rem 0;
+
+    color: red;
+    font-weight: bold;
+    font-size: 1.4rem;
+    font-family: 'Rubik', sans-serif;
+
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+
+    transition: all .2s ease-out;
+    z-index: 999;
+}
+
+.ParagraphShow {
+    visibility: visible;
+    transform: translateY(0);
+    opacity: 1;
+}
+
