@@ -1,0 +1,32 @@
+.Button {
+    text-align: center;
+    color: #fff;
+    border: .2rem solid #fff;
+    border-radius: .6rem;
+    outline: none;
+    background-color: transparent;
+    font-size: 1.8rem;
+    width: 100%;
+
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    letter-spacing: .03rem;
+
+    padding: .3rem .6rem;
+    margin: .6rem 0;
+
+    transition: all .3s ease-out;
+}
+
+.Button:hover {
+    color: #70a1ff;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.Button:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    border: .2rem solid #ccc;
+    background-color: transparent;
+}

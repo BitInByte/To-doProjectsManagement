@@ -1,0 +1,25 @@
+.Auth {
+    display: flex;
+    // justify-content: center;
+    width: 20%;
+    margin: 3rem auto;
+    padding: 1rem;
+    /* border: 2px solid #000; */
+    background-color: #70a1ff;
+    border-radius: .6rem;
+    color: #fff;
+    flex-wrap: wrap;
+
+    -webkit-box-shadow: 0px 0px 15px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 15px -1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 15px -1px rgba(0,0,0,0.75);
+}
+
+h2 {
+    text-align: center;
+    width: 100%;
+}
+
+body {
+    background-color: #fff !important;
+}

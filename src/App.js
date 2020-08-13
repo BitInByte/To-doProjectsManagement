@@ -6,6 +6,7 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import Layout from './hoc/layout/Layout';
 // import Projects from './containers/Projects/Projects';
 import Dashboard from './containers/Dashboard/Dashboard';
+import Auth from './containers/Auth/Auth';
 
 const App = () => {
 
@@ -26,6 +27,7 @@ const App = () => {
       <Route path='/archive' render={(...props) => <Archive />} />
       <Route path='/settings' render={(...props) => <Settings />} />
       <Route path='/project' render={(...props) => <Project />} />
+      <Route path='/auth' component={Auth} />
       <Route path='/' exact component={Dashboard} />
       <Redirect to='/' />
     </Switch>
@@ -34,12 +36,13 @@ const App = () => {
 
   return (
     <div className="App">
-      <Layout>
-        {/* Required to work with React.lazy in Routes */}
-        <Suspense fallback={<p>Loading...</p>}>
-          {routes}
-        </Suspense>
-      </Layout>
+      {/* <Layout> */}
+      {/* Required to work with React.lazy in Routes */}
+      {/* <Suspense fallback={<p>Loading...</p>}> */}
+      {/* {routes} */}
+      {/* </Suspense> */}
+      {/* </Layout> */}
+      <Auth />
     </div>
   );
 }
