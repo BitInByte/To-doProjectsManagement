@@ -10,7 +10,7 @@ import Button from '../../UI/AuthButton/AuthButton';
 import classes from './Login.module.scss';
 
 //Stateless component
-const login = ({ clicked, values, errors, touched, isSubmitting, isValid }) => {
+const login = ({ clicked, values, errors, touched, isSubmitting, isValid, validateOnMount }) => {
 
     // console.log('Submitting');
     // console.log(isSubmitting);
@@ -19,8 +19,9 @@ const login = ({ clicked, values, errors, touched, isSubmitting, isValid }) => {
 
     console.log('Button');
     // console.log(!isValid || isSubmitting);
-    console.log(isValid);
-    console.log(isSubmitting);
+    // console.log(isValid);
+    // console.log(isSubmitting);
+    console.log(validateOnMount);
 
     // Check the validity of the input to scroll down the error
     const checkValidity = (error, touched) => {
@@ -61,6 +62,7 @@ const login = ({ clicked, values, errors, touched, isSubmitting, isValid }) => {
 
                 <Button value={'Login'} disabled={!isValid || isSubmitting} />
             </Form>
+            <Button value={'Forgot my password!'} changed={clicked} />
             <Button value={'Register'} changed={clicked} />
         </>
     )
@@ -75,6 +77,7 @@ const formikApp = withFormik({
         };
     },
     isInitialValid: false,
+    // validateOnMount: true,
     validationSchema: Yup.object().shape({
         email: Yup.string().email('Email not valid! Please introduce a valid email...').required('Email is required to login!'),
         password: Yup.string().min(9, 'You password is not valid! Password contains 9 characters or more!').required('Password is required to login!'),
