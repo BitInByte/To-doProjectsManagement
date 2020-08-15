@@ -1,0 +1,14 @@
+// * AUTH
+
+export const AUTH_START = 'AUTH_START';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export const SIGNUP_ERROR = 'SIGNUP_ERROR';
+export const SIGNOUT_SUCCESS = 'SIGNOUT_SUCCESS';
+export const RESENDEMAIL_SUCCESS = 'RESENDEMAIL_SUCCESS';
+
+// * TODOS
+export const TODO_START = 'TODO_START';
+export const NEWTODO_SUCCESS = 'NEWTODO_SUCCESS';
+export const NEWTODO_ERROR = 'NEWTODO_ERROR';

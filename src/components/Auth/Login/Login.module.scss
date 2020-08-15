@@ -77,4 +77,20 @@
         }
     }
 
+    & p{
+        color: #f00;
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: .5rem 0;
+
+    }
+
+    &__spinner {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        margin: 1rem 0;
+    }
+
 }

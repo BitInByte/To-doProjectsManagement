@@ -1,5 +1,6 @@
 //Import libraries
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 //Import components
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -49,7 +50,9 @@ const navbar = props => {
             </nav>
             {/* LOGOUT */}
             <div className={classes.Logout}>
-                <ExitToAppIcon style={{ fontSize: '4.5rem' }} />
+                <Link to='/Logout'>
+                    <ExitToAppIcon style={{ fontSize: '4.5rem' }} />
+                </Link>
             </div>
         </div>
     );

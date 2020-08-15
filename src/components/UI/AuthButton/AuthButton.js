@@ -7,8 +7,14 @@ import React from 'react';
 import classes from './AuthButton.module.scss';
 
 //Stateless component
-const authButton = ({ changed, value, disabled }) => (
-    <button disabled={disabled} onClick={changed} className={classes.Button}>{value}</button>
-);
+const authButton = ({ changed, value, disabled, submit }) => {
+    let button = <button disabled={disabled} onClick={changed} className={classes.Button}>{value}</button>;
+    if (submit) button = <button type='submit' disabled={disabled} onClick={changed} className={classes.Button}>{value}</button>;
+    return (
+        // { submit ? <button type="submit" disabled={disabled} onClick={changed} className={classes.Button}>{value}</button> : <button disabled={disabled} onClick={changed} className={classes.Button}>{value}</button>}
+        // { button }
+        <button disabled={disabled} onClick={changed} className={classes.Button}>{value}</button>
+    );
+};
 
 export default authButton;

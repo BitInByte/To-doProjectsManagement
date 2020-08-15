@@ -1,3 +1,5 @@
+@import '../../styles/abstracts/variables';
+
 .Content {
     // display: flex;
     width: 100%; 
@@ -8,4 +10,8 @@
     min-height: calc(100vh - 8rem);
     // min-height: 600rem;
     // box-sizing: border-box;
+    background-color: $color-body-bg;
+}
+
+body {
 }

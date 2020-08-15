@@ -2,15 +2,20 @@
 import React from 'react';
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
 
 //Import components
 import Button from '../../UI/AuthButton/AuthButton';
+import Spinner from '../../UI/Spinner/Spinner';
 
 //Import scoped class modules
 import classes from './Signup.module.scss';
 
+// Import actions
+import * as actions from '../../../store/actions';
+
 //Stateless component
-const signup = ({ clicked, values, errors, touched, isSubmitting, isValid, validateOnMount }) => {
+const signup = ({ clicked, values, errors, touched, isSubmitting, isValid, validateOnMount, loading, error }) => {
 
 
     // Check the validity of the input to scroll down the error
@@ -31,12 +36,19 @@ const signup = ({ clicked, values, errors, touched, isSubmitting, isValid, valid
         return inputClasses.join(' ');
     };
 
-    return (
+    let errorMessage = null;
+    if (error) {
+        errorMessage = (
+            <p>{error}</p>
+        );
+    };
+
+    let content = (
         <>
-            <h2>Signup</h2>
             <Form className={classes.Signup}>
+                {errorMessage}
                 <div>
-                    <label className={classes.Signup__label}>Username</label>
+                    <label className={classes.Signup__label}>Email</label>
                     <Field className={checkInputValidity(errors.email, touched.email)} type="email" name="email" placeholder="Introduce your email here..." />
                     {/* Check if the email is touched and if the email have an error on the Formik object. Error caught by Yup */}
                     {/* Passing an empty space to the element if dont detect an error to force empty space */}
@@ -75,6 +87,22 @@ const signup = ({ clicked, values, errors, touched, isSubmitting, isValid, valid
             </Form>
             <Button value={'Login'} changed={clicked} />
         </>
+    );
+
+    // If loading fires true, then render the loader
+    if (loading) {
+        content = (
+            <div className={classes.Signup__spinner}>
+                <Spinner />
+            </div>
+        );
+    };
+
+    return (
+        <>
+            <h2>Signup</h2>
+            {content}
+        </>
     )
 };
 
@@ -98,7 +126,27 @@ const formikApp = withFormik({
         firstName: Yup.string().required('You should introduce your first name!'),
         lastName: Yup.string().required('You should introduce your last name!'),
     }),
-    handleSubmit() { },
+    handleSubmit: async (values, { props, resetForm, setErrors, setSubmitting }) => {
+        // Sign up
+        await props.signUp(values);
+        // Reset the form
+        resetForm();
+    },
 })(signup);
 
-export default formikApp;
+const mapStateToProps = state => {
+    console.log(state);
+    return {
+        auth: state.firebase.auth,
+        error: state.auth.authError,
+        loading: state.auth.loading,
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        signUp: (newUser) => dispatch(actions.signUp(newUser)),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(formikApp);

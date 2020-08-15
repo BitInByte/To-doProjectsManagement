@@ -84,7 +84,7 @@ const AddNew = ({ submitHandler }) => {
     };
 
     let form = (
-        <form onSubmit={submitHandler} className={classes.AddNew}>
+        <form onSubmit={(e) => submitHandler(e, { title: addNewForm.title.value, desc: addNewForm.description.value })} className={classes.AddNew}>
             {formElementsArray.map((element, index) => (
                 <Input
                     key={index}

@@ -33,7 +33,7 @@ html {
 
 body {
     box-sizing: border-box;
-    background-color: $color-body-bg;
+    // background-color: $color-body-bg; 
     // min-height: calc(100vh - 8rem);
     // font-family: 'Rubik', sans-serif;
 
@@ -59,6 +59,7 @@ a:hover {
 
 a {
     text-decoration: none;
+    color: inherit;
 }
 
 li {
