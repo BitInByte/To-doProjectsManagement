@@ -77,7 +77,7 @@ const signup = ({ clicked, values, errors, touched, isSubmitting, isValid, valid
                 </div>
                 <div>
                     <label className={classes.Signup__label}>Last name</label>
-                    <Field className={checkInputValidity(errors.lastName, touched.lastName)} type="password" name="lastName" placeholder="Introduce your last name here..." />
+                    <Field className={checkInputValidity(errors.lastName, touched.lastName)} type="text" name="lastName" placeholder="Introduce your last name here..." />
                     {/* Check if the password is touched and if the password have an error on the Formik object. Error caught by Yup */}
                     {/* Passing an empty space to the element if dont detect an error to force empty space */}
                     <p className={checkValidity(errors.lastName, touched.lastName)} >{errors.lastName ? errors.lastName : '&bnsp;'}</p>
@@ -127,6 +127,9 @@ const formikApp = withFormik({
         lastName: Yup.string().required('You should introduce your last name!'),
     }),
     handleSubmit: async (values, { props, resetForm, setErrors, setSubmitting }) => {
+
+        // Set submitting to true when we are making an async action to disable the button
+        setSubmitting(true);
         // Sign up
         await props.signUp(values);
         // Reset the form

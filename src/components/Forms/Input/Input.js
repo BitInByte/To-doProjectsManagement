@@ -10,11 +10,19 @@ import classes from './Input.module.scss';
 const input = (props) => {
 
     let inputElement = null;
+    // let textAreaElement = null;
 
     const inputClasses = [classes.InputElement];
+    const textAreaElement = [classes.Textarea];
 
-    if (props.invalid && props.shouldValidate && props.touched) inputClasses.push(classes.Invalid);
-    if (!props.invalid && props.shouldValidate && props.touched) inputClasses.push(classes.Valid);
+    if (props.invalid && props.shouldValidate && props.touched) {
+        inputClasses.push(classes.Invalid);
+        textAreaElement.push(classes.Invalid);
+    }
+    if (!props.invalid && props.shouldValidate && props.touched) {
+        inputClasses.push(classes.Valid);
+        textAreaElement.push(classes.Valid);
+    }
 
     let errorMessageElement = [classes.Paragraph];
     if (props.invalid && props.touched) errorMessageElement.push(classes.ParagraphShow);
@@ -24,7 +32,7 @@ const input = (props) => {
             inputElement = <input value={props.value} className={inputClasses.join(' ')} {...props.elementConfig} onChange={props.changed} />;
             break;
         case ('textarea'):
-            inputElement = <textarea value={props.value} className={inputClasses.join(' ')} {...props.elementConfig} onChange={props.changed} />;
+            inputElement = <textarea value={props.value} className={textAreaElement.join(' ')} {...props.elementConfig} onChange={props.changed} />;
             break;
         case ('select'):
             inputElement = <select value={props.value} className={inputClasses.join(' ')} onChange={props.changed} >

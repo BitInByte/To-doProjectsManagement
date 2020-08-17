@@ -34,6 +34,7 @@ const login = ({ clicked, values, errors, touched, isSubmitting, isValid, valida
     // Check the validity of the input to scroll down the error
     const checkValidity = (error, touched) => {
         const errorMessageElement = [classes.Login__paragraph];
+        // if (error && touched) errorMessageElement.push(classes.Login__paragraph_show);
         if (error && touched) errorMessageElement.push(classes.Login__paragraph_show);
         return errorMessageElement.join(' ')
     };
@@ -78,7 +79,7 @@ const login = ({ clicked, values, errors, touched, isSubmitting, isValid, valida
 
                 <Button value={'Login'} disabled={!isValid || isSubmitting} submit />
             </Form>
-            <Button value={'Forgot my password!'} changed={clicked} />
+            <Button value={'Forgot my password'} changed={clicked} />
             <Button value={'Register'} changed={clicked} />
         </>
     );

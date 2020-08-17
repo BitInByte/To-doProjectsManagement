@@ -8,5 +8,6 @@ export {
 export {
     addTodo,
     toggleChecked,
+    editToDo,
 
 } from './toDo';

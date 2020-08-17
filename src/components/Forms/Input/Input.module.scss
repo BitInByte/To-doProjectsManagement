@@ -33,6 +33,27 @@
 
 }
 
+.Textarea {
+    position: relative;
+    z-index: 150;
+    outline: none;
+    display: block;
+    width: 100%;
+    font-size: 1.4rem;
+    height: 20vh;
+    padding: .3rem;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: none;
+    border-bottom: .15rem solid #ccc;
+    font-family: 'Rubik', sans-serif;
+
+    color: #000;
+
+    transition: all .4s ease-out;
+
+}
+
 .Input::-webkit-input-placeholder {
     font-family: 'Rubik', sans-serif;
   }
