@@ -1,15 +1,8 @@
 @import './styles/abstracts/variables';
 @import './styles/base/typography';
+@import './styles/reset/reset';
 
-// * ====== RESET ======
 
-*,
-*::after,
-*::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
-}
 
 // * ====== UNIVERSAL PROPERTIES ======
 html {
@@ -52,19 +45,19 @@ body {
 
 }
 
-a:active,
-a:hover {
-    outline: 0;
-}
+// a:active,
+// a:hover {
+//     outline: 0;
+// }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
+// a {
+//     text-decoration: none;
+//     color: inherit;
+// }
 
-li {
-    display: block;
-}
+// li {
+//     display: block;
+// }
 
 main {
 }

@@ -1,5 +1,9 @@
 //Import libraries
 import React, { useState, useRef } from 'react';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
 
 //Import components
 import Title from '../../components/UI/Title/Title';
@@ -15,7 +19,11 @@ import AddNew from '../AddNew/AddNew';
 import classes from './Project.module.scss';
 
 //Stateless component
-const Project = (props) => {
+const Project = ({ match, projectDone, projectProgress, projectTasks }) => {
+
+    console.log(projectDone);
+    console.log(projectProgress);
+    console.log(projectTasks);
 
     // This will be changed with the data came from the server and useState will be converted
     // To the data from the serve
@@ -118,10 +126,14 @@ const Project = (props) => {
         );
     };
 
+    const { projectId } = match.params;
+    // console.log(props.match.params);
+
     return (
         <div className={classes.Project}>
             {/* TITLE */}
-            <Title title="Project Title" />
+            {/* <Title title="Project Title" /> */}
+            <Title title={projectId} />
             {/* BOARDS */}
             <div className={classes.Project__boards}>
                 {/* <Board title='Tasks' />
@@ -130,6 +142,7 @@ const Project = (props) => {
                 {list.map((grp, grpI) => (
                     <div key={grp.title} className={classes.Board}>
                         <h2>{grp.title}</h2>
+                        {/* <h2>{projectId}</h2> */}
                         <div
                             // key={grp.title}
                             className={classes.Board__wrapper}
@@ -179,4 +192,96 @@ const Project = (props) => {
     );
 };
 
-export default Project;
+const mapStateToProps = state => {
+    return {
+        userId: state.firebase.auth.uid,
+        // userData: state.firestore.data,
+        projectDone: state.firestore.data.done,
+        projectProgress: state.firestore.data.progress,
+        projectTasks: state.firestore.data.tasks,
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        // addNewTodo: (data) => dispatch(actions.addTodo(data)),
+        // toggleCheckedTodo: (id, actualData) => dispatch(actions.toggleChecked(id, actualData)),
+        // onEditSubmitHandler: (id, data) => dispatch(actions.editToDo(id, data)),
+    }
+};
+
+
+export default withRouter(compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    // Get all the projects from the firebase
+    firestoreConnect((props) => [
+        {
+            collection: 'userData',
+            doc: props.userId,
+            subcollections: [
+                {
+                    collection: 'projects',
+                    doc: props.match.params.projectId,
+                    subcollections: [
+                        {
+                            collection: 'done'
+                        }
+                    ]
+                },
+            ],
+            // Will be stored by the name Todos on the state. Instead of using a path to get access to that, we use todos now on the mapStateToProps
+            storeAs: 'done',
+            // Order the todos by the timestamp filed on the server
+            // orderBy: [
+            //     'timestamp',
+            //     'desc'
+            // ]
+        },
+        {
+            collection: 'userData',
+            doc: props.userId,
+            subcollections: [
+                {
+                    collection: 'projects',
+                    doc: props.match.params.projectId,
+                    subcollections: [
+                        {
+                            collection: 'progress'
+                        }
+                    ]
+                },
+            ],
+            // Will be stored by the name Todos on the state. Instead of using a path to get access to that, we use todos now on the mapStateToProps
+            storeAs: 'progress',
+            // Order the todos by the timestamp filed on the server
+            // orderBy: [
+            //     'timestamp',
+            //     'desc'
+            // ]
+        },
+        {
+            collection: 'userData',
+            doc: props.userId,
+            subcollections: [
+                {
+                    collection: 'projects',
+                    doc: props.match.params.projectId,
+                    subcollections: [
+                        {
+                            collection: 'tasks'
+                        }
+                    ]
+                },
+            ],
+            // Will be stored by the name Todos on the state. Instead of using a path to get access to that, we use todos now on the mapStateToProps
+            storeAs: 'tasks',
+            // Order the todos by the timestamp filed on the server
+            // orderBy: [
+            //     'timestamp',
+            //     'desc'
+            // ]
+        },
+    ])
+)(Project));
+
+// export default withRouter(Project);

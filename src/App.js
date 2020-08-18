@@ -100,7 +100,7 @@ const App = ({ auth, signOut, firebase, firestore }) => {
             <Route path='/projects' render={(...props) => <Projects />} />
             <Route path='/archive' render={(...props) => <Archive />} />
             <Route path='/settings' render={(...props) => <Settings />} />
-            <Route path='/project' render={(...props) => <Project />} />
+            <Route path='/project/:projectId' render={(...props) => <Project />} />
             {/* <Route path='/auth' component={Auth} /> */}
             <Route path='/logout' component={Logout} />
             <Route path='/' exact component={Dashboard} />
@@ -179,4 +179,4 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

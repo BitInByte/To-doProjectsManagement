@@ -35,24 +35,70 @@ const ToDos = ({ addNewTodo, todos, toggleCheckedTodo, onEditSubmitHandler }) =>
     const [editTask, setEditTask] = useState(null);
     const [editTaskMode, setEditTaskMode] = useState(false);
 
+    // State to create the forn dynamically
+    const [addNewForm, setAddNewForm] = useState({
+        title: {
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'Insert your title here...',
+            },
+            label: 'Title',
+            value: '',
+            validation: {
+                required: true,
+            },
+            isValid: false,
+            touched: false,
+            errorMessage: 'You should enter a valid Title!',
+        },
+        description: {
+            elementType: 'textarea',
+            elementConfig: {
+                type: 'textarea',
+                placeholder: 'Insert your description here...',
+            },
+            label: 'Description',
+            value: '',
+            validation: {
+                required: true,
+            },
+            isValid: false,
+            touched: false,
+            errorMessage: 'You should enter a valid description!',
+        },
+    });
+
     console.log('TODOS');
     console.log(todos);
 
     // Check on uncheck the todo
-    const todoCheckHandler = (event, { id, checked }) => {
+    const todoCheckHandler = (e, { id, checked }) => {
+        // e.stopPropagation();
+        console.log('@@@@@@@@@@@@@@@@@@@@@CHECK HANDLER');
+        e.preventDefault();
+        console.log(e.target);
+        // console.log(e.currentTarget.className);
+        console.log(e.target.name);
         // On click on todo checkbox
-        console.log(event.target.checked);
+        // console.log(e.target.checked);
         toggleCheckedTodo(id, checked);
+
+        e.nativeEvent.stopImmediatePropagation();
+
+        // if (!e) var e = window.event;
+        // e.cancelBubble = true;
+        // if (e.stopPropagation) e.stopPropagation();
+        // window.event.stopPropagation();
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        }
+        else if (window.event) {
+            window.event.cancelBubble = true;
+        }
+        // stopPropagation(e);
     };
 
-    // Submit the new todo
-    const submitButtonHandler = (e, data) => {
-        e.preventDefault();
-        setOpenModal(false);
-        console.log('ADD NEW SUBMIT');
-        console.log(data);
-        addNewTodo(data);
-    };
 
     // Submit the updated ToDo
     const submitEditTaskHandler = (e, id, data) => {
@@ -67,6 +113,20 @@ const ToDos = ({ addNewTodo, todos, toggleCheckedTodo, onEditSubmitHandler }) =>
         onEditSubmitHandler(id, data);
     };
 
+    // Submit the new todo
+    const submitButtonHandler = (e, data) => {
+        e.preventDefault();
+        setOpenModal(false);
+        console.log('ADD NEW SUBMIT');
+        console.log(data);
+        const sendData = {
+            title: data.title.value,
+            desc: data.description.value,
+        }
+        // addNewTodo(data);
+        addNewTodo(sendData);
+    };
+
     // Create the modal
     let modal = null;
     if (openModal) {
@@ -74,7 +134,8 @@ const ToDos = ({ addNewTodo, todos, toggleCheckedTodo, onEditSubmitHandler }) =>
             <div className={classes.Modal} >
                 <Modal click={() => setOpenModal(false)}>
                     <h2>Add a new Task</h2>
-                    <AddNew submitHandler={submitButtonHandler} />
+                    {/* <AddNew submitHandler={submitButtonHandler} /> */}
+                    <AddNew submitHandler={submitButtonHandler} data={addNewForm} setData={setAddNewForm} />
                 </Modal>
             </div>
         );
@@ -83,6 +144,29 @@ const ToDos = ({ addNewTodo, todos, toggleCheckedTodo, onEditSubmitHandler }) =>
     const closeEditModal = () => {
         setEditTask(null);
         setEditTaskMode(false);
+    };
+
+    const editTodoHandler = (e, data) => {
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        }
+        else if (window.event) {
+            window.event.cancelBubble = true;
+        }
+        // e.stopPropagation();
+        console.log('@@@@@@@@@@@@@@@@@@@@@EDIT HANDLER');
+        console.log(e.target);
+        // console.log(e.currentTarget.className);
+        console.log(e.target.name);
+        // const eventClass = e.currentTarget.className;
+        // if (eventClass === 'ToDo_ToDo__1v6JY') {
+        setEditTask({ ...data });
+
+        // if (!e) var e = window.event;
+        // e.cancelBubble = true;
+        // if (e.stopPropagation) e.stopPropagation();
+        // window.event.stopPropagation();
+        // }
     };
 
     if (editTask) {
@@ -142,19 +226,24 @@ const ToDos = ({ addNewTodo, todos, toggleCheckedTodo, onEditSubmitHandler }) =>
                         key={el.id}
                         title={el.title}
                         // date={moment(el.date).fromNow()}
+                        desc={el.desc}
                         date={moment(el.date.toDate()).fromNow()}
                         click={(event) => todoCheckHandler(event, { id: el.id, checked: el.isChecked })}
                         hasChecbox
                         isChecked={el.isChecked}
-                        clicked={() => setEditTask({ id: el.id, title: el.title, desc: el.desc, date: moment(el.date.toDate()).fromNow(), })}
+                        // hasCursor
+                        // clicked={(e) => setEditTask(e, { id: el.id, title: el.title, desc: el.desc, date: moment(el.date.toDate()).fromNow(), })}
+                        clicked={(e) => editTodoHandler(e, { id: el.id, title: el.title, desc: el.desc, date: moment(el.date.toDate()).fromNow(), })}
                     />)}
 
                     {showDoneTasks ? todoChecked.map(el => <ToDo
                         key={el.id}
                         title={el.title}
+                        desc={el.desc}
                         date={moment(el.date.toDate()).fromNow()}
                         click={(event) => todoCheckHandler(event, { id: el.id, checked: el.isChecked })}
                         hasChecbox
+                        // hasCursor
                         isChecked={el.isChecked}
                     />) : null}
                     {/* <ToDo title="ToDo" click={todoCheckHandler} hasChecbox isChecked />

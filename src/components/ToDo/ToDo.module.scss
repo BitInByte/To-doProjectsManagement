@@ -8,17 +8,21 @@
     text-align: left;
 
     padding: .8rem;
+
+    cursor: pointer;
     
 
     &__content {
-        // width: auto;
+        width: 100%;
         // width: 96%;
         // flex-grow: 1;
     }
 
     &__controller {
         // width: auto;
-        width: 10rem;
+        margin-left: auto;
+        margin-right: 1rem;
+        width: 3rem;
         display: flex;
         align-items: center;
         justify-content: center;

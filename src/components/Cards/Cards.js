@@ -10,7 +10,7 @@ import classes from './Cards.module.scss';
 const cards = ({ text, date }) => (
     <div className={classes.Cards}>
         <p>{text}</p>
-        <span>My date</span>
+        <span>{date}</span>
     </div>
 );
 

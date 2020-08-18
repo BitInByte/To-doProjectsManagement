@@ -1,0 +1,28 @@
+@import '../../../styles/abstracts/variables';
+
+.RoundButton {
+    width: 6rem;
+    height: 6rem;
+    position: fixed;
+    right: 2rem;
+    bottom: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: $color-white;
+    color: $color-body-bg;
+
+    font-size: 4rem;
+    font-weight: 700;
+    padding: .5rem;
+
+    &:hover {
+        cursor: pointer;
+        box-shadow: 0 0 1rem .3rem rgba(255, 255, 255, .5);
+    }
+
+    &:active {
+        transform: scale(.9);
+    }
+}

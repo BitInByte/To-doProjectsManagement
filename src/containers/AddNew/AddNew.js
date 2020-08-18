@@ -12,61 +12,61 @@ import { checkValidity } from '../../shared/utility';
 import classes from './AddNew.module.scss';
 
 //Stateless component
-const AddNew = ({ submitHandler }) => {
+const AddNew = ({ submitHandler, data, setData }) => {
 
     // State to create the forn dynamically
-    const [addNewForm, setAddNewForm] = useState({
-        title: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'Insert your title here...',
-            },
-            label: 'Title',
-            value: '',
-            validation: {
-                required: true,
-            },
-            isValid: false,
-            touched: false,
-            errorMessage: 'You should enter a valid Title!',
-        },
-        description: {
-            elementType: 'textarea',
-            elementConfig: {
-                type: 'textarea',
-                placeholder: 'Insert your description here...',
-            },
-            label: 'Description',
-            value: '',
-            validation: {
-                required: true,
-            },
-            isValid: false,
-            touched: false,
-            errorMessage: 'You should enter a valid description!',
-        },
-    });
+    // const [addNewForm, setAddNewForm] = useState({
+    //     title: {
+    //         elementType: 'input',
+    //         elementConfig: {
+    //             type: 'text',
+    //             placeholder: 'Insert your title here...',
+    //         },
+    //         label: 'Title',
+    //         value: '',
+    //         validation: {
+    //             required: true,
+    //         },
+    //         isValid: false,
+    //         touched: false,
+    //         errorMessage: 'You should enter a valid Title!',
+    //     },
+    //     description: {
+    //         elementType: 'textarea',
+    //         elementConfig: {
+    //             type: 'textarea',
+    //             placeholder: 'Insert your description here...',
+    //         },
+    //         label: 'Description',
+    //         value: '',
+    //         validation: {
+    //             required: true,
+    //         },
+    //         isValid: false,
+    //         touched: false,
+    //         errorMessage: 'You should enter a valid description!',
+    //     },
+    // });
 
     // State to check when the form is valid or not
     const [formIsValid, setFormIsValid] = useState(false);
 
     // Convert the object into an array
     const formElementsArray = [];
-    for (let el in addNewForm) {
+    for (let el in data) {
         formElementsArray.push({
             id: el,
-            config: addNewForm[el],
+            config: data[el],
         });
     };
 
     const inputChangedHandler = (event, elementID) => {
 
         const updateObject = {
-            ...addNewForm,
+            ...data,
             [elementID]: {
-                ...addNewForm[elementID],
-                isValid: checkValidity(event.target.value, addNewForm[elementID].validation),
+                ...data[elementID],
+                isValid: checkValidity(event.target.value, data[elementID].validation),
                 value: event.target.value,
                 touched: true,
             }
@@ -79,12 +79,13 @@ const AddNew = ({ submitHandler }) => {
 
         setFormIsValid(formIsVal);
 
-        setAddNewForm(updateObject);
+        setData(updateObject);
         console.log(updateObject);
     };
 
     let form = (
-        <form onSubmit={(e) => submitHandler(e, { title: addNewForm.title.value, desc: addNewForm.description.value })} className={classes.AddNew}>
+        // <form onSubmit={(e) => submitHandler(e, { title: data.title.value, desc: data.description.value })} className={classes.AddNew}>
+        <form onSubmit={(e) => submitHandler(e, data)} className={classes.AddNew}>
             {formElementsArray.map((element, index) => (
                 <Input
                     key={index}
