@@ -18,12 +18,19 @@ import AddNew from '../AddNew/AddNew';
 //Import scoped class modules
 import classes from './Project.module.scss';
 
-//Stateless component
-const Project = ({ match, projectDone, projectProgress, projectTasks }) => {
+import * as actions from '../../store/actions';
 
+//Stateless component
+const Project = ({ match, projectDone, projectProgress, projectTasks, addNewTask, projectInfo }) => {
+
+    console.log('PROJECT BASIS');
     console.log(projectDone);
     console.log(projectProgress);
     console.log(projectTasks);
+    console.log(projectInfo);
+    // const { projectName } = projectInfo;
+    // console.log(projectName);
+
 
     // This will be changed with the data came from the server and useState will be converted
     // To the data from the serve
@@ -32,6 +39,40 @@ const Project = ({ match, projectDone, projectProgress, projectTasks }) => {
         { title: 'Progress', items: ['4', '5', '6'] },
         { title: 'Completed', items: ['9', '8', '7'] },
     ]);
+
+    // State to create the forn dynamically
+    const [addNewForm, setAddNewForm] = useState({
+        title: {
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'Insert your title here...',
+            },
+            label: 'Title',
+            value: '',
+            validation: {
+                required: true,
+            },
+            isValid: false,
+            touched: false,
+            errorMessage: 'You should enter a valid Title!',
+        },
+        description: {
+            elementType: 'textarea',
+            elementConfig: {
+                type: 'textarea',
+                placeholder: 'Insert your description here...',
+            },
+            label: 'Description',
+            value: '',
+            validation: {
+                required: true,
+            },
+            isValid: false,
+            touched: false,
+            errorMessage: 'You should enter a valid description!',
+        },
+    });
 
     const [dragging, setDragging] = useState(false);
 
@@ -67,6 +108,7 @@ const Project = ({ match, projectDone, projectProgress, projectTasks }) => {
 
     const handleDragEnter = (e, params) => {
         console.log('Entering drag...', params);
+        console.log(params);
         console.log('dragNode...', dragNode.current);
         const currentItem = dragItem.current;
         if (e.target !== dragNode.current) {
@@ -106,13 +148,22 @@ const Project = ({ match, projectDone, projectProgress, projectTasks }) => {
         };
     };
 
+    // Submit form handler
+    const submitButtonHandler = (e, data) => {
+        e.preventDefault();
+        console.log('submitting');
+        console.log(data);
+        addNewTask({ title: data.title.value, desc: data.description.value }, projectId);
+    };
+
     let modal = null;
     if (openAddNewModal) {
         modal = (
             <div className={classes.Modal} >
                 <Modal click={() => setOpenAddNewModal(false)}>
                     <h2>Add a new Task</h2>
-                    <AddNew />
+                    {/* <AddNew /> */}
+                    <AddNew submitHandler={submitButtonHandler} data={addNewForm} setData={setAddNewForm} />
                 </Modal>
             </div>
         );
@@ -132,8 +183,8 @@ const Project = ({ match, projectDone, projectProgress, projectTasks }) => {
     return (
         <div className={classes.Project}>
             {/* TITLE */}
-            {/* <Title title="Project Title" /> */}
-            <Title title={projectId} />
+            <Title title="Project Title" />
+            {/* <Title title={projectInfo.projectName} /> */}
             {/* BOARDS */}
             <div className={classes.Project__boards}>
                 {/* <Board title='Tasks' />
@@ -196,6 +247,7 @@ const mapStateToProps = state => {
     return {
         userId: state.firebase.auth.uid,
         // userData: state.firestore.data,
+        projectInfo: state.firestore.data.projectInfo,
         projectDone: state.firestore.data.done,
         projectProgress: state.firestore.data.progress,
         projectTasks: state.firestore.data.tasks,
@@ -204,7 +256,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        // addNewTodo: (data) => dispatch(actions.addTodo(data)),
+        addNewTask: (data, projectId) => dispatch(actions.addTask(data, projectId)),
         // toggleCheckedTodo: (id, actualData) => dispatch(actions.toggleChecked(id, actualData)),
         // onEditSubmitHandler: (id, data) => dispatch(actions.editToDo(id, data)),
     }
@@ -215,6 +267,23 @@ export default withRouter(compose(
     connect(mapStateToProps, mapDispatchToProps),
     // Get all the projects from the firebase
     firestoreConnect((props) => [
+        {
+            collection: 'userData',
+            doc: props.userId,
+            subcollections: [
+                {
+                    collection: 'projects',
+                    doc: props.match.params.projectId,
+                },
+            ],
+            // Will be stored by the name Todos on the state. Instead of using a path to get access to that, we use todos now on the mapStateToProps
+            storeAs: 'projectInfo',
+            // Order the todos by the timestamp filed on the server
+            // orderBy: [
+            //     'timestamp',
+            //     'desc'
+            // ]
+        },
         {
             collection: 'userData',
             doc: props.userId,

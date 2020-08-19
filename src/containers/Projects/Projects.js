@@ -16,8 +16,11 @@ import AddNew from '../AddNew/AddNew';
 //Import scoped class modules
 import classes from './Projects.module.scss';
 
+// Import actions
+import * as actions from '../../store/actions';
+
 //Stateless component
-const Projects = ({ projects }) => {
+const Projects = ({ projects, addNewProject }) => {
 
     console.log('PROJECTS');
     console.log(projects);
@@ -48,6 +51,8 @@ const Projects = ({ projects }) => {
         setOpenModal(false);
         console.log('Submitting...');
         console.log(data);
+        addNewProject(data.title.value);
+
     };
 
     let modal = null;
@@ -122,7 +127,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        // addNewTodo: (data) => dispatch(actions.addTodo(data)),
+        addNewProject: (data) => dispatch(actions.addProject(data)),
         // toggleCheckedTodo: (id, actualData) => dispatch(actions.toggleChecked(id, actualData)),
         // onEditSubmitHandler: (id, data) => dispatch(actions.editToDo(id, data)),
     }

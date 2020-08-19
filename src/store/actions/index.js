@@ -11,3 +11,11 @@ export {
     editToDo,
 
 } from './toDo';
+
+export {
+    addProject,
+} from './projects';
+
+export {
+    addTask
+} from './project';
