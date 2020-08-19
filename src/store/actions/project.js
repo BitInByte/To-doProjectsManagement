@@ -9,9 +9,17 @@ export const addTask = (data, projectId) => async (dispatch, getState, getFireba
 
     dispatch({ type: actionTypes.PROJECT_START });
 
-    await getFirebase().firestore().collection('userData').doc(userId).collection('projects').doc(projectId).collection('tasks').add({
-        ...data,
-        timestamp: new Date(),
+    // await getFirebase().firestore().collection('userData').doc(userId).collection('projects').doc(projectId).collection('tasks').add({
+    // await getFirebase().firestore().collection('userData').doc(userId).collection('projects').doc(projectId).collection('tasks').add({
+    await getFirebase().firestore().collection('userData').doc(userId).collection('projects').doc(projectId).update({
+        // ...data,
+        // timestamp: new Date(),
+        // data: [
+        //     { title: 'Tasks', items: [{ title: 'changed', desc: 'askjhrwq' }, '2', '3'] },
+        //     { title: 'Progress', items: ['4', '5', '6'] },
+        //     { title: 'Completed', items: ['9', '8', '7'] },
+        // ],
+        data: data,
     }).then((doc) => {
         console.log('DOC');
         console.log(doc);

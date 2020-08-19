@@ -12,6 +12,11 @@ export const addProject = data => async (dispatch, getState, getFirebase) => {
     await getFirebase().firestore().collection('userData').doc(userId).collection('projects').add({
         projectName: data,
         timestamp: new Date(),
+        data: [
+            { title: 'Tasks', items: [] },
+            { title: 'Progress', items: [] },
+            { title: 'Completed', items: [] },
+        ]
     }).then((doc) => {
         console.log('DOC');
         console.log(doc);
