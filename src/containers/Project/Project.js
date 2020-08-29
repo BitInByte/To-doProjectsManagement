@@ -1,6 +1,6 @@
 //Import libraries
 import React, { useState, useRef } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
@@ -14,7 +14,7 @@ import Controllers from '../../components/Controllers/Controllers';
 import Modal from '../../components/UI/Modal/Modal';
 // import Input from '../../components/Forms/Input/Input';
 import AddNew from '../AddNew/AddNew';
-
+import Button from '../../components/UI/Button/Button';
 
 //Import scoped class modules
 import classes from './Project.module.scss';
@@ -22,7 +22,7 @@ import classes from './Project.module.scss';
 import * as actions from '../../store/actions';
 
 //Stateless component
-const Project = ({ match, projectDone, projectProgress, projectTasks, updateTask, project, tasks }) => {
+const Project = ({ match, projectDone, projectProgress, projectTasks, updateTask, project, tasks, archiveProject }) => {
 
     console.log('PROJECT BASIS');
     console.log(project);
@@ -91,6 +91,16 @@ const Project = ({ match, projectDone, projectProgress, projectTasks, updateTask
         return <h2>Loading...</h2>
     } else {
 
+        let closedRedirect = null;
+        // Router Guarding
+        if (project.isClosed) {
+            console.log('Is closed, forwarding now...');
+            // closedRedirect = <Redirect to='/' />;
+            return <Redirect to='/' />;
+        };
+
+        console.log('IS CLOSED');
+        console.log(project.isClosed);
         const title = project.projectName
 
         let data = JSON.parse(JSON.stringify(project.data));
@@ -204,6 +214,25 @@ const Project = ({ match, projectDone, projectProgress, projectTasks, updateTask
             });
             // Update the firebase
             updateTask(data, projectId);
+
+            // Delete Values from the form
+            // TODO This is missing
+            // setAddNewForm({
+            //     ...addNewForm,
+            //     title: {
+
+            //     }
+            // });
+
+            // Close the form
+            setOpenAddNewModal(false);
+        };
+
+        // Archive the project handler
+        const submitArchiveHandler = (e) => {
+            console.log('I will delete this');
+            archiveProject(projectId);
+            setOpenArchiveModal(false);
         };
 
         let modal = null;
@@ -221,8 +250,14 @@ const Project = ({ match, projectDone, projectProgress, projectTasks, updateTask
             modal = (
                 <div className={classes.Modal} >
                     <Modal click={() => setOpenArchiveModal(false)}>
-                        Archive
-                </Modal>
+                        <h2>Archive</h2>
+                        <p>Are you sure you want to archive this project?</p>
+                        <p>All of the project data will be lost and you cannot undo this process!</p>
+                        <div className={classes.Modal__button}>
+                            <Button name='Confirm' click={submitArchiveHandler} />
+
+                        </div>
+                    </Modal>
                 </div>
             );
         };
@@ -232,6 +267,7 @@ const Project = ({ match, projectDone, projectProgress, projectTasks, updateTask
 
         return (
             <div className={classes.Project}>
+                {closedRedirect}
                 {/* TITLE */}
                 {/* <Title title="Project Title" /> */}
                 <Title title={title} />
@@ -296,6 +332,7 @@ const Project = ({ match, projectDone, projectProgress, projectTasks, updateTask
             </div >
         );
     };
+
 };
 
 const mapStateToProps = state => {
@@ -312,6 +349,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         updateTask: (data, projectId) => dispatch(actions.addTask(data, projectId)),
+        archiveProject: (projectId) => dispatch(actions.archiveProject(projectId)),
         // toggleCheckedTodo: (id, actualData) => dispatch(actions.toggleChecked(id, actualData)),
         // onEditSubmitHandler: (id, data) => dispatch(actions.editToDo(id, data)),
     }

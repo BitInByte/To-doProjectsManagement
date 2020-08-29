@@ -62,7 +62,7 @@ const signup = ({ clicked, values, errors, touched, isSubmitting, isValid, valid
                     <p className={checkValidity(errors.password, touched.password)} >{errors.password ? errors.password : '&bnsp;'}</p>
                 </div>
                 <div>
-                    <label className={classes.Signup__label}>Repeat you password</label>
+                    <label className={classes.Signup__label}>Repeat your password</label>
                     <Field className={checkInputValidity(errors.repeatPassword, touched.repeatPassword)} type="password" name="repeatPassword" placeholder="Introduce your password again here..." />
                     {/* Check if the password is touched and if the password have an error on the Formik object. Error caught by Yup */}
                     {/* Passing an empty space to the element if dont detect an error to force empty space */}

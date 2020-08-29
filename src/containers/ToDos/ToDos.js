@@ -217,7 +217,7 @@ const ToDos = ({ addNewTodo, todos, toggleCheckedTodo, onEditSubmitHandler }) =>
     return (
         <div className={classes.Todos}>
             {/* Title */}
-            <Title title={'To-Dos'} />
+            <Title title='To-Dos' />
             {/* To-Dos */}
             <div className={classes.Todos__container}>
                 <TodoWrapper>

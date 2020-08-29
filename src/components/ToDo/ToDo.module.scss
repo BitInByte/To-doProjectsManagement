@@ -8,9 +8,13 @@
     text-align: left;
 
     padding: .8rem;
+    border-radius: 1rem;
 
     cursor: pointer;
     
+    &:not(:last-child) {
+        margin-bottom: 1rem;
+    }
 
     &__content {
         width: 100%;
@@ -28,12 +32,9 @@
         justify-content: center;
     }
 
-    &:not(:last-child) {
-        margin-bottom: 1rem;
-    }
     
 
-    border-radius: 1rem;
+    
 
     &__title {
         // font-size: $font-h3;

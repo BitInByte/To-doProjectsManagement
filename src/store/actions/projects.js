@@ -16,7 +16,8 @@ export const addProject = data => async (dispatch, getState, getFirebase) => {
             { title: 'Tasks', items: [] },
             { title: 'Progress', items: [] },
             { title: 'Completed', items: [] },
-        ]
+        ],
+        isClosed: false,
     }).then((doc) => {
         console.log('DOC');
         console.log(doc);

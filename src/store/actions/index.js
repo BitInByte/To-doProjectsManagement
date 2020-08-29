@@ -1,21 +1,14 @@
 export {
-    signIn,
-    signUp,
-    signOut,
-    resendEmail,
-} from './auth';
+  signIn,
+  signUp,
+  signOut,
+  resendEmail,
+  changeProfile,
+  deleteAccount,
+} from "./auth";
 
-export {
-    addTodo,
-    toggleChecked,
-    editToDo,
+export { addTodo, toggleChecked, editToDo } from "./toDo";
 
-} from './toDo';
+export { addProject } from "./projects";
 
-export {
-    addProject,
-} from './projects';
-
-export {
-    addTask
-} from './project';
+export { addTask, archiveProject } from "./project";

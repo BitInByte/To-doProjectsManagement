@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { firestoreConnect } from 'react-redux-firebase';
+import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 import moment from 'moment';
 
 //Import components
@@ -21,6 +21,8 @@ import * as actions from '../../store/actions';
 
 //Stateless component
 const Projects = ({ projects, addNewProject }) => {
+
+    // TODO Add a isEmpty from redux-firebase to dont fire up an error when data is empty
 
     console.log('PROJECTS');
     console.log(projects);
@@ -81,7 +83,7 @@ const Projects = ({ projects, addNewProject }) => {
             <Title title='Projects' />
             {/* PROJECTS */}
             <div className={classes.Projects__wrapper}>
-                {projectsArray.map(el => <Link key={el.id} to={`/project/${el.id}`}> <Cards text={el.title} date={moment(el.date.toDate()).format("MMM Do YY")} /> </Link>)}
+                {isLoaded(projects) ? projectsArray.map(el => <Link key={el.id} to={`/project/${el.id}`}> <Cards text={el.title} date={moment(el.date.toDate()).format("MMM Do YY")} /> </Link>) : null}
                 {/* {projectsArray.map(el => <Cards text={el.title} date={moment(el.date.toDate()).format("MMM Do YY")} />)} */}
                 {/* <Cards text='My project title here' />
                 <Cards text='My project title here' />
@@ -143,14 +145,23 @@ export default compose(
             subcollections: [
                 { collection: 'projects' },
             ],
+            // queryParams: ['isClosed=false'],
+            where: [['isClosed', '==', false]],
+            // where: [
+            //     [
+            //         'isClosed',
+            //         '==',
+            //         false,
+            //     ]
+            // ],
             // Will be stored by the name Todos on the state. Instead of using a path to get access to that, we use todos now on the mapStateToProps
             storeAs: 'projects',
             // Order the todos by the timestamp filed on the server
             orderBy: [
                 'timestamp',
                 'desc'
-            ]
+            ],
         }
     ])
-)(Projects)
+)(Projects);
 // export default Projects;
