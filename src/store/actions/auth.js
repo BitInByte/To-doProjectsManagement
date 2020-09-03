@@ -154,6 +154,32 @@ export const changeProfile = (data) => async (
       });
   }
 
+  if (data.image) {
+    console.log("I HAVE LAST NAME");
+    console.log(data.lastName);
+
+    // await getFirebase().storage().ref("Profile").put(data.image);
+
+    await getFirebase().uploadFile(`profileImage/${user.uid}`, data.image);
+    // .child(`users/${user.uid}/${data.image.name}`)
+    // .put(data.image);
+    // await getFirebase()
+    //   // .storage()
+    //   .firestore()
+    //   .collection("users")
+    //   .doc(user.uid)
+    //   // .ref("/profile.jpg")
+    //   .update({
+    //     imageName: data.image.name,
+    //     image: data.image,
+    //   })
+    //   // .append(data.image)
+    //   .then(() => {})
+    //   .catch((err) => {
+    //     dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
+    //   });
+  }
+
   // send a dispatch to delete the loading
   dispatch({ type: actionTypes.CHANGEPROFILE_SUCCESS });
 };
@@ -210,3 +236,11 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
   // close loading
   dispatch({ type: actionTypes.DELETEACCOUNT_SUCCESS });
 };
+
+export const addNewImageReducer = (image) => {
+  return { type: actionTypes.ADD_NEW_IMAGE, image };
+};
+
+// export const uploadImage = () => async (dispatch, getState, getFirebase) => {
+//   console.log('Uploading image');
+// }

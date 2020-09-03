@@ -5,6 +5,7 @@ export {
   resendEmail,
   changeProfile,
   deleteAccount,
+  addNewImageReducer,
 } from "./auth";
 
 export { addTodo, toggleChecked, editToDo } from "./toDo";

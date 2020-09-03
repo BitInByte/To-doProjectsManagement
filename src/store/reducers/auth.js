@@ -4,6 +4,7 @@ import { deleteAccount } from "../actions";
 const initialState = {
   authError: null,
   loading: false,
+  newImage: null,
 };
 
 const authStart = (state, action) => {
@@ -97,6 +98,15 @@ const deleteAccountSuccess = (state, action) => {
   };
 };
 
+const addNewImage = (state, action) => {
+  console.log("@@@@@@@@@@@@@@@@@@@@Image action");
+  console.log(action);
+  return {
+    ...state,
+    newImage: action.image,
+  };
+};
+
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_START:
@@ -119,6 +129,8 @@ const authReducer = (state = initialState, action) => {
       return changeProfileError(state, action);
     case actionTypes.DELETEACCOUNT_SUCCESS:
       return deleteAccountSuccess(state, action);
+    case actionTypes.ADD_NEW_IMAGE:
+      return addNewImage(state, action);
     default:
       return state;
   }

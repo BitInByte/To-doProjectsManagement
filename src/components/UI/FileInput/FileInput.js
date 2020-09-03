@@ -1,5 +1,5 @@
 //Import libraries
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 //Import components
 
@@ -7,23 +7,27 @@ import React, { useRef } from "react";
 import classes from "./FileInput.module.scss";
 
 //Stateless component
-const FileInput = ({ file }) => {
+const FileInput = ({ file, fileHandler }) => {
   console.log("File");
   console.log(file);
 
   // Stores a reference for the hidden button
   //   const fileInputButton = useRef(null);
-  const fileInputButton = useRef();
+  // const fileInputButton = useRef();
+  const [fileInputRef, setFileInputRef] = useState(null);
 
   // Handles a click from the visible button to the file input
   const handleClick = (event) => {
-    fileInputButton.current.click();
+    event.preventDefault();
+    console.log(fileInputRef);
+    // fileInputButton.current.click();
+    fileInputRef.click();
   };
 
-  const fileHandlerInput = (event) => {
-    console.log("@@@@@@@@@@FILE EVENT");
-    console.log(event.target.files[0]);
-  };
+  // const fileHandlerInput = (event) => {
+  //   console.log("@@@@@@@@@@FILE EVENT");
+  //   console.log(event.target.files[0]);
+  // };
 
   return (
     <div className={classes.FileInput}>
@@ -35,9 +39,11 @@ const FileInput = ({ file }) => {
       </span>
       <input
         type="file"
-        ref={fileInputButton}
+        // ref={fileInputButton}
+        ref={(inputRef) => setFileInputRef(inputRef)}
         // ref="fileInputButton"
-        onChange={(ev) => fileHandlerInput(ev)}
+        // onChange={(ev) => fileHandlerInput(ev)}
+        onChange={(ev) => fileHandler(ev)}
         className={classes.FileInput__input}
       />
     </div>

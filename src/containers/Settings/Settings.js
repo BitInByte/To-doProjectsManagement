@@ -33,11 +33,15 @@ const Settings = ({
   authLoading,
   authError,
   deleteUser,
+  newImageState,
+  newImage,
 }) => {
   console.log("SETTINGS");
   console.log(auth);
   console.log(profile);
   console.log(values);
+  console.log("SETTINGS IMAGE");
+  console.log(newImage);
 
   // Setting state to open the delete modal
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -115,6 +119,8 @@ const Settings = ({
       validation
     ) {
       validation = true;
+    } else if (newImage) {
+      validation = true;
     } else {
       validation = false;
     }
@@ -172,6 +178,8 @@ const Settings = ({
     console.log("@@@@@@@@@@FILE EVENT");
     console.log(event);
     setFileState(event.target.files[0]);
+    newImageState(event.target.files[0]);
+    // console.log(fileState);
   };
 
   // console.log("@@@@@@@@@@@@@@FILE");
@@ -272,7 +280,7 @@ const Settings = ({
             <label className={classes.Settings__label}>
               Insert a profile image here:
             </label>
-            <FileInput file={fileState} fileHandler={fileHandler} />
+            <FileInput file={newImage} fileHandler={fileHandler} />
           </div>
 
           {/* <Button name={'Submit'} disabled={!isValid || isSubmitting} /> */}
@@ -383,7 +391,7 @@ const formikApp = withFormik({
     { props, resetForm, setErrors, setSubmitting }
   ) => {
     // Build the data to be fetched on the server
-    const { profile, auth } = props;
+    const { profile, auth, newImage } = props;
     let data = {};
     if (values.firstName !== profile.firstName) {
       data = {
@@ -413,6 +421,13 @@ const formikApp = withFormik({
       };
     }
 
+    if (newImage) {
+      data = {
+        ...data,
+        image: newImage,
+      };
+    }
+
     console.log("@@@@@@@@@@HANDLESUBMIT OBJECT");
     console.log(data);
 
@@ -437,6 +452,7 @@ const mapStateToProps = (state) => {
     profile: state.firebase.profile,
     authLoading: state.auth.loading,
     authError: state.auth.error,
+    newImage: state.auth.newImage,
     // firebase: state.firebase,
     // firestore: state.firestore
   };
@@ -446,6 +462,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     changeProfile: (data) => dispatch(actions.changeProfile(data)),
     deleteUser: () => dispatch(actions.deleteAccount()),
+    newImageState: (data) => dispatch(actions.addNewImageReducer(data)),
   };
 };
 
