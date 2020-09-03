@@ -160,7 +160,27 @@ export const changeProfile = (data) => async (
 
     // await getFirebase().storage().ref("Profile").put(data.image);
 
-    await getFirebase().uploadFile(`profileImage/${user.uid}`, data.image);
+    const uploadedFile = await getFirebase()
+      .uploadFile(`profileImage/${user.uid}`, data.image)
+      .then((url) => {
+        const imageUrl = url.uploadTaskSnapshot.ref.getDownloadURL();
+        // console.log(url.uploadTaskSnapshot.ref.getDownloadURL());
+        imageUrl.then((url) => {
+          console.log("@@@@@@@@@@@Image Url");
+          console.log(url);
+          return getFirebase()
+            .firestore()
+            .collection("users")
+            .doc(user.uid)
+            .update({
+              profileImg: url,
+            });
+        });
+      });
+
+    console.log("@@@@@@@@@@@Image Url");
+    // console.log(uploadedFile.uploadTaskSnapshot.ref.getDownloadURL());
+    console.log(uploadedFile);
     // .child(`users/${user.uid}/${data.image.name}`)
     // .put(data.image);
     // await getFirebase()
