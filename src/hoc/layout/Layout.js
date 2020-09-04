@@ -14,7 +14,7 @@ import classes from "./Layout.module.scss";
 const Layout = (props) => {
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
 
-  const { children, initials } = props;
+  const { children, initials, profileImage } = props;
 
   // Toggle at click the SideDrawer variable to true or false
   const drawerToggleClickHandler = () => {
@@ -37,6 +37,7 @@ const Layout = (props) => {
     <>
       {/* NAV */}
       <Navbar
+        profileImage={profileImage}
         initials={initials}
         drawerClickHandler={drawerToggleClickHandler}
       />

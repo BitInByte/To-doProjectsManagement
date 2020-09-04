@@ -17,7 +17,7 @@ import classes from "./Navbar.module.scss";
 
 //Stateless component
 const navbar = (props) => {
-  const { drawerClickHandler, initials } = props;
+  const { drawerClickHandler, initials, profileImage } = props;
 
   return (
     <div className={classes.Navbar}>
@@ -27,7 +27,16 @@ const navbar = (props) => {
       </div>
       {/* USER */}
       <Link to="/settings">
-        <div className={classes.User}>{initials}</div>
+        {profileImage ? (
+          <img
+            className={classes.ProfileImg}
+            src={profileImage}
+            alt={initials}
+          />
+        ) : (
+          <div className={classes.User}>{initials}</div>
+        )}
+        {/* <div className={classes.User}>{initials}</div> */}
       </Link>
       {/* ICONS */}
       <nav className={classes.Nav}>

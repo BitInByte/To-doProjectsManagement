@@ -90,7 +90,7 @@ const App = ({ auth, signOut, firebase, firestore, profile }) => {
   if (auth.apiKey && auth.emailVerified) {
     console.log("stage 2");
     routes = (
-      <Layout initials={profile.initials}>
+      <Layout initials={profile.initials} profileImage={profile.profileImg}>
         <Suspense fallback={<p>Loading...</p>}>
           <Switch>
             <Route path="/todos" render={(...props) => <ToDos />} />

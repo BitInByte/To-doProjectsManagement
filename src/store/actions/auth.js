@@ -174,8 +174,14 @@ export const changeProfile = (data) => async (
             .doc(user.uid)
             .update({
               profileImg: url,
+            })
+            .catch((err) => {
+              dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
             });
         });
+      })
+      .catch((err) => {
+        dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
       });
 
     console.log("@@@@@@@@@@@Image Url");

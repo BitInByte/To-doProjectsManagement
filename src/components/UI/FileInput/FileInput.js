@@ -45,6 +45,7 @@ const FileInput = ({ file, fileHandler }) => {
         // onChange={(ev) => fileHandlerInput(ev)}
         onChange={(ev) => fileHandler(ev)}
         className={classes.FileInput__input}
+        hidden
       />
     </div>
   );

@@ -1,5 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
-import { deleteAccount } from "../actions";
+// import { deleteAccount } from "../actions";
 
 const initialState = {
   authError: null,
@@ -79,6 +79,7 @@ const changeProfileSuccess = (state, action) => {
     ...state,
     loading: false,
     authError: null,
+    newImage: null,
   };
 };
 
@@ -88,6 +89,7 @@ const changeProfileError = (state, action) => {
     ...state,
     loading: false,
     authError: action.err.message,
+    // newImage: null,
   };
 };
 

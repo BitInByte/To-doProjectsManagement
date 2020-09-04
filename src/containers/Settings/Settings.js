@@ -47,7 +47,7 @@ const Settings = ({
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   // Setting file state
-  const [fileState, setFileState] = useState(null);
+  // const [fileState, setFileState] = useState(null);
 
   // Check the validity of the input to scroll down the error
   const checkValidity = (error, touched) => {
@@ -177,7 +177,7 @@ const Settings = ({
   const fileHandler = (event) => {
     console.log("@@@@@@@@@@FILE EVENT");
     console.log(event);
-    setFileState(event.target.files[0]);
+    // setFileState(event.target.files[0]);
     newImageState(event.target.files[0]);
     // console.log(fileState);
   };
@@ -185,12 +185,34 @@ const Settings = ({
   // console.log("@@@@@@@@@@@@@@FILE");
   // console.log(fileState);
 
+  let img = null;
+  const profileClasses = [classes.Settings__profile];
+  const formClasses = [classes.Settings__form];
+  if (profile.profileImg) {
+    profileClasses.push(classes.Settings__profile__imageSpace);
+    formClasses.push(classes.Settings__form__imageSpace);
+    img = (
+      <div className={classes.Settings__profileImage}>
+        <img
+          className={classes.Settings__profileImg}
+          src={profile.profileImg}
+          alt={profile.initials}
+        />
+      </div>
+    );
+  }
+
   let content;
   if (profile.isLoaded && !profile.isEmpty) {
     content = (
       <div className={classes.Settings__formContent}>
+        {img}
+        {/* <div className={classes.Settings__profileImage}>
+          <img src={profile.profileImg} alt={profile.initials} />
+        </div> */}
         {/* <p>{profile.firstName}</p> */}
-        <Form className={classes.Settings__form}>
+        {/* <Form className={classes.Settings__form}> */}
+        <Form className={formClasses.join(" ")}>
           {errorMessage}
           <div>
             <label className={classes.Settings__label}>First name</label>
@@ -328,7 +350,8 @@ const Settings = ({
     <>
       <div className={classes.Settings}>
         <Title title="Settings" />
-        <div className={classes.Settings__profile}>{content}</div>
+        {/* <div className={classes.Settings__profile}>{content}</div> */}
+        <div className={profileClasses.join(" ")}>{content}</div>
       </div>
       {modal}
     </>

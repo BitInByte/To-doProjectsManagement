@@ -1,14 +1,14 @@
-@import '../../../styles/shared.scss';
+@import "../../../styles/shared.scss";
 
 .Title {
-    width: 100%;
-    color: $color-font;
-    // color: #fff;
-    font-size: $font-h2;
-    line-height: $lh-h2;
-    transform: rotate(-5deg);
-    text-decoration: underline;
-    margin-bottom: 3.5rem;
-    // flex: 1 0 100%;
-    // text-transform: uppercase;
+  width: 100%;
+  color: $color-font;
+  //   color: #fff;
+  font-size: $font-h2;
+  line-height: $lh-h2;
+  transform: rotate(-5deg);
+  text-decoration: underline;
+  margin-bottom: 3.5rem;
+  // flex: 1 0 100%;
+  // text-transform: uppercase;
 }
