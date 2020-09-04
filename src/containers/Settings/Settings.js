@@ -10,6 +10,7 @@ import Button from "../../components/UI/Button/Button";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import Modal from "../../components/UI/Modal/Modal";
 import FileInput from "../../components/UI/FileInput/FileInput";
+import Error from "../../components/UI/Error/Error";
 
 //Import scoped class modules
 import classes from "./Settings.module.scss";
@@ -70,11 +71,13 @@ const Settings = ({
 
   let errorMessage = null;
   if (error) {
-    errorMessage = <p>{error}</p>;
+    // errorMessage = <p>{error}</p>;
+    errorMessage = <Error errorMessage={error} />;
   }
 
   if (authError) {
-    errorMessage = <p>{authError}</p>;
+    // errorMessage = <p>{authError}</p>;
+    errorMessage = <Error errorMessage={authError} />;
   }
 
   console.log("TOUCED");
@@ -201,6 +204,11 @@ const Settings = ({
       </div>
     );
   }
+
+  // let errorMessage = null;
+  // if (authError) {
+  //   errorMessage = <Error errorMessage={authError} />;
+  // }
 
   let content;
   if (profile.isLoaded && !profile.isEmpty) {

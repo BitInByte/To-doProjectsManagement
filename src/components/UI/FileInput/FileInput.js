@@ -10,6 +10,9 @@ import classes from "./FileInput.module.scss";
 const FileInput = ({ file, fileHandler }) => {
   console.log("File");
   console.log(file);
+  if (file) {
+    console.log(file.type.split("/")[0]);
+  }
 
   // Stores a reference for the hidden button
   //   const fileInputButton = useRef(null);

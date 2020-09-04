@@ -155,59 +155,69 @@ export const changeProfile = (data) => async (
   }
 
   if (data.image) {
-    console.log("I HAVE LAST NAME");
-    console.log(data.lastName);
+    if (data.image.type.split("/")[0] === "image") {
+      console.log("I HAVE LAST NAME");
+      console.log(data.lastName);
 
-    // await getFirebase().storage().ref("Profile").put(data.image);
+      // await getFirebase().storage().ref("Profile").put(data.image);
 
-    const uploadedFile = await getFirebase()
-      .uploadFile(`profileImage/${user.uid}`, data.image)
-      .then((url) => {
-        const imageUrl = url.uploadTaskSnapshot.ref.getDownloadURL();
-        // console.log(url.uploadTaskSnapshot.ref.getDownloadURL());
-        imageUrl.then((url) => {
-          console.log("@@@@@@@@@@@Image Url");
-          console.log(url);
-          return getFirebase()
-            .firestore()
-            .collection("users")
-            .doc(user.uid)
-            .update({
-              profileImg: url,
-            })
-            .catch((err) => {
-              dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
-            });
+      const uploadedFile = await getFirebase()
+        .uploadFile(`profileImage/${user.uid}`, data.image)
+        .then((url) => {
+          const imageUrl = url.uploadTaskSnapshot.ref.getDownloadURL();
+          // console.log(url.uploadTaskSnapshot.ref.getDownloadURL());
+          imageUrl.then((url) => {
+            console.log("@@@@@@@@@@@Image Url");
+            console.log(url);
+            return getFirebase()
+              .firestore()
+              .collection("users")
+              .doc(user.uid)
+              .update({
+                profileImg: url,
+              })
+              .catch((err) => {
+                dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
+              });
+          });
+        })
+        .catch((err) => {
+          dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
         });
-      })
-      .catch((err) => {
-        dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
+
+      console.log("@@@@@@@@@@@Image Url");
+      // console.log(uploadedFile.uploadTaskSnapshot.ref.getDownloadURL());
+      console.log(uploadedFile);
+      // .child(`users/${user.uid}/${data.image.name}`)
+      // .put(data.image);
+      // await getFirebase()
+      //   // .storage()
+      //   .firestore()
+      //   .collection("users")
+      //   .doc(user.uid)
+      //   // .ref("/profile.jpg")
+      //   .update({
+      //     imageName: data.image.name,
+      //     image: data.image,
+      //   })
+      //   // .append(data.image)
+      //   .then(() => {})
+      //   .catch((err) => {
+      //     dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
+      //   });
+
+      // send a dispatch to delete the loading
+      dispatch({ type: actionTypes.CHANGEPROFILE_SUCCESS });
+    } else {
+      dispatch({
+        type: actionTypes.CHANGEPROFILE_ERROR,
+        err: {
+          message:
+            "You should upload a valid image file! Please, try files with the following extensions: .jpg, .jpeg, .png, .gif, .bmp",
+        },
       });
-
-    console.log("@@@@@@@@@@@Image Url");
-    // console.log(uploadedFile.uploadTaskSnapshot.ref.getDownloadURL());
-    console.log(uploadedFile);
-    // .child(`users/${user.uid}/${data.image.name}`)
-    // .put(data.image);
-    // await getFirebase()
-    //   // .storage()
-    //   .firestore()
-    //   .collection("users")
-    //   .doc(user.uid)
-    //   // .ref("/profile.jpg")
-    //   .update({
-    //     imageName: data.image.name,
-    //     image: data.image,
-    //   })
-    //   // .append(data.image)
-    //   .then(() => {})
-    //   .catch((err) => {
-    //     dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
-    //   });
+    }
   }
-
-  // send a dispatch to delete the loading
-  dispatch({ type: actionTypes.CHANGEPROFILE_SUCCESS });
 };
 
 export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
