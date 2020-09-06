@@ -71,11 +71,15 @@ const Settings = ({
 
   let errorMessage = null;
   if (error) {
+    console.log("@@@@@@@@@@@@@@ERROR!");
+    console.log(error);
     // errorMessage = <p>{error}</p>;
     errorMessage = <Error errorMessage={error} />;
   }
 
   if (authError) {
+    console.log("@@@@@@@@@@@@@@ERROR!");
+    console.log(authError);
     // errorMessage = <p>{authError}</p>;
     errorMessage = <Error errorMessage={authError} />;
   }
@@ -482,7 +486,8 @@ const mapStateToProps = (state) => {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
     authLoading: state.auth.loading,
-    authError: state.auth.error,
+    // authError: state.auth.error,
+    authError: state.auth.authError,
     newImage: state.auth.newImage,
     // firebase: state.firebase,
     // firestore: state.firestore

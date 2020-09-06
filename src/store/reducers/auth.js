@@ -89,7 +89,7 @@ const changeProfileError = (state, action) => {
     ...state,
     loading: false,
     authError: action.err.message,
-    // newImage: null,
+    newImage: null,
   };
 };
 
