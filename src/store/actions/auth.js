@@ -1,4 +1,5 @@
 import * as actionTypes from "./actionTypes";
+import { firestoreConnect } from "react-redux-firebase";
 
 export const signIn = (credentials) => async (
   dispatch,
@@ -156,13 +157,33 @@ export const changeProfile = (data) => async (
 
   if (data.image) {
     if (data.image.type.split("/")[0] === "image") {
+      console.log("@@@@@@@STORAGE REFERENCES");
+
+      // Delete the old Image
+      const storageRef = await getFirebase().storage().ref();
+      const filesRef = await storageRef.child(`profileImage/${user.uid}`);
+
+      console.log(storageRef, filesRef);
+
+      await filesRef.listAll().then((result) => {
+        result.items.forEach((file) => {
+          file.delete();
+        });
+      });
+
       console.log("I HAVE LAST NAME");
       console.log(data.lastName);
 
       // await getFirebase().storage().ref("Profile").put(data.image);
 
+      // Upload new image
       const uploadedFile = await getFirebase()
-        .uploadFile(`profileImage/${user.uid}`, data.image)
+        .uploadFile(
+          `profileImage/${user.uid}`,
+          data.image
+          // ,`profileImage/${user.uid}`,
+          // { name: `profileImg.${data.image.name.split(".").pop()}` }
+        )
         .then((url) => {
           const imageUrl = url.uploadTaskSnapshot.ref.getDownloadURL();
           // console.log(url.uploadTaskSnapshot.ref.getDownloadURL());
@@ -229,6 +250,7 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
   // Fires the loading stage
   dispatch({ type: actionTypes.AUTH_START });
 
+  // Uncomment this
   await getFirebase()
     .firestore()
     .collection("users")
@@ -238,6 +260,78 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
       console.log(err);
     });
 
+  await getFirebase()
+    .firestore()
+    .collection("userData")
+    .doc(user.uid)
+    .collection("todos")
+    .get()
+    .then((doc) => {
+      console.log("@@@@What to delete");
+      console.log(doc);
+      doc.forEach((element) => {
+        console.log(element);
+        element.ref.delete();
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  await getFirebase()
+    .firestore()
+    .collection("userData")
+    .doc(user.uid)
+    .collection("projects")
+    .get()
+    .then((doc) => {
+      console.log("@@@@What to delete");
+      console.log(doc);
+      doc.forEach((element) => {
+        console.log(element);
+        element.ref.delete();
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  // await getFirebase()
+  //   .storage()
+  //   .ref(`profileImage/${user.uid}`)
+  //   .listAll()
+  //   .then((dir) => {
+  //     dir.items.forEach((fileRef) => {
+  //       this.deleteFile(ref.fullPath, fileRef.name);
+  //     });
+  //   });
+
+  console.log("@@@@@@@STORAGE REFERENCES");
+  const storageRef = await getFirebase().storage().ref();
+  const filesRef = await storageRef.child(`profileImage/${user.uid}`);
+
+  console.log(storageRef, filesRef);
+
+  await filesRef.listAll().then((result) => {
+    result.items.forEach((file) => {
+      file.delete();
+    });
+  });
+
+  // await getFirebase().deleteFile(`profileImage/${user.uid}`);
+
+  // await getFirebase()
+  //   .firestore()
+  //   .collection("userData")
+  //   .doc(user.uid)
+  //   .collection("todos")
+  //   .get()
+  //   .then((doc) => {
+  //     doc.ref.delete();
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
   // await getFirebase()
   //   .firestore()
   //   .collection("userData")
@@ -258,15 +352,17 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
   //     console.log(err);
   //   });
 
-  await getFirebase()
-    .firestore()
-    .collection("userData")
-    .doc(user.uid)
-    .delete()
-    .catch((err) => {
-      console.log(err);
-    });
+  // Uncomment this
+  // await getFirebase()
+  //   .firestore()
+  //   .collection("userData")
+  //   .doc(user.uid)
+  //   .delete()
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 
+  // Uncomment this
   await user.delete().then().catch();
 
   // close loading

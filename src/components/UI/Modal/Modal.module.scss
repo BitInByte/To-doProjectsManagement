@@ -1,16 +1,47 @@
 .Modal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    z-index: 100;
-    width: 80vw;
-    height: 80vh;
-    background-color: #fff;
-    border-radius: 2rem;
-    padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  width: 80vw;
+  height: 80vh;
+  background-color: #fff;
+  border-radius: 2rem;
+  padding: 3rem;
 
-    transform: translate(-50%, -50%);
+  //   opacity: 0;
+
+  transform: translate(-50%, -50%);
+
+  &.ModalAnimated {
+    &Enter {
+      opacity: 0;
+      &Active {
+        opacity: 1;
+        transform: translate(1.2);
+        transition: all 1000ms;
+      }
+    }
+
+    &_exit {
+      opacity: 1;
+      &Active {
+        opacity: 0;
+        transition: all 1000ms;
+      }
+    }
+  }
+}
+
+.Enter {
+  opacity: 0;
+}
+
+.EnterActive {
+  opacity: 1;
+  transform: translate(1.2);
+  transition: all 1000ms;
 }

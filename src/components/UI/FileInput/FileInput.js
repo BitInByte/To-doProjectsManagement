@@ -12,6 +12,8 @@ const FileInput = ({ file, fileHandler }) => {
   console.log(file);
   if (file) {
     console.log(file.type.split("/")[0]);
+    const extension = file.name.split(".").pop();
+    console.log(extension);
   }
 
   // Stores a reference for the hidden button
