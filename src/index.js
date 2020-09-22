@@ -1,28 +1,29 @@
 // Package imports
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { createFirestoreInstance } from 'redux-firestore';
-import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
-import firebase from './config/firebase';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { createFirestoreInstance } from "redux-firestore";
+import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import firebase from "./config/firebase";
 import { useSelector } from "react-redux";
 import { isLoaded } from "react-redux-firebase";
 // import * as serviceWorker from './serviceWorker';
 
 // Component imports
-import App from './App';
+import App from "./App";
+import Spinner from "./components/UI/SpinnerContainer/SpinnerContainer";
 
 // Styles imports
-import './index.scss';
+import "./index.scss";
 // import './styles/shared.scss';
 
 // Config imports
-import store from './store';
+import store from "./store";
 
 const rrfConfig = {
   attachAuthIsRead: true,
-  userProfile: 'users',
+  userProfile: "users",
   useFirestoreForProfile: true,
 };
 
@@ -34,12 +35,10 @@ const rrfProps = {
 };
 
 function AuthIsLoaded({ children }) {
-  const auth = useSelector(state => state.firebase.auth);
-  if (!isLoaded(auth))
-    return <p>Loading...</p>;
+  const auth = useSelector((state) => state.firebase.auth);
+  if (!isLoaded(auth)) return <Spinner />;
   return children;
 }
-
 
 ReactDOM.render(
   <React.StrictMode>
@@ -53,7 +52,7 @@ ReactDOM.render(
       </ReactReduxFirebaseProvider>
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

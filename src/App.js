@@ -10,6 +10,7 @@ import Layout from "./hoc/layout/Layout";
 import Dashboard from "./containers/Dashboard/Dashboard";
 import Auth from "./containers/Auth/Auth";
 import Logout from "./containers/Auth/Logout/Logout";
+import Spinner from "./components/UI/SpinnerContainer/SpinnerContainer";
 
 // Import actions
 import * as actions from "./store/actions";
@@ -91,7 +92,8 @@ const App = ({ auth, signOut, firebase, firestore, profile }) => {
     console.log("stage 2");
     routes = (
       <Layout initials={profile.initials} profileImage={profile.profileImg}>
-        <Suspense fallback={<p>Loading...</p>}>
+        {/* <Suspense fallback={<p>Loading...</p>}> */}
+        <Suspense fallback={<Spinner />}>
           <Switch>
             <Route path="/todos" render={(...props) => <ToDos />} />
             <Route path="/projects" render={(...props) => <Projects />} />
@@ -112,7 +114,8 @@ const App = ({ auth, signOut, firebase, firestore, profile }) => {
   } else if (auth.apiKey && !auth.emailVerified) {
     console.log("stage 3");
     routes = (
-      <Suspense fallback={<p>Loading...</p>}>
+      // <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<Spinner />}>
         <Switch>
           {/* <Route path='/' exact component={Auth} /> */}
           <Route
@@ -132,7 +135,8 @@ const App = ({ auth, signOut, firebase, firestore, profile }) => {
   } else {
     console.log("stage 4");
     routes = (
-      <Suspense fallback={<p>Loading...</p>}>
+      // <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<Spinner />}>
         <Switch>
           <Route path="/" exact component={Auth} />
           {/* <Auth emailVerified={auth.emailVerified} token={auth.stsTokenManager.accessToken} /> */}
