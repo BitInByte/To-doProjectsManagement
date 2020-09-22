@@ -4,7 +4,7 @@ import { withRouter, Redirect } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
-import moment from "moment";
+// import moment from "moment";
 
 //Import components
 import Title from "../../components/UI/Title/Title";
@@ -15,6 +15,8 @@ import Modal from "../../components/UI/Modal/Modal";
 // import Input from '../../components/Forms/Input/Input';
 import AddNew from "../AddNew/AddNew";
 import Button from "../../components/UI/Button/Button";
+// import Spinner from "../../components/UI/Spinner/Spinner";
+import Spinner from "../../components/UI/SpinnerContainer/SpinnerContainer";
 
 //Import scoped class modules
 import classes from "./Project.module.scss";
@@ -96,7 +98,12 @@ const Project = ({
 
   // Check if the firebase fetch is complete
   if (!isLoaded(project) || isEmpty(project)) {
-    return <h2>Loading...</h2>;
+    // return <h2>Loading...</h2>;
+    return (
+      // <div className={classes.Project__spinner}>
+      <Spinner />
+      // </div>
+    );
   } else {
     let closedRedirect = null;
     // Router Guarding

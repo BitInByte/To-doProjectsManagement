@@ -1,16 +1,24 @@
 .Projects {
-    width: 100%;
-    height: inherit;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  height: inherit;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    &__wrapper {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 0 4rem;
-    }
+  &__wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 4rem;
+  }
+
+  &__spinner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 4rem;
+  }
 }

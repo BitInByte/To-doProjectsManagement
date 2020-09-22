@@ -347,7 +347,10 @@ const Settings = ({
   let modal = null;
   if (openDeleteModal) {
     modal = (
-      <Modal click={() => setOpenDeleteModal(false)}>
+      <Modal
+        click={() => setOpenDeleteModal(false)}
+        modalOpen={openDeleteModal}
+      >
         <h2>Delete Account</h2>
         <p>Are you sure you want to delete this account?</p>
         <p>All of your data will be lost and you cannot undo this process!</p>
