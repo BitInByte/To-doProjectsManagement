@@ -3,22 +3,31 @@
 
 .NavItem {
   height: 5rem;
-  width: 31.5rem;
+  // width: 31.5rem;
+  width: auto;
   // width: 6.5rem;
   margin: 1rem 0;
   display: flex;
+  // display: none;
   position: relative;
   z-index: 99;
   color: $color-nav-icons-hover;
 
   & a:hover + .NavItem__title {
+    width: 25rem;
     // z-index: 999;
+    display: flex;
+    position: absolute;
+    left: 6.5rem;
     animation: navSlideTitle 0.6s ease-out forwards;
   }
 
-  & a:hover + .NavItem {
-    // width: 31.5rem;
-  }
+  // & a:hover .NavItem {
+  //   width: 31.5rem;
+  // }
+  // & a:hover {
+  //   width: 31.5rem;
+  // }
 
   &__icon {
     width: 6.5rem;
@@ -42,12 +51,14 @@
 
   &__title {
     position: relative;
-    width: 25rem;
+    // width: 25rem;
+    width: 0;
     height: 5rem;
     visibility: hidden;
     opacity: 0;
     background-color: $color-nav-bg;
     display: flex;
+    // display: none;
     justify-content: center;
     align-items: center;
     color: inherit;

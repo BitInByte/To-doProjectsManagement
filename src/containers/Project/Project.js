@@ -5,6 +5,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
 // import moment from "moment";
+import { useSpring, animated } from "react-spring";
 
 //Import components
 import Title from "../../components/UI/Title/Title";
@@ -22,6 +23,9 @@ import Spinner from "../../components/UI/SpinnerContainer/SpinnerContainer";
 import classes from "./Project.module.scss";
 
 import * as actions from "../../store/actions";
+
+// Import utilities
+// import {animationProps} from '../../shared/utility';
 
 //Stateless component
 const Project = ({
@@ -95,6 +99,16 @@ const Project = ({
 
   // Reference to hold the specific node that is moving
   const dragNode = useRef();
+
+  // Animation props
+  const props = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: {
+      duration: 600,
+    },
+    // reset: true,
+  });
 
   // Check if the firebase fetch is complete
   if (!isLoaded(project) || isEmpty(project)) {
@@ -237,7 +251,8 @@ const Project = ({
       console.log(data[0].items);
       console.log(newData);
       let count = 0;
-      data.map((item) => {
+      // data.map((item) => {
+      data.forEach((item) => {
         console.log(item);
         count += item.items.length;
       });
@@ -332,7 +347,7 @@ const Project = ({
     // console.log(props.match.params);
 
     return (
-      <div className={classes.Project}>
+      <animated.div style={props} className={classes.Project}>
         {closedRedirect}
         {/* TITLE */}
         {/* <Title title="Project Title" /> */}
@@ -416,7 +431,7 @@ const Project = ({
           btn2Click={() => setOpenArchiveModal(!openArchiveModal)}
         />
         {modal}
-      </div>
+      </animated.div>
     );
   }
 };

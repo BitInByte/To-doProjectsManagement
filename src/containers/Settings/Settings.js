@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { useSpring, animated } from "react-spring";
 
 //Import components
 import Title from "../../components/UI/Title/Title";
@@ -46,6 +47,15 @@ const Settings = ({
 
   // Setting state to open the delete modal
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+  // Animation props
+  const props = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: {
+      duration: 600,
+    },
+  });
 
   // Setting file state
   // const [fileState, setFileState] = useState(null);
@@ -363,11 +373,11 @@ const Settings = ({
 
   return (
     <>
-      <div className={classes.Settings}>
+      <animated.div style={props} className={classes.Settings}>
         <Title title="Settings" />
         {/* <div className={classes.Settings__profile}>{content}</div> */}
         <div className={profileClasses.join(" ")}>{content}</div>
-      </div>
+      </animated.div>
       {modal}
     </>
   );

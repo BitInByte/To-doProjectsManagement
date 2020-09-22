@@ -4,6 +4,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import moment from "moment";
+import { useSpring, animated } from "react-spring";
 
 //Import components
 import Title from "../../components/UI/Title/Title";
@@ -72,6 +73,16 @@ const ToDos = ({
       touched: false,
       errorMessage: "You should enter a valid description!",
     },
+  });
+
+  // Animation props
+  const props = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: {
+      duration: 600,
+    },
+    // reset: true,
   });
 
   console.log("TODOS");
@@ -239,15 +250,17 @@ const ToDos = ({
     // ToDos with no checked tasks
     const todoUnChecked = todoArray.filter((el) => {
       if (el.isChecked === false) return el;
+      return null;
     });
 
     // ToDos with checked tasks
     const todoChecked = todoArray.filter((el) => {
       if (el.isChecked === true) return el;
+      return null;
     });
 
     return (
-      <div className={classes.Todos}>
+      <animated.div style={props} className={classes.Todos}>
         {/* Title */}
         <Title title="To-Dos" />
         {/* To-Dos */}
@@ -322,7 +335,7 @@ const ToDos = ({
           />
           {modal}
         </div>
-      </div>
+      </animated.div>
     );
   }
 };

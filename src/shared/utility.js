@@ -1,3 +1,5 @@
+// import { useSpring } from "react-spring";
+
 // Check if the form is valid
 export const checkValidity = (value, rules) => {
   let isValid = true;
@@ -47,3 +49,13 @@ export const titleReduce = (title) => {
     return titleArray.join("");
   }
 };
+
+// Animations props
+// export const animationProps = useSpring({
+//   from: { opacity: 0 },
+//   to: { opacity: 1 },
+//   config: {
+//     duration: 600,
+//   },
+//   // reset: true,
+// });

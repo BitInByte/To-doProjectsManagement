@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { firestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import moment from "moment";
+import { useSpring, animated } from "react-spring";
 
 //Import components
 import Title from "../../components/UI/Title/Title";
@@ -52,6 +53,16 @@ const Projects = ({ projects, addNewProject }) => {
     },
   });
 
+  // Animation props
+  const props = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: {
+      duration: 600,
+    },
+    // reset: true,
+  });
+
   if (!isLoaded(projects) || isEmpty(projects)) {
     // return <h2>Loading...</h2>;
     return (
@@ -95,7 +106,7 @@ const Projects = ({ projects, addNewProject }) => {
     // titleReduce("sakjhdwqkjgheaslukgdkwqubeg;ukqwd");
 
     return (
-      <div className={classes.Projects}>
+      <animated.div style={props} className={classes.Projects}>
         {/* TITLE */}
         <Title title="Projects" />
         {/* PROJECTS */}
@@ -141,7 +152,7 @@ const Projects = ({ projects, addNewProject }) => {
         {/* NEW BUTTON */}
         <RoundButton name="+" click={() => setOpenModal(!openModal)} />
         {modal}
-      </div>
+      </animated.div>
     );
   }
 };

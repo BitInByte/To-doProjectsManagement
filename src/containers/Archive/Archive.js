@@ -3,6 +3,7 @@ import React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
+import { useSpring, animated } from "react-spring";
 
 //Import components
 import Title from "../../components/UI/Title/Title";
@@ -15,6 +16,16 @@ import classes from "./Archive.module.scss";
 
 //Stateless component
 const Archive = ({ projects }) => {
+  // Animation props
+  const props = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: {
+      duration: 600,
+    },
+    // reset: true,
+  });
+
   // If the data is not fetched yet from the server, then render a spinner
   if (!isLoaded(projects) || isEmpty(projects)) {
     return <Spinner />;
@@ -31,7 +42,7 @@ const Archive = ({ projects }) => {
 
     console.log(projects);
     return (
-      <div className={classes.Archive}>
+      <animated.div style={props} className={classes.Archive}>
         <Title title="Archive" />
         <div className={classes.Archive__container}>
           <TodoWrapper>
@@ -55,7 +66,7 @@ const Archive = ({ projects }) => {
                         <ArchivedProjects /> */}
           </TodoWrapper>
         </div>
-      </div>
+      </animated.div>
     );
   }
 };
