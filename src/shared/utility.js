@@ -50,6 +50,35 @@ export const titleReduce = (title) => {
   }
 };
 
+export const mobileDataManipulation = (data, newData, group, itemID) => {
+  let storedItem;
+  console.log(data);
+  data.forEach((item, index) => {
+    if (item.title === group) {
+      // Storing the removed element into a variable
+      storedItem = newData[index].items.filter((el) => el.taskNr === itemID);
+      // Removing the element from the array
+      newData[index].items = newData[index].items.filter(
+        (el) => el.taskNr !== itemID
+      );
+
+      let indexNewData = index;
+      if (indexNewData === 2) {
+        indexNewData = 0;
+      } else {
+        indexNewData += 1;
+      }
+
+      newData[indexNewData].items.push(storedItem[0]);
+      // console.log("ITEMMMM");
+      // console.log(newData);
+      // console.log(storedItem);
+      // console.log(item.items);
+    }
+    console.log(item);
+  });
+};
+
 // Animations props
 // export const animationProps = useSpring({
 //   from: { opacity: 0 },

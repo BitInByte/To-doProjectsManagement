@@ -25,7 +25,7 @@ import classes from "./Project.module.scss";
 import * as actions from "../../store/actions";
 
 // Import utilities
-import { titleReduce } from "../../shared/utility";
+import { titleReduce, mobileDataManipulation } from "../../shared/utility";
 
 //Stateless component
 const Project = ({
@@ -107,7 +107,6 @@ const Project = ({
     config: {
       duration: 600,
     },
-    // reset: true,
   });
 
   // Check if the firebase fetch is complete
@@ -216,8 +215,9 @@ const Project = ({
         dragItem.current = params;
         // Return the new list to be stored
         // data = newList;
-        // console.log('NEWLIST');
-        // console.log(newList);
+        console.log("NEWLIST");
+        console.log(newList);
+
         updateTask(newList, projectId);
       }
     };
@@ -304,6 +304,88 @@ const Project = ({
       setOpenArchiveModal(false);
     };
 
+    // Mobile click
+    const mobileClickHandler = (event, group, itemID) => {
+      // console.log(event.type);
+      // console.log(navigator.userAgent);
+      // console.log(window.innerWidth);
+      // Check if the equipment is touch
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      ) {
+        let newData = JSON.parse(JSON.stringify(data));
+        if (group === "Tasks") {
+          // let storedItem;
+          // console.log(data);
+          // data.forEach((item, index) => {
+          //   if (item.title === group) {
+          //     // Storing the removed element into a variable
+          //     storedItem = newData[index].items.filter(
+          //       (el) => el.taskNr === itemID
+          //     );
+          //     // Removing the element from the array
+          //     newData[index].items = newData[index].items.filter(
+          //       (el) => el.taskNr !== itemID
+          //     );
+          //
+          //     newData[index + 1].items.push(storedItem[0]);
+          //     // console.log("ITEMMMM");
+          //     // console.log(newData);
+          //     // console.log(storedItem);
+          //     // console.log(item.items);
+          //   }
+          //   console.log(item);
+          // });
+          mobileDataManipulation(data, newData, group, itemID);
+        } else if (group === "Progress") {
+          // let storedItem;
+          // console.log(data);
+          // data.forEach((item, index) => {
+          //   if (item.title === group) {
+          //     // Storing the removed element into a variable
+          //     storedItem = newData[index].items.filter(
+          //       (el) => el.taskNr === itemID
+          //     );
+          //     // Removing the element from the array
+          //     newData[index].items = newData[index].items.filter(
+          //       (el) => el.taskNr !== itemID
+          //     );
+          //
+          //     newData[index + 1].items.push(storedItem[0]);
+          //   }
+          // });
+          mobileDataManipulation(data, newData, group, itemID);
+        } else if (group === "Completed") {
+          // let storedItem;
+          // console.log(data);
+          // data.forEach((item, index) => {
+          //   if (item.title === group) {
+          //     // Storing the removed element into a variable
+          //     storedItem = newData[index].items.filter(
+          //       (el) => el.taskNr === itemID
+          //     );
+          //     // Removing the element from the array
+          //     newData[index].items = newData[index].items.filter(
+          //       (el) => el.taskNr !== itemID
+          //     );
+          //
+          //     newData[0].items.push(storedItem[0]);
+          //   }
+          // });
+          mobileDataManipulation(data, newData, group, itemID);
+        }
+
+        console.log("Im in");
+        console.log(group);
+        console.log(itemID);
+        console.log(newData);
+
+        updateTask(newData, projectId);
+      }
+    };
+
     let modal = null;
     if (openAddNewModal) {
       modal = (
@@ -379,10 +461,14 @@ const Project = ({
                 {/* Make the ToDo draggable */}
                 {/* With handleDragStart we pass the event, the item id and the board id */}
                 {grp.items.map((item, itemI) => (
+                  // <div className={classes.MobileClick}>
                   <ToDo
                     // Should be item index
                     title={item.title}
                     desc={item.desc}
+                    clicked={(event) =>
+                      mobileClickHandler(event, grp.title, item.taskNr)
+                    }
                     // date={moment(item.timestamp).fromNow()}
                     // date={item.timestamp}
                     // date={moment(item.date.toDate()).fromNow()}
@@ -404,6 +490,7 @@ const Project = ({
                     hasDragClass={dragging ? getStyles({ grpI, itemI }) : null}
                     onDragOver={(e) => e.preventDefault()}
                   />
+                  // </div>
                 ))}
                 {/* <ToDo
                                 isDraggable={true}
