@@ -25,7 +25,7 @@ import classes from "./Project.module.scss";
 import * as actions from "../../store/actions";
 
 // Import utilities
-// import {animationProps} from '../../shared/utility';
+import { titleReduce } from "../../shared/utility";
 
 //Stateless component
 const Project = ({
@@ -129,7 +129,7 @@ const Project = ({
 
     console.log("IS CLOSED");
     console.log(project.isClosed);
-    const title = project.projectName;
+    const title = titleReduce(project.projectName);
 
     let data = JSON.parse(JSON.stringify(project.data));
     console.log("DATA");
@@ -312,13 +312,15 @@ const Project = ({
             click={() => setOpenAddNewModal(false)}
             modalOpen={openAddNewModal}
           >
-            <h2>Add a new Task</h2>
-            {/* <AddNew /> */}
-            <AddNew
-              submitHandler={submitButtonHandler}
-              data={addNewForm}
-              setData={setAddNewForm}
-            />
+            <div className={classes.Modal__content}>
+              <h2>Add a new Task</h2>
+              {/* <AddNew /> */}
+              <AddNew
+                submitHandler={submitButtonHandler}
+                data={addNewForm}
+                setData={setAddNewForm}
+              />
+            </div>
           </Modal>
         </div>
       );
@@ -329,14 +331,16 @@ const Project = ({
             click={() => setOpenArchiveModal(false)}
             modalOpen={openArchiveModal}
           >
-            <h2>Archive</h2>
-            <p>Are you sure you want to archive this project?</p>
-            <p>
-              All of the project data will be lost and you cannot undo this
-              process!
-            </p>
-            <div className={classes.Modal__button}>
-              <Button name="Confirm" click={submitArchiveHandler} />
+            <div className={classes.Modal__archive}>
+              <h2>Archive</h2>
+              <p>Are you sure you want to archive this project?</p>
+              <p>
+                All of the project data will be lost and you cannot undo this
+                process!
+              </p>
+              <div className={classes.Modal__button}>
+                <Button name="Confirm" click={submitArchiveHandler} />
+              </div>
             </div>
           </Modal>
         </div>

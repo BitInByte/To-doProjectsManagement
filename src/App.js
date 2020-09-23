@@ -15,6 +15,7 @@ import Spinner from "./components/UI/SpinnerContainer/SpinnerContainer";
 // Import actions
 import * as actions from "./store/actions";
 
+
 const App = ({ auth, signOut, firebase, firestore, profile }) => {
   // useEffect(() => {
   //   signOut();

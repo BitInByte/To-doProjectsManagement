@@ -1,25 +1,31 @@
 @import './styles/abstracts/variables';
 @import './styles/base/typography';
 @import './styles/reset/reset';
+@import './styles/abstracts/mixins';
 
-
+// * === RESETS ===
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
 
 // * ====== UNIVERSAL PROPERTIES ======
 html {
 
     font-size: 62.5%; // 1rem = 10px; 10px/16px = 62.5%
 
-    // @include respond(tab-port) {
-    //     font-size: 50%;
-    // }
+     @include respond(tab-port) {
+         font-size: 50%;
+     }
 
-    // @include respond(mid) {
-    //     font-size: 40%;
-    // }
+     @include respond(mid) {
+         font-size: 40%;
+     }
 
-    // @include respond(phone-small) {
-    //     font-size: 30%;
-    // }
+     @include respond(phone-small) {
+         font-size: 30%;
+     }
 
     
 }

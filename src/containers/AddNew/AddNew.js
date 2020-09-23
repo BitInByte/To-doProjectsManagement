@@ -14,7 +14,7 @@ import classes from './AddNew.module.scss';
 //Stateless component
 const AddNew = ({ submitHandler, data, setData }) => {
 
-    // State to create the forn dynamically
+    // State to create the form dynamically
     // const [addNewForm, setAddNewForm] = useState({
     //     title: {
     //         elementType: 'input',

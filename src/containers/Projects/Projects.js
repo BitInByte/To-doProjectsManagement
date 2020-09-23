@@ -83,12 +83,14 @@ const Projects = ({ projects, addNewProject }) => {
     if (openModal) {
       modal = (
         <Modal click={() => setOpenModal(false)} modalOpen={openModal}>
-          <h2>Add a new project</h2>
-          <AddNew
-            submitHandler={submitButtonHandler}
-            data={addNewForm}
-            setData={setAddNewForm}
-          />
+          <div className={classes.Projects__modal}>
+            <h2>Add a new project</h2>
+            <AddNew
+              submitHandler={submitButtonHandler}
+              data={addNewForm}
+              setData={setAddNewForm}
+            />
+          </div>
         </Modal>
       );
     }

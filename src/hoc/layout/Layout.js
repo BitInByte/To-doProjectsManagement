@@ -41,7 +41,7 @@ const Layout = (props) => {
         initials={initials}
         drawerClickHandler={drawerToggleClickHandler}
       />
-      <SideDrawer show={sideDrawerOpen} />
+      <SideDrawer show={sideDrawerOpen} click={drawerToggleClickHandler} />
       {backdrop}
       {/* MAIN */}
       <main className={classes.Content}>{children}</main>

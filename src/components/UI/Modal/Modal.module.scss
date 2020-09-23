@@ -1,6 +1,9 @@
+@import '../../../styles/abstracts/mixins';
+
 .Modal {
   display: flex;
-  flex-direction: column;
+  //flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
   position: fixed;
   top: 50%;
@@ -11,6 +14,11 @@
   background-color: #fff;
   border-radius: 2rem;
   padding: 3rem;
+  overflow-y: scroll;
+
+  @include respond(tab-port) {
+    height: 60vh;
+  }
 
   //   opacity: 0;
 

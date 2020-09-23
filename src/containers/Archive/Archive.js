@@ -37,17 +37,34 @@ const Archive = ({ projects }) => {
         id: el,
         title: projects[el].projectName,
         date: projects[el].timestamp,
+        closed: projects[el].dateClosed,
       });
     }
 
     console.log(projects);
+    console.log(projectsArray);
+
+    for (let project in projects) {
+      console.log(new Date(projects[project].timestamp.toDate()));
+      // console.log(projects[project].timestamp);
+    }
+
+    // projects.map((item) => {
+    //   console.log(new Date(item.timestamp));
+    // });
+
     return (
       <animated.div style={props} className={classes.Archive}>
         <Title title="Archive" />
         <div className={classes.Archive__container}>
           <TodoWrapper>
             {projectsArray.map((el) => (
-              <ArchivedProjects key={el.id} title={el.title} />
+              <ArchivedProjects
+                key={el.id}
+                title={el.title}
+                dateCreated={el.date && new Date(el.date.toDate())}
+                dateArchived={el.closed && new Date(el.closed.toDate())}
+              />
             ))}
             {/* <ArchivedProjects />
                         <ArchivedProjects />

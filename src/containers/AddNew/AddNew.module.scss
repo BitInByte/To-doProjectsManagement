@@ -1,4 +1,11 @@
+@import '../../styles/abstracts/mixins';
+
 .AddNew {
     width: 60rem;
     margin-top: 2rem;
+
+    @include respond(mid) {
+        width: 100%;
+        padding: 0 3rem;
+    }
 }
