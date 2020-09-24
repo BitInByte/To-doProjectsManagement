@@ -211,13 +211,15 @@ const formikApp = withFormik({
   ) => {
     // Set submitting to true when we are making an async action to disable the button
     setSubmitting(true);
-    // Sign up
-    await props.signUp(values).then(() => {
+    try {
+      // Sign up
+      await props.signUp(values);
+    } catch (e) {
       //  Set submitting again to false
       setSubmitting(false);
-    });
-    // Reset the form
-    resetForm();
+      // Reset the form
+      resetForm();
+    }
   },
 })(signup);
 

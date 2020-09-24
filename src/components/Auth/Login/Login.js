@@ -165,11 +165,14 @@ const formikApp = withFormik({
   ) => {
     // console.log('where in');
     // Call the action to perform a firebase login
-    await props.signIn(values);
-    // Reset the form
-    resetForm();
+    try {
+      await props.signIn(values);
+    } catch (e) {
+      // Reset the form
+      resetForm();
 
-    setSubmitting(false);
+      setSubmitting(false);
+    }
   },
 })(login);
 
