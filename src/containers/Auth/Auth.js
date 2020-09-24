@@ -41,8 +41,14 @@ const Auth = ({ emailVerified, token, resendEmail }) => {
 };
 
 Auth.propTypes = {
-  emailVerified: PropTypes.bool.isRequired,
-  token: PropTypes.string.isRequired,
+  emailVerified: PropTypes.oneOfType([
+    PropTypes.bool.isRequired,
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
+  token: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
   resendEmail: PropTypes.func.isRequired,
 };
 

@@ -37,7 +37,10 @@ const authButton = ({ changed, value, disabled, submit }) => {
 authButton.propTypes = {
   value: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
-  changed: PropTypes.func.isRequired,
+  changed: PropTypes.oneOfType([
+    PropTypes.func.isRequired,
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
   submit: PropTypes.bool.isRequired,
 };
 
