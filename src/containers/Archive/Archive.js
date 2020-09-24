@@ -16,9 +16,9 @@ import Spinner from "../../components/UI/SpinnerContainer/SpinnerContainer";
 import classes from "./Archive.module.scss";
 
 //Stateless component
-const Archive = ({ projects }) => {
+const Archive = ({ archive }) => {
   console.log("@@@@@@@PROJECTS");
-  console.log(projects);
+  console.log(archive);
 
   // Animation props
   const props = useSpring({
@@ -31,25 +31,25 @@ const Archive = ({ projects }) => {
   });
 
   // If the data is not fetched yet from the server, then render a spinner
-  if (!isLoaded(projects) || isEmpty(projects)) {
+  if (!isLoaded(archive) || isEmpty(archive)) {
     return <Spinner />;
   } else {
     // Convert the projects object into an array
     const projectsArray = [];
-    for (let el in projects) {
+    for (let el in archive) {
       projectsArray.push({
         id: el,
-        title: projects[el].projectName,
-        date: projects[el].timestamp,
-        closed: projects[el].dateClosed,
+        title: archive[el].projectName,
+        date: archive[el].timestamp,
+        closed: archive[el].dateClosed,
       });
     }
 
-    console.log(projects);
+    console.log(archive);
     console.log(projectsArray);
 
-    for (let project in projects) {
-      console.log(new Date(projects[project].timestamp.toDate()));
+    for (let project in archive) {
+      console.log(new Date(archive[project].timestamp.toDate()));
       // console.log(projects[project].timestamp);
     }
 
@@ -93,7 +93,7 @@ const Archive = ({ projects }) => {
 };
 
 Archive.propTypes = {
-  projects: PropTypes.oneOfType([
+  archive: PropTypes.oneOfType([
     PropTypes.object.isRequired,
     PropTypes.oneOf([undefined]).isRequired,
   ]),
@@ -103,7 +103,7 @@ const mapStateToProps = (state) => {
   return {
     userId: state.firebase.auth.uid,
     // userData: state.firestore.data,
-    projects: state.firestore.data.projects,
+    archive: state.firestore.data.archive,
   };
 };
 
@@ -133,7 +133,7 @@ export default compose(
       //     ]
       // ],
       // Will be stored by the name Todos on the state. Instead of using a path to get access to that, we use todos now on the mapStateToProps
-      storeAs: "projects",
+      storeAs: "archive",
       // Order the todos by the timestamp filed on the server
       orderBy: ["timestamp", "desc"],
     },
