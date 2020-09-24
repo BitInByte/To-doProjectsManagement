@@ -17,6 +17,9 @@ import classes from "./Archive.module.scss";
 
 //Stateless component
 const Archive = ({ projects }) => {
+  console.log("@@@@@@@PROJECTS");
+  console.log(projects);
+
   // Animation props
   const props = useSpring({
     from: { opacity: 0 },
@@ -90,7 +93,10 @@ const Archive = ({ projects }) => {
 };
 
 Archive.propTypes = {
-  projects: PropTypes.array.isRequired,
+  projects: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
 };
 
 const mapStateToProps = (state) => {

@@ -161,7 +161,10 @@ const Projects = ({ projects, addNewProject }) => {
 };
 
 Projects.propTypes = {
-  projects: PropTypes.object.isRequired,
+  projects: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
   addNewProject: PropTypes.func.isRequired,
 };
 

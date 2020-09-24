@@ -534,7 +534,10 @@ const Project = ({
 Project.propTypes = {
   match: PropTypes.object.isRequired,
   updateTask: PropTypes.func.isRequired,
-  project: PropTypes.object.isRequired,
+  project: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
   archiveProject: PropTypes.func.isRequired,
 };
 

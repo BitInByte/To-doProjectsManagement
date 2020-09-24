@@ -43,6 +43,7 @@ const Settings = ({
   console.log(auth);
   console.log(profile);
   console.log(values);
+  console.log(touched);
   console.log("SETTINGS IMAGE");
   console.log(newImage);
 
@@ -393,7 +394,7 @@ Settings.propTypes = {
   profile: PropTypes.object.isRequired,
   values: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
-  touched: PropTypes.bool.isRequired,
+  touched: PropTypes.object.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.bool.isRequired,
     PropTypes.oneOf([undefined]).isRequired,
@@ -405,7 +406,10 @@ Settings.propTypes = {
   ]),
   deleteUser: PropTypes.func.isRequired,
   newImageState: PropTypes.func.isRequired,
-  newImage: PropTypes.object.isRequired,
+  newImage: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.oneOf([null]).isRequired,
+  ]),
 };
 
 const formikApp = withFormik({

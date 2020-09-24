@@ -347,7 +347,10 @@ const ToDos = ({
 
 ToDos.propTypes = {
   addNewTodo: PropTypes.func.isRequired,
-  todos: PropTypes.array.isRequired,
+  todos: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
   toggleCheckedTodo: PropTypes.func.isRequired,
   onEditSubmitHandler: PropTypes.func.isRequired,
 };

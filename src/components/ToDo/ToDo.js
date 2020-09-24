@@ -103,7 +103,7 @@ ToDo.propTypes = {
   dragEnter: PropTypes.func,
   hasDragClass: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  date: PropTypes.instanceOf(Date),
+  date: PropTypes.string,
   clicked: PropTypes.func,
   hasCursor: PropTypes.bool.isRequired,
   desc: PropTypes.string,

@@ -13,7 +13,11 @@ const todoWrapper = ({ children }) => (
 );
 
 todoWrapper.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.element.isRequired,
+    PropTypes.arrayOf(PropTypes.element.isRequired).isRequired,
+    PropTypes.node.isRequired,
+  ]),
 };
 
 export default todoWrapper;

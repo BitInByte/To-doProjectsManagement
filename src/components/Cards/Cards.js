@@ -28,7 +28,8 @@ const Cards = ({ text, date }) => {
 
 Cards.propTypes = {
   text: PropTypes.string.isRequired,
-  date: PropTypes.instanceOf(Date).isRequired,
+  // date: PropTypes.instanceOf(Date).isRequired,
+  date: PropTypes.string.isRequired,
 };
 
 export default Cards;
