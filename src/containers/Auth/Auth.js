@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { useSpring, animated } from "react-spring";
 
 //Import components
 import Login from "../../components/Auth/Login/Login";
@@ -23,6 +24,16 @@ const Auth = ({ emailVerified, token, resendEmail }) => {
 
   const [isLogin, setIsLogin] = useState(true);
 
+  // Animation props
+  const props = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: {
+      duration: 600,
+    },
+    reset: true,
+  });
+
   let auth = isLogin ? (
     <Login clicked={() => setIsLogin(!isLogin)} />
   ) : (
@@ -37,7 +48,11 @@ const Auth = ({ emailVerified, token, resendEmail }) => {
     auth = <Redirect to="/" />;
   }
 
-  return <div className={classes.Auth}>{auth}</div>;
+  return (
+    <animated.div style={props} className={classes.Auth}>
+      {auth}
+    </animated.div>
+  );
 };
 
 Auth.propTypes = {
