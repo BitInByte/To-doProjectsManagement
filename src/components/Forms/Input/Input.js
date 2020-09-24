@@ -9,6 +9,9 @@ import classes from "./Input.module.scss";
 
 //Stateless component
 const input = (props) => {
+  console.log("@@@@element config");
+  console.log(props.elementConfig);
+
   let inputElement = null;
   // let textAreaElement = null;
 
@@ -85,7 +88,7 @@ const input = (props) => {
 };
 
 input.propTypes = {
-  shouldValidate: PropTypes.bool.isRequired,
+  shouldValidate: PropTypes.object.isRequired,
   touched: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
   elementType: PropTypes.string.isRequired,
@@ -93,10 +96,13 @@ input.propTypes = {
   errorMessage: PropTypes.string.isRequired,
   changed: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
-  elementConfig: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    displayValue: PropTypes.string.isRequired,
-  }),
+  elementConfig: PropTypes.oneOfType([
+    PropTypes.shape({
+      type: PropTypes.string.isRequired,
+      placeholder: PropTypes.string.isRequired,
+    }),
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
 };
 
 export default input;
