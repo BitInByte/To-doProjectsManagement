@@ -1,6 +1,7 @@
 //Import libraries
 import React from "react";
 import moment from "moment";
+import PropTypes from "prop-types";
 
 //Import components
 
@@ -8,7 +9,7 @@ import moment from "moment";
 import classes from "./ArchivedProjects.module.scss";
 
 //Stateless component
-const ArchivedProjects = ({ title, dateCreated, dateArchived }) => (
+const archivedProjects = ({ title, dateCreated, dateArchived }) => (
   <div className={classes.ArchivedProjects}>
     <div className={classes.ArchivedProjects__title}>
       <h3>{title}</h3>
@@ -26,4 +27,10 @@ const ArchivedProjects = ({ title, dateCreated, dateArchived }) => (
   </div>
 );
 
-export default ArchivedProjects;
+archivedProjects.propTypes = {
+  title: PropTypes.string.isRequired,
+  dateCreated: PropTypes.instanceOf(Date).isRequired,
+  dateArchived: PropTypes.instanceOf(Date).isRequired,
+};
+
+export default archivedProjects;

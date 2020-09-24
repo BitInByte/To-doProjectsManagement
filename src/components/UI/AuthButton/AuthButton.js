@@ -1,20 +1,49 @@
 //Import libraries
-import React from 'react';
+import React from "react";
+import PropTypes from "prop-types";
 
 //Import components
 
 //Import scoped class modules
-import classes from './AuthButton.module.scss';
+import classes from "./AuthButton.module.scss";
 
 //Stateless component
 const authButton = ({ changed, value, disabled, submit }) => {
-    let button = <button disabled={disabled} onClick={changed} className={classes.Button}>{value}</button>;
-    if (submit) button = <button type='submit' disabled={disabled} onClick={changed} className={classes.Button}>{value}</button>;
-    return (
-        // { submit ? <button type="submit" disabled={disabled} onClick={changed} className={classes.Button}>{value}</button> : <button disabled={disabled} onClick={changed} className={classes.Button}>{value}</button>}
-        // { button }
-        <button disabled={disabled} onClick={changed} className={classes.Button}>{value}</button>
+  let button = (
+    <button disabled={disabled} onClick={changed} className={classes.Button}>
+      {value}
+    </button>
+  );
+  if (submit)
+    button = (
+      <button
+        type="submit"
+        disabled={disabled}
+        onClick={changed}
+        className={classes.Button}
+      >
+        {value}
+      </button>
     );
+  return (
+    // { submit ? <button type="submit" disabled={disabled} onClick={changed} className={classes.Button}>{value}</button> : <button disabled={disabled} onClick={changed} className={classes.Button}>{value}</button>}
+    // { button }
+    <button disabled={disabled} onClick={changed} className={classes.Button}>
+      {value}
+    </button>
+  );
+};
+
+authButton.propTypes = {
+  value: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  changed: PropTypes.func.isRequired,
+  submit: PropTypes.bool.isRequired,
+};
+
+authButton.defaultProps = {
+  disabled: false,
+  submit: false,
 };
 
 export default authButton;

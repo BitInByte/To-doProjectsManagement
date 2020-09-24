@@ -1,7 +1,7 @@
 //Import libraries
 import React from "react";
-// import { CSSTransition } from "react-transition-group";
 import { useTransition, animated } from "react-spring";
+import PropTypes from "prop-types";
 
 //Import components
 import BackDrop from "../BackDrop/BackDrop";
@@ -64,6 +64,12 @@ const Modal = ({ children, click, modalOpen }) => {
       </div> */}
     </>
   );
+};
+
+Modal.propTypes = {
+  children: PropTypes.element.isRequired,
+  click: PropTypes.func.isRequired,
+  modalOpen: PropTypes.bool.isRequired,
 };
 
 export default Modal;

@@ -1,5 +1,6 @@
 //Import libraries
 import React from "react";
+import PropTypes from "prop-types";
 
 //Import components
 
@@ -14,5 +15,9 @@ const drawerToggleButton = (props) => (
     <div className={classes.DrawerToggleButton__line} />
   </button>
 );
+
+drawerToggleButton.propTypes = {
+  click: PropTypes.func.isRequired,
+};
 
 export default drawerToggleButton;

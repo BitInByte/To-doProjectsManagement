@@ -1,5 +1,6 @@
 //Import libraries
 import React from "react";
+import PropTypes from "prop-types";
 
 //Import components
 
@@ -7,8 +8,12 @@ import React from "react";
 import classes from "./Error.module.scss";
 
 //Stateless component
-const Error = ({ errorMessage }) => (
+const error = ({ errorMessage }) => (
   <p className={classes.Error}>{errorMessage}</p>
 );
 
-export default Error;
+error.propTypes = {
+  errorMessage: PropTypes.string.isRequired,
+};
+
+export default error;

@@ -1,6 +1,7 @@
 //Import libraries
 import React from "react";
 import { useSpring, animated } from "react-spring";
+import PropTypes from "prop-types";
 
 //Import components
 import Checkbox from "../UI/Checkbox/Checkbox.js";
@@ -12,7 +13,7 @@ import classes from "./ToDo.module.scss";
 const ToDo = ({
   click,
   isChecked,
-  hasChecbox,
+  hasCheckbox,
   isDraggable,
   dragStart,
   hasDragClass,
@@ -84,13 +85,39 @@ const ToDo = ({
                 <input type="checkbox" id="Check3" />
                 <label htmlFor="Check3">Check</label>
             </div> */}
-      {hasChecbox ? (
+      {hasCheckbox ? (
         <div className={classes.ToDo__controller}>
           <Checkbox click={click} isChecked={isChecked} />
         </div>
       ) : null}
     </animated.div>
   );
+};
+
+ToDo.propTypes = {
+  click: PropTypes.func,
+  isChecked: PropTypes.bool.isRequired,
+  hasCheckbox: PropTypes.bool.isRequired,
+  isDraggable: PropTypes.bool.isRequired,
+  dragStart: PropTypes.func,
+  dragEnter: PropTypes.func,
+  hasDragClass: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  date: PropTypes.instanceOf(Date),
+  clicked: PropTypes.func,
+  hasCursor: PropTypes.bool.isRequired,
+  desc: PropTypes.string,
+};
+
+ToDo.defaultProps = {
+  isChecked: false,
+  hasCheckbox: false,
+  isDraggable: false,
+  dragStart: undefined,
+  dragEnter: undefined,
+  hasDragClass: false,
+  clicked: undefined,
+  hasCursor: false,
 };
 
 export default ToDo;

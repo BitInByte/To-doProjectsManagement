@@ -1,6 +1,7 @@
 //Import libraries
 import React from "react";
 import { NavLink } from "react-router-dom";
+import PropTypes from "prop-types";
 
 //Import components
 
@@ -25,6 +26,13 @@ const navItem = (props) => {
       </div>
     </li>
   );
+};
+
+navItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
+  exact: PropTypes.bool,
+  children: PropTypes.element.isRequired,
 };
 
 export default navItem;

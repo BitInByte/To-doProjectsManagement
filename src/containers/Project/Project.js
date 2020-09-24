@@ -4,8 +4,8 @@ import { withRouter, Redirect } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
-// import moment from "moment";
 import { useSpring, animated } from "react-spring";
+import PropTypes from "prop-types";
 
 //Import components
 import Title from "../../components/UI/Title/Title";
@@ -52,7 +52,7 @@ const Project = ({
 
   // const [list, setList] = useState([]);
 
-  // State to create the forn dynamically
+  // State to create the form dynamically
   const [addNewForm, setAddNewForm] = useState({
     title: {
       elementType: "input",
@@ -476,7 +476,7 @@ const Project = ({
                     // date={moment(item.timestamp).fromNow()}
                     // date={item.timestamp}
                     // date={moment(item.date.toDate()).fromNow()}
-                    isChecked={grp.title === "Completed" ? true : false}
+                    isChecked={grp.title === "Completed"}
                     // key={item}
                     key={item.taskNr}
                     isDraggable={true}
@@ -491,7 +491,7 @@ const Project = ({
                     }
                     idDragging={dragging}
                     // If is dragging, then change the class
-                    hasDragClass={dragging ? getStyles({ grpI, itemI }) : null}
+                    hasDragClass={dragging ? getStyles({ grpI, itemI }) : false}
                     onDragOver={(e) => e.preventDefault()}
                   />
                   // </div>
@@ -529,6 +529,13 @@ const Project = ({
       </animated.div>
     );
   }
+};
+
+Project.propTypes = {
+  match: PropTypes.object.isRequired,
+  updateTask: PropTypes.func.isRequired,
+  project: PropTypes.object.isRequired,
+  archiveProject: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {

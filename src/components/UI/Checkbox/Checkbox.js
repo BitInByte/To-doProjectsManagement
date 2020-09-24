@@ -1,5 +1,6 @@
 //Import libraries
 import React from "react";
+import PropTypes from "prop-types";
 
 //Import components
 
@@ -35,6 +36,11 @@ const checkbox = ({ click, isChecked }) => {
       <span className={classes.Checkbox__box}></span>
     </label>
   );
+};
+
+checkbox.propTypes = {
+  click: PropTypes.func.isRequired,
+  isChecked: PropTypes.bool.isRequired,
 };
 
 export default checkbox;

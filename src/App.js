@@ -15,7 +15,6 @@ import Spinner from "./components/UI/SpinnerContainer/SpinnerContainer";
 // Import actions
 import * as actions from "./store/actions";
 
-
 const App = ({ auth, signOut, firebase, firestore, profile }) => {
   // useEffect(() => {
   //   signOut();
@@ -26,6 +25,7 @@ const App = ({ auth, signOut, firebase, firestore, profile }) => {
   console.log(auth.emailVerified);
   console.log("Loaded");
   console.log(isLoaded(auth));
+  console.log(isLoaded(profile));
   console.log("Firebase");
   console.log(firebase);
   console.log(firestore);
@@ -90,28 +90,32 @@ const App = ({ auth, signOut, firebase, firestore, profile }) => {
   //   );
   // }
   if (auth.apiKey && auth.emailVerified) {
-    console.log("stage 2");
-    routes = (
-      <Layout initials={profile.initials} profileImage={profile.profileImg}>
-        {/* <Suspense fallback={<p>Loading...</p>}> */}
-        <Suspense fallback={<Spinner />}>
-          <Switch>
-            <Route path="/todos" render={(...props) => <ToDos />} />
-            <Route path="/projects" render={(...props) => <Projects />} />
-            <Route path="/archive" render={(...props) => <Archive />} />
-            <Route path="/settings" render={(...props) => <Settings />} />
-            <Route
-              path="/project/:projectId"
-              render={(...props) => <Project />}
-            />
-            {/* <Route path='/auth' component={Auth} /> */}
-            <Route path="/logout" component={Logout} />
-            <Route path="/" exact component={Dashboard} />
-            <Redirect to="/" />
-          </Switch>
-        </Suspense>
-      </Layout>
-    );
+    if (isLoaded(profile)) {
+      console.log("stage 2");
+      routes = (
+        <Layout initials={profile.initials} profileImage={profile.profileImg}>
+          {/* <Suspense fallback={<p>Loading...</p>}> */}
+          <Suspense fallback={<Spinner />}>
+            <Switch>
+              <Route path="/todos" render={(...props) => <ToDos />} />
+              <Route path="/projects" render={(...props) => <Projects />} />
+              <Route path="/archive" render={(...props) => <Archive />} />
+              <Route path="/settings" render={(...props) => <Settings />} />
+              <Route
+                path="/project/:projectId"
+                render={(...props) => <Project />}
+              />
+              {/* <Route path='/auth' component={Auth} /> */}
+              <Route path="/logout" component={Logout} />
+              <Route path="/" exact component={Dashboard} />
+              <Redirect to="/" />
+            </Switch>
+          </Suspense>
+        </Layout>
+      );
+    } else {
+      routes = <Spinner />;
+    }
   } else if (auth.apiKey && !auth.emailVerified) {
     console.log("stage 3");
     routes = (

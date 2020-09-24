@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { firestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import moment from "moment";
 import { useSpring, animated } from "react-spring";
+import PropTypes from "prop-types";
 
 //Import components
 import Title from "../../components/UI/Title/Title";
@@ -13,7 +14,6 @@ import Cards from "../../components/Cards/Cards";
 import RoundButton from "../../components/UI/RoundButton/RoundButton";
 import Modal from "../../components/UI/Modal/Modal";
 import AddNew from "../AddNew/AddNew";
-// import Spinner from "../../components/UI/Spinner/Spinner";
 import Spinner from "../../components/UI/SpinnerContainer/SpinnerContainer";
 
 //Import scoped class modules
@@ -158,6 +158,11 @@ const Projects = ({ projects, addNewProject }) => {
       </animated.div>
     );
   }
+};
+
+Projects.propTypes = {
+  projects: PropTypes.object.isRequired,
+  addNewProject: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {

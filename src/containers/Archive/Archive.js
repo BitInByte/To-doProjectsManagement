@@ -4,6 +4,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import { useSpring, animated } from "react-spring";
+import PropTypes from "prop-types";
 
 //Import components
 import Title from "../../components/UI/Title/Title";
@@ -86,6 +87,10 @@ const Archive = ({ projects }) => {
       </animated.div>
     );
   }
+};
+
+Archive.propTypes = {
+  projects: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => {

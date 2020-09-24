@@ -1,5 +1,6 @@
 //Import libraries
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 //Import components
 
@@ -54,6 +55,14 @@ const FileInput = ({ file, fileHandler }) => {
       />
     </div>
   );
+};
+
+FileInput.propTypes = {
+  fileHandler: PropTypes.func.isRequired,
+  file: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
 };
 
 export default FileInput;

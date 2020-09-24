@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { firestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import moment from "moment";
 import { useSpring, animated } from "react-spring";
+import PropTypes from "prop-types";
 
 //Import components
 import Title from "../../components/UI/Title/Title";
@@ -280,7 +281,7 @@ const ToDos = ({
                   // event.stopPropagation();
                   todoCheckHandler(event, { id: el.id, checked: el.isChecked });
                 }}
-                hasChecbox
+                hasCheckbox
                 isChecked={el.isChecked}
                 // hasCursor
                 // clicked={(e) => setEditTask(e, { id: el.id, title: el.title, desc: el.desc, date: moment(el.date.toDate()).fromNow(), })}
@@ -308,7 +309,7 @@ const ToDos = ({
                         checked: el.isChecked,
                       })
                     }
-                    hasChecbox
+                    hasCheckbox
                     // hasCursor
                     isChecked={el.isChecked}
                   />
@@ -342,6 +343,13 @@ const ToDos = ({
       </animated.div>
     );
   }
+};
+
+ToDos.propTypes = {
+  addNewTodo: PropTypes.func.isRequired,
+  todos: PropTypes.array.isRequired,
+  toggleCheckedTodo: PropTypes.func.isRequired,
+  onEditSubmitHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {

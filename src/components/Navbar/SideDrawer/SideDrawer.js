@@ -1,6 +1,7 @@
 //Import libraries
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 //Import components
 
@@ -55,6 +56,11 @@ const SideDrawer = (props) => {
       </ul>
     </nav>
   );
+};
+
+SideDrawer.propTypes = {
+  show: PropTypes.bool.isRequired,
+  click: PropTypes.func.isRequired,
 };
 
 export default SideDrawer;

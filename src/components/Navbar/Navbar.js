@@ -1,6 +1,7 @@
 //Import libraries
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 //Import components
 import DashboardIcon from "@material-ui/icons/Dashboard";
@@ -18,6 +19,9 @@ import classes from "./Navbar.module.scss";
 //Stateless component
 const navbar = (props) => {
   const { drawerClickHandler, initials, profileImage } = props;
+
+  console.log("INITIALS");
+  console.log(initials);
 
   return (
     <div className={classes.Navbar}>
@@ -63,6 +67,12 @@ const navbar = (props) => {
       </div>
     </div>
   );
+};
+
+navbar.propTypes = {
+  initials: PropTypes.string.isRequired,
+  profileImage: PropTypes.string,
+  drawerClickHandler: PropTypes.func.isRequired,
 };
 
 export default navbar;

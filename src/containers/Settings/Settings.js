@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { useSpring, animated } from "react-spring";
+import PropTypes from "prop-types";
 
 //Import components
 import Title from "../../components/UI/Title/Title";
@@ -385,6 +386,26 @@ const Settings = ({
       {modal}
     </>
   );
+};
+
+Settings.propTypes = {
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
+  values: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+  touched: PropTypes.bool.isRequired,
+  error: PropTypes.oneOfType([
+    PropTypes.bool.isRequired,
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
+  authLoading: PropTypes.bool.isRequired,
+  authError: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
+  deleteUser: PropTypes.func.isRequired,
+  newImageState: PropTypes.func.isRequired,
+  newImage: PropTypes.object.isRequired,
 };
 
 const formikApp = withFormik({

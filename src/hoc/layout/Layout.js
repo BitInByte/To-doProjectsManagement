@@ -1,5 +1,6 @@
 //Import libraries
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 //Import components
 import Navbar from "../../components/Navbar/Navbar";
@@ -49,6 +50,18 @@ const Layout = (props) => {
       <Footer />
     </>
   );
+};
+
+Layout.propTypes = {
+  children: PropTypes.element.isRequired,
+  initials: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
+  profileImage: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
 };
 
 export default Layout;

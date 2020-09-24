@@ -1,29 +1,33 @@
 //Import libraries
-import { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useEffect } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 //Import components
 
 // Import actions
-import * as actions from '../../../store/actions';
+import * as actions from "../../../store/actions";
 
 //Import scoped class modules
 //import classes from './Logout.module.css';
 
 //Stateless component
 const Logout = ({ logOut }) => {
+  useEffect(() => {
+    logOut();
+  }, [logOut]);
 
-    useEffect(() => {
-        logOut();
-    }, [logOut])
-
-    return null;
+  return null;
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        logOut: () => dispatch(actions.signOut()),
-    }
+Logout.propTypes = {
+  logOut: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logOut: () => dispatch(actions.signOut()),
+  };
 };
 
 export default connect(null, mapDispatchToProps)(Logout);
