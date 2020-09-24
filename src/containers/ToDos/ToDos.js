@@ -89,7 +89,8 @@ const ToDos = ({
   console.log("TODOS");
   console.log(todos);
 
-  if (!isLoaded(todos) || isEmpty(todos)) {
+  // if (!isLoaded(todos) || isEmpty(todos)) {
+  if (!isLoaded(todos)) {
     return <Spinner />;
   } else {
     // Check on uncheck the todo

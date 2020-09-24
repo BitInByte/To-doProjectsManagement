@@ -110,7 +110,8 @@ const Project = ({
   });
 
   // Check if the firebase fetch is complete
-  if (!isLoaded(project) || isEmpty(project)) {
+  // if (!isLoaded(project) || isEmpty(project)) {
+  if (!isLoaded(project)) {
     // return <h2>Loading...</h2>;
     return (
       // <div className={classes.Project__spinner}>

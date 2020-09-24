@@ -31,7 +31,8 @@ const Archive = ({ archive }) => {
   });
 
   // If the data is not fetched yet from the server, then render a spinner
-  if (!isLoaded(archive) || isEmpty(archive)) {
+  // if (!isLoaded(archive) || isEmpty(archive)) {
+  if (!isLoaded(archive)) {
     return <Spinner />;
   } else {
     // Convert the projects object into an array

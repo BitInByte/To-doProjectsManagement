@@ -63,7 +63,8 @@ const Projects = ({ projects, addNewProject }) => {
     // reset: true,
   });
 
-  if (!isLoaded(projects) || isEmpty(projects)) {
+  // if (!isLoaded(projects) || isEmpty(projects)) {
+  if (!isLoaded(projects)) {
     // return <h2>Loading...</h2>;
     return (
       // <div className={classes.Projects__spinner}>
