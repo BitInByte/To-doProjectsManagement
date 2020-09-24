@@ -163,4 +163,14 @@
     text-align: center;
     margin-top: 1.5rem;
   }
+
+  &__modal {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+    &_button {
+      margin-top: 2rem;
+    }
+  }
 }

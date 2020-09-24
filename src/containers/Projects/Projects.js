@@ -34,7 +34,7 @@ const Projects = ({ projects, addNewProject }) => {
 
   const [openModal, setOpenModal] = useState(false);
 
-  // State to create the forn dynamically
+  // State to create the form dynamically
   const [addNewForm, setAddNewForm] = useState({
     title: {
       elementType: "input",
@@ -77,6 +77,7 @@ const Projects = ({ projects, addNewProject }) => {
       console.log("Submitting...");
       console.log(data);
       addNewProject(data.title.value);
+      data.title.value = "";
     };
 
     let modal = null;

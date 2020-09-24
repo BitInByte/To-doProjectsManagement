@@ -163,13 +163,15 @@ const ToDos = ({
       modal = (
         <div className={classes.Modal}>
           <Modal click={() => setOpenModal(false)} modalOpen={openModal}>
-            <h2>Add a new Task</h2>
-            {/* <AddNew submitHandler={submitButtonHandler} /> */}
-            <AddNew
-              submitHandler={submitButtonHandler}
-              data={addNewForm}
-              setData={setAddNewForm}
-            />
+            <div className={classes.Todos__modal}>
+              <h2>Add a new Task</h2>
+              {/* <AddNew submitHandler={submitButtonHandler} /> */}
+              <AddNew
+                submitHandler={submitButtonHandler}
+                data={addNewForm}
+                setData={setAddNewForm}
+              />
+            </div>
           </Modal>
         </div>
       );
@@ -324,17 +326,19 @@ const ToDos = ({
                     <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
                     <ToDo title="ToDo" click={todoCheckHandler} hasChecbox /> */}
           </TodoWrapper>
+          <div className={classes.Todos__controllers_container}>
+            {modal}
+            <div className={classes.Todos__controllers}>
+              <Controllers
+                btn1="Add New"
+                btn1Click={() => setOpenModal(!openModal)}
+                btn2={showDoneTasks ? "Hide Done" : "Show Done"}
+                btn2Click={() => setShowDoneTasks(!showDoneTasks)}
+              />
+            </div>
+          </div>
         </div>
         {/* Controllers */}
-        <div className={classes.Todos__controllers}>
-          <Controllers
-            btn1="Add New"
-            btn1Click={() => setOpenModal(!openModal)}
-            btn2={showDoneTasks ? "Hide Done" : "Show Done"}
-            btn2Click={() => setShowDoneTasks(!showDoneTasks)}
-          />
-          {modal}
-        </div>
       </animated.div>
     );
   }

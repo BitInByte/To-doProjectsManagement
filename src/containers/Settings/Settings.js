@@ -361,11 +361,15 @@ const Settings = ({
         click={() => setOpenDeleteModal(false)}
         modalOpen={openDeleteModal}
       >
-        <h2>Delete Account</h2>
-        <p>Are you sure you want to delete this account?</p>
-        <p>All of your data will be lost and you cannot undo this process!</p>
-        <div className={classes.Modal__button}>
-          <Button name="Confirm" click={deleteUser} />
+        <div className={classes.Settings__modal}>
+          <h2>Delete Account</h2>
+          <p>Are you sure you want to delete this account?</p>
+          <p>All of your data will be lost and you cannot undo this process!</p>
+          <div
+            className={(classes.Modal__button, classes.Settings__modal_button)}
+          >
+            <Button name="Confirm" click={deleteUser} />
+          </div>
         </div>
       </Modal>
     );

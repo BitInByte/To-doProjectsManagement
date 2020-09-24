@@ -117,14 +117,18 @@ const Project = ({
       <Spinner />
       // </div>
     );
+  } else if ((isLoaded(project) || !isEmpty(project)) && project.isClosed) {
+    console.log("Is closed, forwarding now...");
+    // closedRedirect = <Redirect to='/' />;
+    return <Redirect to="/" />;
   } else {
     let closedRedirect = null;
     // Router Guarding
-    if (project.isClosed) {
-      console.log("Is closed, forwarding now...");
-      // closedRedirect = <Redirect to='/' />;
-      return <Redirect to="/" />;
-    }
+    // if (project.isClosed) {
+    //   console.log("Is closed, forwarding now...");
+    //   // closedRedirect = <Redirect to='/' />;
+    //   return <Redirect to="/" />;
+    // }
 
     console.log("IS CLOSED");
     console.log(project.isClosed);
