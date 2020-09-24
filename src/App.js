@@ -97,14 +97,19 @@ const App = ({ auth, signOut, firebase, firestore, profile }) => {
           {/* <Suspense fallback={<p>Loading...</p>}> */}
           <Suspense fallback={<Spinner />}>
             <Switch>
-              <Route path="/todos" render={(...props) => <ToDos />} />
-              <Route path="/projects" render={(...props) => <Projects />} />
-              <Route path="/archive" render={(...props) => <Archive />} />
-              <Route path="/settings" render={(...props) => <Settings />} />
-              <Route
-                path="/project/:projectId"
-                render={(...props) => <Project />}
-              />
+              <Route path="/todos" component={ToDos} />
+              <Route path="/projects" component={Projects} />} />
+              <Route path="/archive" component={Archive} />} />
+              <Route path="/settings" component={Settings} />} />
+              <Route path="/project/:projectId" component={Project} />
+              {/*/><Route path="/todos" render={(...props) => <ToDos />} />*/}
+              {/*<Route path="/projects" render={(...props) => <Projects />} />*/}
+              {/*<Route path="/archive" render={(...props) => <Archive />} />*/}
+              {/*<Route path="/settings" render={(...props) => <Settings />} />*/}
+              {/*<Route*/}
+              {/*  path="/project/:projectId"*/}
+              {/*  render={(...props) => <Project />}*/}
+              {/*/>*/}
               {/* <Route path='/auth' component={Auth} /> */}
               <Route path="/logout" component={Logout} />
               <Route path="/" exact component={Dashboard} />

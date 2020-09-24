@@ -41,17 +41,17 @@ function AuthIsLoaded({ children }) {
 }
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ReactReduxFirebaseProvider {...rrfProps}>
-        <BrowserRouter>
-          <AuthIsLoaded>
-            <App />
-          </AuthIsLoaded>
-        </BrowserRouter>
-      </ReactReduxFirebaseProvider>
-    </Provider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <Provider store={store}>
+    <ReactReduxFirebaseProvider {...rrfProps}>
+      <BrowserRouter>
+        <AuthIsLoaded>
+          <App />
+        </AuthIsLoaded>
+      </BrowserRouter>
+    </ReactReduxFirebaseProvider>
+  </Provider>,
+  // </React.StrictMode>,
   document.getElementById("root")
 );
 
