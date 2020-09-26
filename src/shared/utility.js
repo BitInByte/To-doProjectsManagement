@@ -79,6 +79,14 @@ export const mobileDataManipulation = (data, newData, group, itemID) => {
   });
 };
 
+export const numberReduce = (count) => {
+  if (count > 99) {
+    return "+99";
+  } else {
+    return count.toString();
+  }
+};
+
 // Animations props
 // export const animationProps = useSpring({
 //   from: { opacity: 0 },

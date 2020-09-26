@@ -37,11 +37,14 @@ const Project = ({
   project,
   tasks,
   archiveProject,
+  history,
 }) => {
   console.log("PROJECT BASIS");
   console.log(project);
   console.log(isLoaded(project));
   console.log(isEmpty());
+  console.log(history);
+  console.log(match.params.projectId);
   // console.log(project.data);
   // console.log(projectDone);
   // console.log(projectProgress);
@@ -120,8 +123,10 @@ const Project = ({
     );
   } else if ((isLoaded(project) || !isEmpty(project)) && project.isClosed) {
     console.log("Is closed, forwarding now...");
+    console.log(project.isClosed);
     // closedRedirect = <Redirect to='/' />;
     return <Redirect to="/" />;
+    // return history.push("/");
   } else {
     let closedRedirect = null;
     // Router Guarding
@@ -175,7 +180,7 @@ const Project = ({
       // Apply the style to the element on the board and not to the element
       // dragging
       setTimeout(() => {
-        // Set the darring variable to true
+        // Set the dragging variable to true
         setDragging(true);
       }, 0);
     };
@@ -230,7 +235,7 @@ const Project = ({
     const handleDragEnd = (e) => {
       e.preventDefault();
       console.log("Ending drag");
-      // Reseting the references
+      // Resetting the references
       setDragging(false);
       dragNode.current.removeEventListener("dragend", handleDragEnd);
       dragItem.current = null;
@@ -238,7 +243,7 @@ const Project = ({
     };
 
     const getStyles = (params) => {
-      // Get the current draga item
+      // Get the current drag item
       const currentItem = dragItem.current;
       if (
         currentItem.grpI === params.grpI &&
