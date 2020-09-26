@@ -369,6 +369,28 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
   dispatch({ type: actionTypes.DELETEACCOUNT_SUCCESS });
 };
 
+export const recoverPassword = (email) => async (
+  dispatch,
+  getState,
+  getFirebase
+) => {
+  // Fires the loading stage
+  dispatch({ type: actionTypes.AUTH_START });
+  //  Send an email with the password reset
+  try {
+    await getFirebase()
+      .resetPassword(email)
+      .then(() => {
+        dispatch({ type: actionTypes.RECOVERPASSWORD_SUCCESS });
+      })
+      .catch((err) => {
+        dispatch({ type: actionTypes.RECOVERPASSWORD_ERROR, err });
+      });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const addNewImageReducer = (image) => {
   return { type: actionTypes.ADD_NEW_IMAGE, image };
 };

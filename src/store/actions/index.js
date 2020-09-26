@@ -6,6 +6,7 @@ export {
   changeProfile,
   deleteAccount,
   addNewImageReducer,
+  recoverPassword,
 } from "./auth";
 
 export { addTodo, toggleChecked, editToDo } from "./toDo";

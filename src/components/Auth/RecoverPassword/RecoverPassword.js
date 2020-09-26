@@ -7,58 +7,46 @@ import PropTypes from "prop-types";
 
 //Import components
 import Button from "../../UI/AuthButton/AuthButton";
-import Spinner from "../../UI/Spinner/Spinner";
+// import Spinner from "../../UI/Spinner/Spinner";
+import Spinner from "../../UI/SpinnerContainer/SpinnerContainer";
 
 //Import scoped class modules
-import classes from "./Login.module.scss";
+import classes from "./RecoverPassword.module.scss";
 
 // Import actions
 import * as actions from "../../../store/actions";
 
 //Stateless component
-const login = ({
+const recoverPassword = ({
   clicked,
-  resClicked,
   values,
   errors,
   touched,
   isSubmitting,
   isValid,
   validateOnMount,
-  signIn,
   error,
   loading,
 }) => {
-  // console.log('Submitting');
-  // console.log(isSubmitting);
-  // console.log('Valid');
-  // console.log(!isValid);
-
-  // console.log('Button');
-  // console.log(!isValid || isSubmitting);
-  // console.log(isValid);
-  // console.log(isSubmitting);
-  // console.log(validateOnMount);
-
   console.log("loading");
   console.log(loading);
 
   // Check the validity of the input to scroll down the error
   const checkValidity = (error, touched) => {
-    const errorMessageElement = [classes.Login__paragraph];
+    const errorMessageElement = [classes.RecoverPassword__paragraph];
     // if (error && touched) errorMessageElement.push(classes.Login__paragraph_show);
     if (error && touched)
-      errorMessageElement.push(classes.Login__paragraph_show);
+      errorMessageElement.push(classes.RecoverPassword__paragraph_show);
     return errorMessageElement.join(" ");
   };
 
   // Check the validity of the input to change the border bottom of the element
   const checkInputValidity = (error, touched) => {
-    const inputClasses = [classes.Login__input];
+    const inputClasses = [classes.RecoverPassword__input];
     if (error && touched) {
-      inputClasses.push(classes.Login__input_Invalid);
+      inputClasses.push(classes.RecoverPassword__input_Invalid);
     } else if (!error && touched) {
-      inputClasses.push(classes.Login__input_Valid);
+      inputClasses.push(classes.RecoverPassword__input_Valid);
     }
     return inputClasses.join(" ");
   };
@@ -71,10 +59,10 @@ const login = ({
   // Default content to be rendered
   let content = (
     <>
-      <Form className={classes.Login}>
+      <Form className={classes.RecoverPassword}>
         {errorMessage}
         <div>
-          <label className={classes.Login__label}>Email</label>
+          <label className={classes.RecoverPassword__label}>Email</label>
           <Field
             className={checkInputValidity(errors.email, touched.email)}
             type="email"
@@ -87,48 +75,32 @@ const login = ({
             {errors.email ? errors.email : "&bnsp;"}
           </p>
         </div>
-        <div>
-          <label className={classes.Login__label}>Password</label>
-          <Field
-            className={checkInputValidity(errors.password, touched.password)}
-            type="password"
-            name="password"
-            placeholder="Introduce your password here..."
-          />
-          {/* Check if the password is touched and if the password have an error on the Formik object. Error caught by Yup */}
-          {/* Passing an empty space to the element if dont detect an error to force empty space */}
-          <p className={checkValidity(errors.password, touched.password)}>
-            {errors.password ? errors.password : "&bnsp;"}
-          </p>
-        </div>
 
-        <Button value={"Login"} disabled={!isValid || isSubmitting} submit />
+        <Button value={"Submit"} disabled={!isValid || isSubmitting} submit />
       </Form>
-      <Button value={"Forgot my password"} changed={resClicked} />
-      <Button value={"Register"} changed={clicked} />
+      <Button value={"Login"} changed={clicked} />
     </>
   );
 
   // If loading fires true, then render the loader
   if (loading) {
     content = (
-      <div className={classes.Login__spinner}>
-        <Spinner />
-      </div>
+      // <div className={classes.Login__spinner}>
+      <Spinner />
+      // </div>
     );
   }
 
   return (
     <>
-      <h2>Login</h2>
+      <h2>Recover Password</h2>
       {content}
     </>
   );
 };
 
-login.propTypes = {
+recoverPassword.propTypes = {
   clicked: PropTypes.func.isRequired,
-  resClicked: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   touched: PropTypes.object.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
@@ -142,10 +114,9 @@ login.propTypes = {
 
 const formikApp = withFormik({
   // Values that will be passed to the props for the form. The value will be attributed accordingly to the object name
-  mapPropsToValues: ({ email, password }) => {
+  mapPropsToValues: ({ email }) => {
     return {
       email: email || "",
-      password: password || "",
     };
   },
   isInitialValid: false,
@@ -154,12 +125,6 @@ const formikApp = withFormik({
     email: Yup.string()
       .email("Email not valid! Please introduce a valid email...")
       .required("Email is required to login!"),
-    password: Yup.string()
-      .min(
-        9,
-        "You password is not valid! Password contains 9 characters or more!"
-      )
-      .required("Password is required to login!"),
   }),
   handleSubmit: async (
     values,
@@ -168,14 +133,16 @@ const formikApp = withFormik({
     // console.log('where in');
     // Reset the form
     resetForm();
+    console.log("@@@VALUES");
+    console.log(values);
     // Call the action to perform a firebase login
     try {
-      await props.signIn(values);
+      await props.recoverPassword(values.email);
     } catch (e) {
       setSubmitting(false);
     }
   },
-})(login);
+})(recoverPassword);
 
 const mapStateToProps = (state) => {
   console.log(state);
@@ -188,7 +155,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: (creds) => dispatch(actions.signIn(creds)),
+    recoverPassword: (email) => dispatch(actions.recoverPassword(email)),
   };
 };
 

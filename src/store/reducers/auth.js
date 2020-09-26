@@ -100,6 +100,25 @@ const deleteAccountSuccess = (state, action) => {
   };
 };
 
+const recoverSuccess = (state, action) => {
+  // console.log("signup success");
+  console.log(action);
+  return {
+    ...state,
+    authError: null,
+    loading: false,
+  };
+};
+
+const recoverError = (state, action) => {
+  // console.log("signup error");
+  return {
+    ...state,
+    authError: action.err.message,
+    loading: false,
+  };
+};
+
 const addNewImage = (state, action) => {
   console.log("@@@@@@@@@@@@@@@@@@@@Image action");
   console.log(action);
@@ -131,6 +150,10 @@ const authReducer = (state = initialState, action) => {
       return changeProfileError(state, action);
     case actionTypes.DELETEACCOUNT_SUCCESS:
       return deleteAccountSuccess(state, action);
+    case actionTypes.RECOVERPASSWORD_ERROR:
+      return recoverError(state, action);
+    case actionTypes.RECOVERPASSWORD_SUCCESS:
+      return recoverSuccess(state, action);
     case actionTypes.ADD_NEW_IMAGE:
       return addNewImage(state, action);
     default:
