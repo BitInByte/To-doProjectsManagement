@@ -13,6 +13,7 @@
 
 # production
 /build
+/dist
 # /public
 
 # misc
@@ -29,3 +30,6 @@ yarn-error.log*
 
 # settings
 .vscode
+
+# firebase
+.firebaserc
