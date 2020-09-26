@@ -6,7 +6,7 @@ import classes from "./DashboardCards.module.scss";
 // Import utility functions
 import { numberReduce } from "../../shared/utility";
 
-const dashboardCards = ({ title, count, archivedCount, completed }) => {
+const dashboardCards = ({ title, count, archivedCount, completed, label }) => {
   return (
     <div className={classes.DashboardCards}>
       <div className={classes.DashboardCards__content}>
@@ -16,7 +16,7 @@ const dashboardCards = ({ title, count, archivedCount, completed }) => {
         {title}
         {completed ? (
           <div className={classes.DashboardCards__archivedCounter}>
-            <span>Completed:</span> {numberReduce(archivedCount)}
+            <span>{label}:</span> {numberReduce(archivedCount)}
           </div>
         ) : null}
       </div>
@@ -29,6 +29,7 @@ dashboardCards.propTypes = {
   count: PropTypes.number.isRequired,
   archivedCount: PropTypes.number,
   completed: PropTypes.bool.isRequired,
+  label: PropTypes.string,
 };
 
 export default dashboardCards;

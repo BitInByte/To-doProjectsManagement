@@ -36,9 +36,11 @@ exports.getDashboardCount = functions.https.onRequest((request, response) => {
       snapshot.forEach((doc) => {
         // console.log("DOCx", doc.data());
         // response.send(doc.data());
-        count += 1;
+        // count += 1;
         if (doc.data().isChecked === true) {
           done += 1;
+        } else {
+          count += 1;
         }
       });
       console.log("Count", count);
@@ -63,6 +65,8 @@ exports.getDashboardCount = functions.https.onRequest((request, response) => {
             projects += 1;
             if (doc.data().isClosed === true) {
               projectsDone += 1;
+            } else {
+              // projects += 1;
             }
           });
           console.log("projects", projects);
