@@ -310,15 +310,33 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
   await user
     .delete()
     .then(async () => {
+      console.log("I will start to delete now!");
+
       // Uncomment this
-      await getFirebase()
-        .firestore()
-        .collection("users")
-        .doc(user.uid)
-        .delete()
-        .catch((err) => {
-          console.error(err);
-        });
+      // await getFirebase()
+      //   .firestore()
+      //   .collection("users")
+      //   .doc(user.uid)
+      //   .delete()
+      //   // .then(async () => {
+      //   //   await userDbRef
+      //   //     .collection("todos")
+      //   //     .get()
+      //   //     .then((doc) => {
+      //   //       console.log("@@@@What to delete");
+      //   //       console.log(doc);
+      //   //       doc.forEach((element) => {
+      //   //         console.log(element);
+      //   //         element.ref.delete();
+      //   //       });
+      //   //     })
+      //   //     .catch((err) => {
+      //   //       console.error(err);
+      //   //     });
+      //   // })
+      //   .catch((err) => {
+      //     console.error(err);
+      //   });
 
       await userDbRef
         .collection("todos")
@@ -338,7 +356,7 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
       await userDbRef
         .collection("projects")
         .get()
-        .then(async (doc) => {
+        .then((doc) => {
           console.log("@@@@What to delete");
           console.log(doc);
           doc.forEach((element) => {
@@ -362,15 +380,28 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
           result.items.forEach((file) => {
             file.delete();
           });
+          // dispatch({ type: actionTypes.DELETEACCOUNT_SUCCESS });
         })
         .catch((err) => {
           console.error(err);
         });
 
+      // dispatch({ type: actionTypes.DELETEACCOUNT_SUCCESS });
+    })
+    .then(() => {
       dispatch({ type: actionTypes.DELETEACCOUNT_SUCCESS });
     })
     .catch((err) => {
       dispatch({ type: actionTypes.DELETEACCOUNT_ERROR, err });
+    });
+
+  await getFirebase()
+    .firestore()
+    .collection("users")
+    .doc(user.uid)
+    .delete()
+    .catch((err) => {
+      console.error(err);
     });
 
   // // Uncomment this

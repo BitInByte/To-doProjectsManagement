@@ -356,6 +356,11 @@ const Settings = ({
       </div>
     );
 
+  const deleteUserHandler = () => {
+    setOpenDeleteModal(false);
+    deleteUser();
+  };
+
   let modal = null;
   if (openDeleteModal) {
     modal = (
@@ -370,7 +375,8 @@ const Settings = ({
           <div
             className={(classes.Modal__button, classes.Settings__modal_button)}
           >
-            <Button name="Confirm" click={deleteUser} />
+            {/*<Button name="Confirm" click={deleteUser} />*/}
+            <Button name="Confirm" click={deleteUserHandler} />
           </div>
         </div>
       </Modal>
