@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import Spinner from "../../components/UI/SpinnerContainer/SpinnerContainer";
 import Title from "../../components/UI/Title/Title";
 import Cards from "../../components/DashboardCards/DashboardCards";
+import Clock from "../../components/Clock/Clock";
 
 //Import scoped class modules
 import classes from "./Dashboard.module.scss";
@@ -60,6 +61,7 @@ const Dashboard = ({ profile, auth }) => {
         <h3>
           Hello {profile.firstName} {profile.lastName},
         </h3>
+        <Clock />
         <p>
           Today is {today.toDateString()}, and this is your Projects status:
         </p>
