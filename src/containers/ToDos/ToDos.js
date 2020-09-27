@@ -36,13 +36,13 @@ const ToDos = ({
   // console.log(props);
   // console.log(props.auth.uid);
 
-  // State to controll the modal
+  // State to control the modal
   const [openModal, setOpenModal] = useState(false);
   const [showDoneTasks, setShowDoneTasks] = useState(false);
   const [editTask, setEditTask] = useState(null);
   const [editTaskMode, setEditTaskMode] = useState(false);
 
-  // State to create the forn dynamically
+  // State to create the form dynamically
   const [addNewForm, setAddNewForm] = useState({
     title: {
       elementType: "input",
@@ -213,22 +213,27 @@ const ToDos = ({
         <div className={classes.ToDos__modal}>
           {/* <Modal click={() => setEditTask(null)}> */}
           <Modal click={closeEditModal} modalOpen={editTask}>
-            {/* <h2>Add a new Task</h2> */}
-            {editTaskMode ? <h2>Edit your task</h2> : null}
-            {editTaskMode ? (
-              <EditTask data={editTask} submitHandler={submitEditTaskHandler} />
-            ) : (
-              <TaskViewer
-                id={editTask.id}
-                title={editTask.title}
-                desc={editTask.desc}
-                date={editTask.date}
-              />
-            )}
-            <div className={classes.ToDos__modal__button}>
-              {editTaskMode ? null : (
-                <Button name="Edit" click={() => setEditTaskMode(true)} />
+            <div className={classes.Todos__modal}>
+              {/* <h2>Add a new Task</h2> */}
+              {editTaskMode ? <h2>Edit your task</h2> : null}
+              {editTaskMode ? (
+                <EditTask
+                  data={editTask}
+                  submitHandler={submitEditTaskHandler}
+                />
+              ) : (
+                <TaskViewer
+                  id={editTask.id}
+                  title={editTask.title}
+                  desc={editTask.desc}
+                  date={editTask.date}
+                />
               )}
+              <div className={classes.ToDos__modal__button}>
+                {editTaskMode ? null : (
+                  <Button name="Edit" click={() => setEditTaskMode(true)} />
+                )}
+              </div>
             </div>
           </Modal>
         </div>

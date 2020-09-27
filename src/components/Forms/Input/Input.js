@@ -22,6 +22,7 @@ const input = (props) => {
     inputClasses.push(classes.Invalid);
     textAreaElement.push(classes.Invalid);
   }
+
   if (!props.invalid && props.shouldValidate && props.touched) {
     inputClasses.push(classes.Valid);
     textAreaElement.push(classes.Valid);
