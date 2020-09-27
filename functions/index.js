@@ -78,6 +78,9 @@ exports.getDashboardCount = functions.https.onRequest((request, response) => {
             // response.send(uid);
             console.log("Object", responseObj);
             response.send(responseObj);
+          })
+          .catch((e) => {
+            throw new Error(e);
           });
         // response.send(responseObj);
 
@@ -94,6 +97,9 @@ exports.getDashboardCount = functions.https.onRequest((request, response) => {
         // if (doc.exists) {
         //   console.log("DOC2", doc.data());
         // }
+      })
+      .catch((e) => {
+        throw new Error(e);
       });
   });
 });
