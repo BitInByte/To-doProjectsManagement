@@ -100,6 +100,14 @@ const deleteAccountSuccess = (state, action) => {
   };
 };
 
+const deleteAccountError = (state, action) => {
+  return {
+    ...state,
+    loading: false,
+    authError: action.err.message,
+  };
+};
+
 const recoverSuccess = (state, action) => {
   // console.log("signup success");
   console.log(action);
@@ -150,6 +158,8 @@ const authReducer = (state = initialState, action) => {
       return changeProfileError(state, action);
     case actionTypes.DELETEACCOUNT_SUCCESS:
       return deleteAccountSuccess(state, action);
+    case actionTypes.DELETEACCOUNT_ERROR:
+      return deleteAccountError(state, action);
     case actionTypes.RECOVERPASSWORD_ERROR:
       return recoverError(state, action);
     case actionTypes.RECOVERPASSWORD_SUCCESS:

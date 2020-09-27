@@ -307,79 +307,146 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
   dispatch({ type: actionTypes.AUTH_START });
 
   // Uncomment this
-  await getFirebase()
-    .firestore()
-    .collection("users")
-    .doc(user.uid)
+  await user
     .delete()
-    .catch((err) => {
-      console.error(err);
-    });
+    .then(async () => {
+      // Uncomment this
+      await getFirebase()
+        .firestore()
+        .collection("users")
+        .doc(user.uid)
+        .delete()
+        .catch((err) => {
+          console.error(err);
+        });
 
-  // await getFirebase()
-  //   .firestore()
-  //   .collection("userData")
-  //   .doc(user.uid)
-  await userDbRef
-    .collection("todos")
-    .get()
-    .then((doc) => {
-      console.log("@@@@What to delete");
-      console.log(doc);
-      doc.forEach((element) => {
-        console.log(element);
-        element.ref.delete();
-      });
+      await userDbRef
+        .collection("todos")
+        .get()
+        .then((doc) => {
+          console.log("@@@@What to delete");
+          console.log(doc);
+          doc.forEach((element) => {
+            console.log(element);
+            element.ref.delete();
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+
+      await userDbRef
+        .collection("projects")
+        .get()
+        .then(async (doc) => {
+          console.log("@@@@What to delete");
+          console.log(doc);
+          doc.forEach((element) => {
+            console.log(element);
+            element.ref.delete();
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+
+      console.log("@@@@@@@STORAGE REFERENCES");
+      const storageRef = await getFirebase().storage().ref();
+      const filesRef = await storageRef.child(`profileImage/${user.uid}`);
+
+      console.log(storageRef, filesRef);
+
+      await filesRef
+        .listAll()
+        .then((result) => {
+          result.items.forEach((file) => {
+            file.delete();
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+
+      dispatch({ type: actionTypes.DELETEACCOUNT_SUCCESS });
     })
     .catch((err) => {
-      console.error(err);
+      dispatch({ type: actionTypes.DELETEACCOUNT_ERROR, err });
     });
 
+  // // Uncomment this
   // await getFirebase()
   //   .firestore()
-  //   .collection("userData")
+  //   .collection("users")
   //   .doc(user.uid)
-  await userDbRef
-    .collection("projects")
-    .get()
-    .then((doc) => {
-      console.log("@@@@What to delete");
-      console.log(doc);
-      doc.forEach((element) => {
-        console.log(element);
-        element.ref.delete();
-      });
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-
-  // await getFirebase()
-  //   .storage()
-  //   .ref(`profileImage/${user.uid}`)
-  //   .listAll()
-  //   .then((dir) => {
-  //     dir.items.forEach((fileRef) => {
-  //       this.deleteFile(ref.fullPath, fileRef.name);
-  //     });
+  //   .delete()
+  //   .catch((err) => {
+  //     console.error(err);
   //   });
-
-  console.log("@@@@@@@STORAGE REFERENCES");
-  const storageRef = await getFirebase().storage().ref();
-  const filesRef = await storageRef.child(`profileImage/${user.uid}`);
-
-  console.log(storageRef, filesRef);
-
-  await filesRef
-    .listAll()
-    .then((result) => {
-      result.items.forEach((file) => {
-        file.delete();
-      });
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  //
+  // // await getFirebase()
+  // //   .firestore()
+  // //   .collection("userData")
+  // //   .doc(user.uid)
+  // await userDbRef
+  //   .collection("todos")
+  //   .get()
+  //   .then((doc) => {
+  //     console.log("@@@@What to delete");
+  //     console.log(doc);
+  //     doc.forEach((element) => {
+  //       console.log(element);
+  //       element.ref.delete();
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     console.error(err);
+  //   });
+  //
+  // // await getFirebase()
+  // //   .firestore()
+  // //   .collection("userData")
+  // //   .doc(user.uid)
+  // await userDbRef
+  //   .collection("projects")
+  //   .get()
+  //   .then((doc) => {
+  //     console.log("@@@@What to delete");
+  //     console.log(doc);
+  //     doc.forEach((element) => {
+  //       console.log(element);
+  //       element.ref.delete();
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     console.error(err);
+  //   });
+  //
+  // // await getFirebase()
+  // //   .storage()
+  // //   .ref(`profileImage/${user.uid}`)
+  // //   .listAll()
+  // //   .then((dir) => {
+  // //     dir.items.forEach((fileRef) => {
+  // //       this.deleteFile(ref.fullPath, fileRef.name);
+  // //     });
+  // //   });
+  //
+  // console.log("@@@@@@@STORAGE REFERENCES");
+  // const storageRef = await getFirebase().storage().ref();
+  // const filesRef = await storageRef.child(`profileImage/${user.uid}`);
+  //
+  // console.log(storageRef, filesRef);
+  //
+  // await filesRef
+  //   .listAll()
+  //   .then((result) => {
+  //     result.items.forEach((file) => {
+  //       file.delete();
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     console.error(err);
+  //   });
 
   // await getFirebase().deleteFile(`profileImage/${user.uid}`);
 
@@ -425,11 +492,11 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
   //     console.log(err);
   //   });
 
-  // Uncomment this
-  await user.delete().then().catch();
+  // // Uncomment this
+  // await user.delete().then().catch();
 
   // close loading
-  dispatch({ type: actionTypes.DELETEACCOUNT_SUCCESS });
+  // dispatch({ type: actionTypes.DELETEACCOUNT_SUCCESS });
 };
 
 export const recoverPassword = (email) => async (
