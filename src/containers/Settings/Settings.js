@@ -470,19 +470,23 @@ const formikApp = withFormik({
     // Build the data to be fetched on the server
     const { profile, auth, newImage } = props;
     let data = {};
-    if (values.firstName !== profile.firstName) {
+    if (
+      values.firstName !== profile.firstName ||
+      values.lastName !== profile.lastName
+    ) {
       data = {
         ...data,
         firstName: values.firstName,
-      };
-    }
-
-    if (values.lastName !== profile.lastName) {
-      data = {
-        ...data,
         lastName: values.lastName,
       };
     }
+
+    // if (values.lastName !== profile.lastName) {
+    //   data = {
+    //     ...data,
+    //     lastName: values.lastName,
+    //   };
+    // }
 
     if (values.email !== auth.email) {
       data = {
@@ -510,6 +514,8 @@ const formikApp = withFormik({
 
     // Set submitting to true when we are making an async action to disable the button
     setSubmitting(true);
+    // Reset the form
+    resetForm();
     // Sign up
     await props.changeProfile(data);
     // await props.changeProfile({
@@ -518,8 +524,6 @@ const formikApp = withFormik({
     //   email: values.email,
     //   values.password ? password: values.password : null,
     // });
-    // Reset the form
-    resetForm();
   },
 })(Settings);
 

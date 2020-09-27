@@ -107,8 +107,7 @@ export const changeProfile = (data) => async (
 
   if (data.firstName) {
     console.log("I HAVE FIRST NAME");
-    console.log(data);
-    console.log(data.firstName[0] + data.lastName[0]);
+    console.log(data.firstName);
     try {
       // await getFirebase()
       //   .firestore()
@@ -119,9 +118,7 @@ export const changeProfile = (data) => async (
           firstName: data.firstName,
           initials: data.firstName[0] + data.lastName[0],
         })
-        .then(() => {
-          dispatch({ type: actionTypes.CHANGEPROFILE_SUCCESS });
-        })
+        .then(() => {})
         .catch((err) => {
           dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
         });
@@ -143,9 +140,7 @@ export const changeProfile = (data) => async (
           lastName: data.lastName,
           initials: data.firstName[0] + data.lastName[0],
         })
-        .then(() => {
-          dispatch({ type: actionTypes.CHANGEPROFILE_SUCCESS });
-        })
+        .then(() => {})
         .catch((err) => {
           dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
         });
@@ -163,9 +158,7 @@ export const changeProfile = (data) => async (
     try {
       await user
         .updateEmail(data.email)
-        .then(() => {
-          dispatch({ type: actionTypes.CHANGEPROFILE_SUCCESS });
-        })
+        .then(() => {})
         .catch((err) => {
           dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
         });
@@ -180,9 +173,7 @@ export const changeProfile = (data) => async (
     try {
       await user
         .updatePassword(data.password)
-        .then(() => {
-          dispatch({ type: actionTypes.CHANGEPROFILE_SUCCESS });
-        })
+        .then(() => {})
         .catch((err) => {
           dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
         });
@@ -208,7 +199,6 @@ export const changeProfile = (data) => async (
             result.items.forEach((file) => {
               file.delete();
             });
-            dispatch({ type: actionTypes.CHANGEPROFILE_SUCCESS });
           })
           .catch((err) => {
             dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
