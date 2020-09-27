@@ -17,6 +17,9 @@ const Layout = (props) => {
 
   const { children, initials, profileImage } = props;
 
+  console.log("@@@@@PROFILE IMAGE");
+  console.log(profileImage);
+
   // Toggle at click the SideDrawer variable to true or false
   const drawerToggleClickHandler = () => {
     setSideDrawerOpen(!sideDrawerOpen);
@@ -59,7 +62,7 @@ Layout.propTypes = {
     PropTypes.oneOf([undefined]).isRequired,
   ]),
   profileImage: PropTypes.oneOfType([
-    PropTypes.object.isRequired,
+    PropTypes.string.isRequired,
     PropTypes.oneOf([undefined]).isRequired,
   ]),
 };
