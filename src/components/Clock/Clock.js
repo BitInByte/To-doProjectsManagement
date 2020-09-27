@@ -29,7 +29,9 @@ const Clock = () => {
   return (
     <div>
       <p className={classes.Clock}>
-        {clock.getHours()}:{clock.getMinutes()}:{clock.getSeconds()}
+        {clock.getHours().toString().padStart(2, "0")}:
+        {clock.getMinutes().toString().padStart(2, "0")}:
+        {clock.getSeconds().toString().padStart(2, "0")}
       </p>
     </div>
   );
