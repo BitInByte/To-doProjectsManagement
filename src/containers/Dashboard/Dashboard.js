@@ -33,7 +33,8 @@ const Dashboard = ({ profile, auth }) => {
 
   const loadData = async () => {
     await fetch(
-      `https://cors-anywhere.herokuapp.com/https://us-central1-todo-6eb5f.cloudfunctions.net/getDashboardCount?uid=${auth.uid}`
+      // `https://cors-anywhere.herokuapp.com/https://us-central1-todo-6eb5f.cloudfunctions.net/getDashboardCount?uid=${auth.uid}`
+      `https://us-central1-todo-6eb5f.cloudfunctions.net/getDashboardCount?uid=${auth.uid}`
     ).then((resp) => {
       resp.json().then((data) => {
         console.log(data);
