@@ -1,5 +1,4 @@
 import * as actionTypes from "./actionTypes";
-import { firestoreConnect } from "react-redux-firebase";
 
 export const signIn = (credentials) => async (
   dispatch,
@@ -19,7 +18,7 @@ export const signIn = (credentials) => async (
         dispatch({ type: actionTypes.LOGIN_ERROR, err });
       });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -56,20 +55,27 @@ export const signUp = (newUser) => async (dispatch, getState, getFirebase) => {
         dispatch({ type: actionTypes.SIGNUP_ERROR, err });
       });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
 export const signOut = () => async (dispatch, getState, getFirebase) => {
   dispatch({ type: actionTypes.AUTH_START });
 
-  await getFirebase()
-    .auth()
-    .signOut()
-    .then(() => {
-      // console.log('signout');
-      dispatch({ type: actionTypes.SIGNOUT_SUCCESS });
-    });
+  try {
+    await getFirebase()
+      .auth()
+      .signOut()
+      .then(() => {
+        // console.log('signout');
+        dispatch({ type: actionTypes.SIGNOUT_SUCCESS });
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const resendEmail = () => (dispatch, getState, getFirebase) => {
@@ -78,7 +84,9 @@ export const resendEmail = () => (dispatch, getState, getFirebase) => {
   // Get the current user
   const user = getFirebase().auth().currentUser;
   // Send an email to confirm the user
-  user.sendEmailVerification();
+  user.sendEmailVerification().catch((err) => {
+    throw new Error(err);
+  });
   // Send a dispatch to finish the loading
   dispatch({ type: actionTypes.RESENDEMAIL_SUCCESS });
 };
@@ -99,35 +107,43 @@ export const changeProfile = (data) => async (
   if (data.firstName) {
     console.log("I HAVE FIRST NAME");
     console.log(data.firstName);
-    await getFirebase()
-      .firestore()
-      .collection("users")
-      .doc(user.uid)
-      .update({
-        firstName: data.firstName,
-        initials: data.firstName[0] + data.lastName[0],
-      })
-      .then(() => {})
-      .catch((err) => {
-        dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
-      });
+    try {
+      await getFirebase()
+        .firestore()
+        .collection("users")
+        .doc(user.uid)
+        .update({
+          firstName: data.firstName,
+          initials: data.firstName[0] + data.lastName[0],
+        })
+        .then(() => {})
+        .catch((err) => {
+          dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
+        });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   if (data.lastName) {
     console.log("I HAVE LAST NAME");
     console.log(data.lastName);
-    await getFirebase()
-      .firestore()
-      .collection("users")
-      .doc(user.uid)
-      .update({
-        lastName: data.lastName,
-        initials: data.firstName[0] + data.lastName[0],
-      })
-      .then(() => {})
-      .catch((err) => {
-        dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
-      });
+    try {
+      await getFirebase()
+        .firestore()
+        .collection("users")
+        .doc(user.uid)
+        .update({
+          lastName: data.lastName,
+          initials: data.firstName[0] + data.lastName[0],
+        })
+        .then(() => {})
+        .catch((err) => {
+          dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
+        });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   //   To change the password or/and the email we need to re authenticate the user again
@@ -136,23 +152,31 @@ export const changeProfile = (data) => async (
   if (data.email) {
     console.log("I HAVE EMAIL");
     console.log(data.email);
-    await user
-      .updateEmail(data.email)
-      .then(() => {})
-      .catch((err) => {
-        dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
-      });
+    try {
+      await user
+        .updateEmail(data.email)
+        .then(() => {})
+        .catch((err) => {
+          dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
+        });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   if (data.password) {
     console.log("I HAVE PASSWORD");
     console.log(data.password);
-    await user
-      .updatePassword(data.password)
-      .then(() => {})
-      .catch((err) => {
-        dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
-      });
+    try {
+      await user
+        .updatePassword(data.password)
+        .then(() => {})
+        .catch((err) => {
+          dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
+        });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   if (data.image) {
@@ -165,50 +189,63 @@ export const changeProfile = (data) => async (
 
       console.log(storageRef, filesRef);
 
-      await filesRef.listAll().then((result) => {
-        result.items.forEach((file) => {
-          file.delete();
-        });
-      });
+      try {
+        await filesRef
+          .listAll()
+          .then((result) => {
+            result.items.forEach((file) => {
+              file.delete();
+            });
+          })
+          .catch((err) => {
+            dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
+          });
+      } catch (err) {
+        console.error(err);
+      }
 
       console.log("I HAVE LAST NAME");
       console.log(data.lastName);
 
       // await getFirebase().storage().ref("Profile").put(data.image);
 
-      // Upload new image
-      const uploadedFile = await getFirebase()
-        .uploadFile(
-          `profileImage/${user.uid}`,
-          data.image
-          // ,`profileImage/${user.uid}`,
-          // { name: `profileImg.${data.image.name.split(".").pop()}` }
-        )
-        .then((url) => {
-          const imageUrl = url.uploadTaskSnapshot.ref.getDownloadURL();
-          // console.log(url.uploadTaskSnapshot.ref.getDownloadURL());
-          imageUrl.then((url) => {
-            console.log("@@@@@@@@@@@Image Url");
-            console.log(url);
-            return getFirebase()
-              .firestore()
-              .collection("users")
-              .doc(user.uid)
-              .update({
-                profileImg: url,
-              })
-              .catch((err) => {
-                dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
-              });
+      try {
+        // Upload new image
+        const uploadedFile = await getFirebase()
+          .uploadFile(
+            `profileImage/${user.uid}`,
+            data.image
+            // ,`profileImage/${user.uid}`,
+            // { name: `profileImg.${data.image.name.split(".").pop()}` }
+          )
+          .then((url) => {
+            const imageUrl = url.uploadTaskSnapshot.ref.getDownloadURL();
+            // console.log(url.uploadTaskSnapshot.ref.getDownloadURL());
+            imageUrl.then((url) => {
+              console.log("@@@@@@@@@@@Image Url");
+              console.log(url);
+              return getFirebase()
+                .firestore()
+                .collection("users")
+                .doc(user.uid)
+                .update({
+                  profileImg: url,
+                })
+                .catch((err) => {
+                  dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
+                });
+            });
+          })
+          .catch((err) => {
+            dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
           });
-        })
-        .catch((err) => {
-          dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
-        });
+        console.log("@@@@@@@@@@@Image Url");
+        // console.log(uploadedFile.uploadTaskSnapshot.ref.getDownloadURL());
+        console.log(uploadedFile);
+      } catch (err) {
+        console.error(err);
+      }
 
-      console.log("@@@@@@@@@@@Image Url");
-      // console.log(uploadedFile.uploadTaskSnapshot.ref.getDownloadURL());
-      console.log(uploadedFile);
       // .child(`users/${user.uid}/${data.image.name}`)
       // .put(data.image);
       // await getFirebase()
@@ -257,7 +294,7 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
     .doc(user.uid)
     .delete()
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 
   await getFirebase()
@@ -275,7 +312,7 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 
   await getFirebase()
@@ -293,7 +330,7 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 
   // await getFirebase()
@@ -312,11 +349,16 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
 
   console.log(storageRef, filesRef);
 
-  await filesRef.listAll().then((result) => {
-    result.items.forEach((file) => {
-      file.delete();
+  await filesRef
+    .listAll()
+    .then((result) => {
+      result.items.forEach((file) => {
+        file.delete();
+      });
+    })
+    .catch((err) => {
+      console.error(err);
     });
-  });
 
   // await getFirebase().deleteFile(`profileImage/${user.uid}`);
 
@@ -387,7 +429,7 @@ export const recoverPassword = (email) => async (
         dispatch({ type: actionTypes.RECOVERPASSWORD_ERROR, err });
       });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
