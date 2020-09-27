@@ -14,6 +14,9 @@ import classes from "./Dashboard.module.scss";
 
 //Stateless component
 const Dashboard = ({ profile, auth }) => {
+  console.log("HOURS");
+  console.log(new Date().getHours());
+
   const [dashboard, setDashboard] = useState(null);
 
   console.log("UID");
