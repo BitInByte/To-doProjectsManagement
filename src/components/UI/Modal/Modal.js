@@ -69,7 +69,15 @@ const Modal = ({ children, click, modalOpen }) => {
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
   click: PropTypes.func.isRequired,
-  modalOpen: PropTypes.bool.isRequired,
+  modalOpen: PropTypes.oneOfType([
+    PropTypes.shape({
+      date: PropTypes.string.isRequired,
+      desc: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    }),
+    PropTypes.bool.isRequired,
+  ]),
 };
 
 export default Modal;

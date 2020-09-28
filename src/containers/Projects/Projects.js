@@ -75,6 +75,13 @@ const Projects = ({ projects, addNewProject }) => {
     const submitButtonHandler = (e, data) => {
       e.preventDefault();
       setOpenModal(false);
+      setAddNewForm({
+        ...addNewForm,
+        title: {
+          ...addNewForm.title,
+          touched: false,
+        },
+      });
       console.log("Submitting...");
       console.log(data);
       addNewProject(data.title.value);

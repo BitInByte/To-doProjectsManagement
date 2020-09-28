@@ -21,7 +21,7 @@ const taskViewer = ({ title, desc, date }) => (
 taskViewer.propTypes = {
   title: PropTypes.string.isRequired,
   desc: PropTypes.string.isRequired,
-  date: PropTypes.instanceOf(Date),
+  date: PropTypes.string,
 };
 
 export default taskViewer;

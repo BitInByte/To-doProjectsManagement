@@ -11,12 +11,13 @@ import classes from "./Input.module.scss";
 const input = (props) => {
   console.log("@@@@element config");
   console.log(props.elementConfig);
+  console.log(props);
 
   let inputElement = null;
   // let textAreaElement = null;
 
-  const inputClasses = [classes.InputElement];
-  const textAreaElement = [classes.Textarea];
+  let inputClasses = [classes.InputElement];
+  let textAreaElement = [classes.Textarea];
 
   if (props.invalid && props.shouldValidate && props.touched) {
     inputClasses.push(classes.Invalid);
@@ -89,12 +90,12 @@ const input = (props) => {
 };
 
 input.propTypes = {
-  shouldValidate: PropTypes.object.isRequired,
-  touched: PropTypes.bool.isRequired,
-  invalid: PropTypes.bool.isRequired,
+  shouldValidate: PropTypes.object,
+  touched: PropTypes.bool,
+  invalid: PropTypes.bool,
   elementType: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  errorMessage: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string,
   changed: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   elementConfig: PropTypes.oneOfType([

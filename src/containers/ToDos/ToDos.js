@@ -143,10 +143,12 @@ const ToDos = ({
         title: {
           ...addNewForm.title,
           value: "",
+          touched: false,
         },
         description: {
           ...addNewForm.description,
           value: "",
+          touched: false,
         },
       });
       console.log("ADD NEW SUBMIT");

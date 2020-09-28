@@ -299,10 +299,12 @@ const Project = ({
         title: {
           ...addNewForm.title,
           value: "",
+          touched: false,
         },
         description: {
           ...addNewForm.description,
           value: "",
+          touched: false,
         },
       });
     };
