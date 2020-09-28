@@ -1,35 +1,35 @@
-import * as actionTypes from '../actions/actionTypes';
-
-const initialState = {
-    error: null,
-    loading: false,
-};
-
-const toDoStart = (state, action) => {
-    console.log('authStarted');
-    console.log(action);
-    return {
-        ...state,
-        error: null,
-        loading: true,
-    };
-};
-
-const toDoSuccess = (state, action) => {
-    return {
-        ...state,
-        error: null,
-        loading: false,
-    };
-};
-
-const toDoError = (state, action) => {
-    return {
-        ...state,
-        error: action.err,
-        loading: false,
-    };
-};
+// import * as actionTypes from '../actions/actionTypes';
+//
+// const initialState = {
+//     error: null,
+//     loading: false,
+// };
+//
+// const toDoStart = (state, action) => {
+//     console.log('authStarted');
+//     console.log(action);
+//     return {
+//         ...state,
+//         error: null,
+//         loading: true,
+//     };
+// };
+//
+// const toDoSuccess = (state, action) => {
+//     return {
+//         ...state,
+//         error: null,
+//         loading: false,
+//     };
+// };
+//
+// const toDoError = (state, action) => {
+//     return {
+//         ...state,
+//         error: action.err,
+//         loading: false,
+//     };
+// };
 
 // const loginSucess = (state, action) => {
 //     console.log('login success');
@@ -86,17 +86,17 @@ const toDoError = (state, action) => {
 //         loading: false,
 //     }
 // };
-
-const authReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case actionTypes.TODO_START: return toDoStart(state, action);
-        case actionTypes.NEWTODO_SUCCESS: return toDoSuccess(state, action);
-        case actionTypes.NEWTODO_ERROR: return toDoError(state, action);
-
-        default:
-            return state;
-
-    }
-};
-
-export default authReducer;
+//
+// const authReducer = (state = initialState, action) => {
+//     switch (action.type) {
+//         case actionTypes.TODO_START: return toDoStart(state, action);
+//         case actionTypes.NEWTODO_SUCCESS: return toDoSuccess(state, action);
+//         case actionTypes.NEWTODO_ERROR: return toDoError(state, action);
+//
+//         default:
+//             return state;
+//
+//     }
+// };
+//
+// export default authReducer;

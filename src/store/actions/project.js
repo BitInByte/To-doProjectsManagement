@@ -36,7 +36,7 @@ export const addTask = (data, projectId) => async (
       // dispatch({ type: actionTypes.NEWPROJECT_SUCCESS });
     })
     .catch((err) => {
-      dispatch({ type: actionTypes.NEWPROJECT_ERROR });
+      dispatch({ type: actionTypes.NEWPROJECT_ERROR, err });
     });
 };
 
@@ -73,6 +73,6 @@ export const archiveProject = (projectId) => async (
       // dispatch({ type: actionTypes.ARCHIVE_SUCCESS });
     })
     .catch((err) => {
-      // dispatch({ type: actionTypes.NEWPROJECT_ERROR });
+      dispatch({ type: actionTypes.NEWPROJECT_ERROR, err });
     });
 };
