@@ -9,10 +9,6 @@ import classes from "./FileInput.module.scss";
 
 //Stateless component
 const FileInput = ({ file, fileHandler }) => {
-  if (file) {
-    const extension = file.name.split(".").pop();
-  }
-
   // Stores a reference for the hidden button
   const [fileInputRef, setFileInputRef] = useState(null);
 

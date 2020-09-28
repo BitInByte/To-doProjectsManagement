@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { firestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
+import { firestoreConnect, isLoaded } from "react-redux-firebase";
 import moment from "moment";
 import { useSpring, animated } from "react-spring";
 import PropTypes from "prop-types";

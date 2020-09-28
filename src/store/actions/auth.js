@@ -196,7 +196,7 @@ export const changeProfile = (data) => async (
 
       try {
         // Upload new image
-        const uploadedFile = await getFirebase()
+        await getFirebase()
           .uploadFile(`profileImage/${user.uid}`, data.image)
           .then((url) => {
             const imageUrl = url.uploadTaskSnapshot.ref.getDownloadURL();
