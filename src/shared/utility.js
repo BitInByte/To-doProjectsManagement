@@ -74,3 +74,7 @@ export const numberReduce = (count) => {
     return count.toString();
   }
 };
+
+export const shouldUpdate = (prevProps, nextProps) => {
+  return prevProps === nextProps;
+};

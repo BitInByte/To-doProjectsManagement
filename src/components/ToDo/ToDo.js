@@ -9,77 +9,92 @@ import Checkbox from "../UI/Checkbox/Checkbox.js";
 //Import scoped class modules
 import classes from "./ToDo.module.scss";
 
+// Import utilities
+import { shouldUpdate } from "../../shared/utility";
+
 //Stateless component
-const ToDo = ({
-  click,
-  isChecked,
-  hasCheckbox,
-  isDraggable,
-  dragStart,
-  hasDragClass,
-  dragEnter,
-  title,
-  date,
-  clicked,
-  hasCursor,
-  desc,
-}) => {
-  const todoClass = [classes.ToDo];
-  if (hasDragClass) todoClass.push(classes.ToDo__current);
-  if (hasCursor) todoClass.push(classes.ToDo__Cursor);
+const ToDo = React.memo(
+  ({
+    click,
+    isChecked,
+    hasCheckbox,
+    isDraggable,
+    dragStart,
+    hasDragClass,
+    dragEnter,
+    title,
+    date,
+    clicked,
+    hasCursor,
+    desc,
+  }) => {
+    console.log("Rendering");
 
-  // Animation props
-  const props = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-    config: {
-      duration: 600,
-    },
-  });
+    const todoClass = [classes.ToDo];
+    if (hasDragClass) todoClass.push(classes.ToDo__current);
+    if (hasCursor) todoClass.push(classes.ToDo__Cursor);
 
-  return (
-    <animated.div
-      style={props}
-      className={
-        hasDragClass
-          ? [classes.ToDo, classes.ToDo__current].join(" ")
-          : classes.ToDo
-      }
-      draggable={isDraggable}
-      onDragStart={dragStart}
-      onDragEnter={dragEnter}
-      onClick={clicked}
-    >
-      <div className={classes.ToDo__content}>
-        <h3
-          className={
-            isChecked
-              ? [classes.ToDo__title, classes.ToDo__checked].join(" ")
-              : classes.ToDo__title
-          }
-        >
-          {title}
-        </h3>
-        <p
-          className={
-            isChecked
-              ? [classes.ToDo__timestamp, classes.ToDo__checked].join(" ")
-              : classes.ToDo__timestamp
-          }
-        >
-          {date}
-        </p>
-        <p className={isChecked ? classes.ToDo__checked : null}>{desc}</p>
-      </div>
+    // Animation props
+    const props = useSpring({
+      from: { opacity: 0 },
+      to: { opacity: 1 },
+      config: {
+        duration: 600,
+      },
+    });
 
-      {hasCheckbox ? (
-        <div className={classes.ToDo__controller}>
-          <Checkbox click={click} isChecked={isChecked} />
+    return (
+      <animated.div
+        style={props}
+        className={
+          hasDragClass
+            ? [classes.ToDo, classes.ToDo__current].join(" ")
+            : classes.ToDo
+        }
+        draggable={isDraggable}
+        onDragStart={dragStart}
+        onDragEnter={dragEnter}
+        onClick={clicked}
+      >
+        <div className={classes.ToDo__content}>
+          <h3
+            className={
+              isChecked
+                ? [classes.ToDo__title, classes.ToDo__checked].join(" ")
+                : classes.ToDo__title
+            }
+          >
+            {title}
+          </h3>
+          <p
+            className={
+              isChecked
+                ? [classes.ToDo__timestamp, classes.ToDo__checked].join(" ")
+                : classes.ToDo__timestamp
+            }
+          >
+            {date}
+          </p>
+          <p className={isChecked ? classes.ToDo__checked : null}>{desc}</p>
         </div>
-      ) : null}
-    </animated.div>
-  );
-};
+
+        {hasCheckbox ? (
+          <div className={classes.ToDo__controller}>
+            <Checkbox click={click} isChecked={isChecked} />
+          </div>
+        ) : null}
+      </animated.div>
+    );
+  },
+  (prevProps, nextProps) => {
+    return (
+      prevProps.title === nextProps.title &&
+      prevProps.desc === nextProps.desc &&
+      prevProps.isChecked === nextProps.isChecked &&
+      !prevProps.isDraggable
+    );
+  }
+);
 
 ToDo.propTypes = {
   click: PropTypes.func,
@@ -106,5 +121,7 @@ ToDo.defaultProps = {
   clicked: undefined,
   hasCursor: false,
 };
+
+const verifyEqual = () => {};
 
 export default ToDo;

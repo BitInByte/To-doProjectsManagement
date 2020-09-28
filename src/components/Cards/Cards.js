@@ -9,22 +9,30 @@ import PropTypes from "prop-types";
 import classes from "./Cards.module.scss";
 
 //Stateless component
-const Cards = ({ text, date }) => {
-  // Animation props
-  const props = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-    config: {
-      duration: 600,
-    },
-  });
-  return (
-    <animated.div style={props} className={classes.Cards}>
-      <p>{text}</p>
-      <span>{date}</span>
-    </animated.div>
-  );
-};
+const Cards = React.memo(
+  ({ text, date }) => {
+    console.log("Rendering");
+    // Animation props
+    const props = useSpring({
+      from: { opacity: 0 },
+      to: { opacity: 1 },
+      config: {
+        duration: 600,
+      },
+    });
+    return (
+      <animated.div style={props} className={classes.Cards}>
+        <p>{text}</p>
+        <span>{date}</span>
+      </animated.div>
+    );
+  },
+  (prevProps, nextProps) => {
+    return (
+      prevProps.date === nextProps.date && prevProps.date === nextProps.date
+    );
+  }
+);
 
 Cards.propTypes = {
   text: PropTypes.string.isRequired,
