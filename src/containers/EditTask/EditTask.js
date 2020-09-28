@@ -6,9 +6,6 @@ import PropTypes from "prop-types";
 import Input from "../../components/Forms/Input/Input";
 import Button from "../../components/UI/Button/Button";
 
-// Import shared utilities
-// import { checkValidity } from '../../shared/utility';
-
 //Import scoped class modules
 import classes from "./EditTask.module.scss";
 
@@ -24,12 +21,6 @@ const EditTask = ({ submitHandler, data }) => {
       },
       label: "Title",
       value: data.title,
-      // validation: {
-      //     required: false,
-      // },
-      // isValid: false,
-      // touched: false,
-      // errorMessage: 'You should enter a valid Title!',
     },
     description: {
       elementType: "textarea",
@@ -39,17 +30,8 @@ const EditTask = ({ submitHandler, data }) => {
       },
       label: "Description",
       value: data.desc,
-      // validation: {
-      // required: false,
-      // },
-      // isValid: false,
-      // touched: false,
-      // errorMessage: 'You should enter a valid description!',
     },
   });
-
-  // State to check when the form is valid or not
-  // const [formIsValid, setFormIsValid] = useState(false);
 
   // Convert the object into an array
   const formElementsArray = [];
@@ -65,21 +47,11 @@ const EditTask = ({ submitHandler, data }) => {
       ...editTaskForm,
       [elementID]: {
         ...editTaskForm[elementID],
-        // isValid: checkValidity(event.target.value, editTaskForm[elementID].validation),
         value: event.target.value,
-        // touched: true,
       },
     };
 
-    // let formIsVal = true;
-    // for (let inputIdentifier in updateObject) {
-    //     formIsVal = updateObject[inputIdentifier].isValid && formIsVal;
-    // };
-
-    // setFormIsValid(formIsVal);
-
     setEditTaskForm(updateObject);
-    // console.log(updateObject);
   };
 
   let form = (
@@ -99,30 +71,14 @@ const EditTask = ({ submitHandler, data }) => {
           elementConfig={element.config.elementConfig}
           value={element.config.value}
           label={element.config.label}
-          // invalid={!element.config.isValid}
-          // shouldValidate={element.config.validation}
           changed={(event) => inputChangedHandler(event, element.id)}
-          // errorMessage={element.config.errorMessage}
-          // touched={element.config.touched}
         />
       ))}
       <Button name="Submit" />
     </form>
   );
 
-  // let errorMessage = null;
-  // if (error) {
-  //     errorMessage = (
-  //         <p>{error.message}</p>
-  //     );
-  // };
-
-  return (
-    <div className={classes.EditTask}>
-      {/* {errorMessage} */}
-      {form}
-    </div>
-  );
+  return <div className={classes.EditTask}>{form}</div>;
 };
 
 EditTask.propTypes = {

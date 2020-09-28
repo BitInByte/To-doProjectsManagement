@@ -1,5 +1,3 @@
-// import { useSpring } from "react-spring";
-
 // Check if the form is valid
 export const checkValidity = (value, rules) => {
   let isValid = true;
@@ -38,12 +36,8 @@ export const checkValidity = (value, rules) => {
 export const titleReduce = (title) => {
   let titleArray;
   titleArray = title.split("");
-  //   console.log("@@@TITLE");
-  //   console.log(titleArray);
 
   if (titleArray.length > 25) {
-    // titleArray.slice(0, 22);
-    // console.log(`${titleArray.slice(0, 22).join("")}...`.split(""));
     return `${titleArray.slice(0, 22).join("")}...`;
   } else {
     return titleArray.join("");
@@ -52,7 +46,6 @@ export const titleReduce = (title) => {
 
 export const mobileDataManipulation = (data, newData, group, itemID) => {
   let storedItem;
-  console.log(data);
   data.forEach((item, index) => {
     if (item.title === group) {
       // Storing the removed element into a variable
@@ -70,12 +63,7 @@ export const mobileDataManipulation = (data, newData, group, itemID) => {
       }
 
       newData[indexNewData].items.push(storedItem[0]);
-      // console.log("ITEMMMM");
-      // console.log(newData);
-      // console.log(storedItem);
-      // console.log(item.items);
     }
-    console.log(item);
   });
 };
 
@@ -86,13 +74,3 @@ export const numberReduce = (count) => {
     return count.toString();
   }
 };
-
-// Animations props
-// export const animationProps = useSpring({
-//   from: { opacity: 0 },
-//   to: { opacity: 1 },
-//   config: {
-//     duration: 600,
-//   },
-//   // reset: true,
-// });

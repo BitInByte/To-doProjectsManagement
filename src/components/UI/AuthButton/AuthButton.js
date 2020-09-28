@@ -26,8 +26,6 @@ const authButton = ({ changed, value, disabled, submit }) => {
       </button>
     );
   return (
-    // { submit ? <button type="submit" disabled={disabled} onClick={changed} className={classes.Button}>{value}</button> : <button disabled={disabled} onClick={changed} className={classes.Button}>{value}</button>}
-    // { button }
     <button disabled={disabled} onClick={changed} className={classes.Button}>
       {value}
     </button>

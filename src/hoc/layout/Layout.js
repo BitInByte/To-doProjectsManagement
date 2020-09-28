@@ -17,9 +17,6 @@ const Layout = (props) => {
 
   const { children, initials, profileImage } = props;
 
-  console.log("@@@@@PROFILE IMAGE");
-  console.log(profileImage);
-
   // Toggle at click the SideDrawer variable to true or false
   const drawerToggleClickHandler = () => {
     setSideDrawerOpen(!sideDrawerOpen);

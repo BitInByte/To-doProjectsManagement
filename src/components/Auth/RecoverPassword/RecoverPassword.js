@@ -19,22 +19,16 @@ import * as actions from "../../../store/actions";
 //Stateless component
 const recoverPassword = ({
   clicked,
-  values,
   errors,
   touched,
   isSubmitting,
   isValid,
-  validateOnMount,
   error,
   loading,
 }) => {
-  console.log("loading");
-  console.log(loading);
-
   // Check the validity of the input to scroll down the error
   const checkValidity = (error, touched) => {
     const errorMessageElement = [classes.RecoverPassword__paragraph];
-    // if (error && touched) errorMessageElement.push(classes.Login__paragraph_show);
     if (error && touched)
       errorMessageElement.push(classes.RecoverPassword__paragraph_show);
     return errorMessageElement.join(" ");
@@ -82,13 +76,8 @@ const recoverPassword = ({
     </>
   );
 
-  // If loading fires true, then render the loader
   if (loading) {
-    content = (
-      // <div className={classes.Login__spinner}>
-      <Spinner />
-      // </div>
-    );
+    content = <Spinner />;
   }
 
   return (
@@ -120,7 +109,6 @@ const formikApp = withFormik({
     };
   },
   isInitialValid: false,
-  // validateOnMount: true,
   validationSchema: Yup.object().shape({
     email: Yup.string()
       .email("Email not valid! Please introduce a valid email...")
@@ -130,11 +118,8 @@ const formikApp = withFormik({
     values,
     { props, resetForm, setErrors, setSubmitting }
   ) => {
-    // console.log('where in');
     // Reset the form
     resetForm();
-    console.log("@@@VALUES");
-    console.log(values);
     // Call the action to perform a firebase login
     try {
       await props.recoverPassword(values.email);
@@ -145,7 +130,6 @@ const formikApp = withFormik({
 })(recoverPassword);
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     error: state.auth.authError,

@@ -32,10 +32,6 @@ const ToDos = ({
   toggleCheckedTodo,
   onEditSubmitHandler,
 }) => {
-  console.log("firebase TODOS");
-  // console.log(props);
-  // console.log(props.auth.uid);
-
   // State to control the modal
   const [openModal, setOpenModal] = useState(false);
   const [showDoneTasks, setShowDoneTasks] = useState(false);
@@ -83,41 +79,24 @@ const ToDos = ({
     config: {
       duration: 600,
     },
-    // reset: true,
   });
 
-  console.log("TODOS");
-  console.log(todos);
-
-  // if (!isLoaded(todos) || isEmpty(todos)) {
   if (!isLoaded(todos)) {
     return <Spinner />;
   } else {
     // Check on uncheck the todo
     const todoCheckHandler = (e, { id, checked }) => {
-      // e.stopPropagation();
-      console.log("@@@@@@@@@@@@@@@@@@@@@CHECK HANDLER");
       e.preventDefault();
-      console.log(e.target);
-      // console.log(e.currentTarget.className);
-      console.log(e.target.name);
-      // On click on todo checkbox
-      // console.log(e.target.checked);
       toggleCheckedTodo(id, checked);
 
       e.nativeEvent.stopImmediatePropagation();
 
-      // if (!e) var e = window.event;
-      // e.cancelBubble = true;
-      // if (e.stopPropagation) e.stopPropagation();
-      // window.event.stopPropagation();
       e.stopPropagation();
       if (e.stopPropagation) {
         e.stopPropagation();
       } else if (window.event) {
         window.event.cancelBubble = true;
       }
-      // stopPropagation(e);
     };
 
     // Submit the updated ToDo
@@ -127,8 +106,6 @@ const ToDos = ({
       // Close the edit task modal
       closeEditModal();
 
-      console.log("SUBMIT DATA");
-      console.log(data);
       // Submit changes
       onEditSubmitHandler(id, data);
     };
@@ -151,13 +128,10 @@ const ToDos = ({
           touched: false,
         },
       });
-      console.log("ADD NEW SUBMIT");
-      console.log(data);
       const sendData = {
         title: data.title.value,
         desc: data.description.value,
       };
-      // addNewTodo(data);
       addNewTodo(sendData);
     };
 
@@ -169,7 +143,6 @@ const ToDos = ({
           <Modal click={() => setOpenModal(false)} modalOpen={openModal}>
             <div className={classes.Todos__modal}>
               <h2>Add a new Task</h2>
-              {/* <AddNew submitHandler={submitButtonHandler} /> */}
               <AddNew
                 submitHandler={submitButtonHandler}
                 data={addNewForm}
@@ -192,31 +165,14 @@ const ToDos = ({
       } else if (window.event) {
         window.event.cancelBubble = true;
       }
-      // e.stopPropagation();
-      console.log("@@@@@@@@@@@@@@@@@@@@@EDIT HANDLER");
-      console.log(e.target);
-      // console.log(e.currentTarget.className);
-      console.log(e.target.name);
-      // const eventClass = e.currentTarget.className;
-      // if (eventClass === 'ToDo_ToDo__1v6JY') {
       setEditTask({ ...data });
-
-      // if (!e) var e = window.event;
-      // e.cancelBubble = true;
-      // if (e.stopPropagation) e.stopPropagation();
-      // window.event.stopPropagation();
-      // }
     };
 
     if (editTask) {
-      console.log("@@@@@@@@@@@@@@@@@@MODAL OPEN");
-      console.log(editTask);
       modal = (
         <div className={classes.ToDos__modal}>
-          {/* <Modal click={() => setEditTask(null)}> */}
           <Modal click={closeEditModal} modalOpen={editTask}>
             <div className={classes.Todos__modal}>
-              {/* <h2>Add a new Task</h2> */}
               {editTaskMode ? <h2>Edit your task</h2> : null}
               {editTaskMode ? (
                 <EditTask
@@ -242,9 +198,6 @@ const ToDos = ({
       );
     }
 
-    console.log("Modal");
-    console.log(modal);
-
     // Convert the todos object into a new array to be mapped
     const todoArray = [];
     for (let el in todos) {
@@ -256,7 +209,6 @@ const ToDos = ({
         date: todos[el].timestamp,
       });
     }
-    console.log(todoArray);
 
     // ToDos with no checked tasks
     const todoUnChecked = todoArray.filter((el) => {
@@ -277,22 +229,18 @@ const ToDos = ({
         {/* To-Dos */}
         <div className={classes.Todos__container}>
           <TodoWrapper>
-            {/* {todoArray.map(el => <ToDo */}
             {todoUnChecked.map((el) => (
               <ToDo
                 key={el.id}
                 title={el.title}
-                // date={moment(el.date).fromNow()}
                 desc={el.desc}
                 date={moment(el.date.toDate()).fromNow()}
                 click={(event) => {
-                  // event.stopPropagation();
                   todoCheckHandler(event, { id: el.id, checked: el.isChecked });
                 }}
                 hasCheckbox
                 isChecked={el.isChecked}
                 // hasCursor
-                // clicked={(e) => setEditTask(e, { id: el.id, title: el.title, desc: el.desc, date: moment(el.date.toDate()).fromNow(), })}
                 clicked={(e) =>
                   editTodoHandler(e, {
                     id: el.id,
@@ -318,22 +266,10 @@ const ToDos = ({
                       })
                     }
                     hasCheckbox
-                    // hasCursor
                     isChecked={el.isChecked}
                   />
                 ))
               : null}
-            {/* <ToDo title="ToDo" click={todoCheckHandler} hasChecbox isChecked />
-                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
-                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
-                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
-                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
-                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
-                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
-                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
-                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
-                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox />
-                    <ToDo title="ToDo" click={todoCheckHandler} hasChecbox /> */}
           </TodoWrapper>
           <div className={classes.Todos__controllers_container}>
             {modal}
@@ -364,11 +300,8 @@ ToDos.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  console.log("state");
-  console.log(state);
   return {
     userId: state.firebase.auth.uid,
-    // userData: state.firestore.data,
     todos: state.firestore.data.todos,
   };
 };
@@ -384,16 +317,11 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  // firestoreConnect(props => [
-  //     `userData/${props.userId}/todos`,
-
-  // ]),
   // Get all the todos from the firebase
   firestoreConnect((props) => [
     {
       collection: "userData",
       doc: props.userId,
-      // storeAs: 'todos',
       subcollections: [{ collection: "todos" }],
       // Will be stored by the name Todos on the state. Instead of using a path to get access to that, we use todos now on the mapStateToProps
       storeAs: "todos",
@@ -401,19 +329,4 @@ export default compose(
       orderBy: ["timestamp", "desc"],
     },
   ])
-  // connect(({ firestore: { data } }, props) => ({
-  //     auth: props.firebase.auth,
-  //     todos: data.todos && data.todos[id],
-  // }))
 )(ToDos);
-
-// const enhance = compose(
-//     connect(mapStateToProps),
-//     firestoreConnect(props => [
-//         // { path: `userData/${props.auth.uid}` }
-//         // { collection: 'userData/' }
-//     ])
-// );
-
-// export default enhance(ToDos);
-// export default connect(mapStateToProps)(ToDos);

@@ -8,9 +8,6 @@ import PropTypes from "prop-types";
 // Import actions
 import * as actions from "../../../store/actions";
 
-//Import scoped class modules
-//import classes from './Logout.module.css';
-
 //Stateless component
 const Logout = ({ logOut }) => {
   useEffect(() => {

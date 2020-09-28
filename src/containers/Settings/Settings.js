@@ -24,14 +24,9 @@ import * as actions from "../../store/actions";
 const Settings = ({
   auth,
   profile,
-  clicked,
   values,
   errors,
   touched,
-  isSubmitting,
-  isValid,
-  validateOnMount,
-  loading,
   error,
   authLoading,
   authError,
@@ -39,14 +34,6 @@ const Settings = ({
   newImageState,
   newImage,
 }) => {
-  console.log("SETTINGS");
-  console.log(auth);
-  console.log(profile);
-  console.log(values);
-  console.log(touched);
-  console.log("SETTINGS IMAGE");
-  console.log(newImage);
-
   // Setting state to open the delete modal
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
@@ -58,9 +45,6 @@ const Settings = ({
       duration: 600,
     },
   });
-
-  // Setting file state
-  // const [fileState, setFileState] = useState(null);
 
   // Check the validity of the input to scroll down the error
   const checkValidity = (error, touched) => {
@@ -83,21 +67,12 @@ const Settings = ({
 
   let errorMessage = null;
   if (error) {
-    console.log("@@@@@@@@@@@@@@ERROR!");
-    console.log(error);
-    // errorMessage = <p>{error}</p>;
     errorMessage = <Error errorMessage={error} />;
   }
 
   if (authError) {
-    console.log("@@@@@@@@@@@@@@ERROR!");
-    console.log(authError);
-    // errorMessage = <p>{authError}</p>;
     errorMessage = <Error errorMessage={authError} />;
   }
-
-  console.log("TOUCED");
-  console.log(touched);
 
   //   Check if the data is different than on the server to enable button
   const checkButtonDisable = () => {
@@ -144,65 +119,12 @@ const Settings = ({
       validation = false;
     }
 
-    //  else {
-    //   validation = false;
-    // }
-
-    // if (touched.lastName && validation) {
-    //   validation = true;
-    // }
-
-    console.log("VALIDATION");
-    console.log(validation);
-    console.log(values.firstName);
-    // console.log(Object.keys(touched).length);
-
     return !validation;
   };
 
-  //   const dataObjectHandler = () => {
-  //     let data = {};
-  //     if (values.firstName !== profile.firstName) {
-  //       data = {
-  //         ...data,
-  //         firstName: values.firstName,
-  //       };
-  //     }
-
-  //     if (values.lastName !== profile.lastName) {
-  //       data = {
-  //         ...data,
-  //         lastName: values.lastName,
-  //       };
-  //     }
-
-  //     if (values.email !== auth.email) {
-  //       data = {
-  //         ...data,
-  //         email: values.email,
-  //       };
-  //     }
-
-  //     if (values.password) {
-  //       data = {
-  //         ...data,
-  //         password: values.password,
-  //       };
-  //     }
-
-  //     return data;
-  //   };
-
   const fileHandler = (event) => {
-    console.log("@@@@@@@@@@FILE EVENT");
-    console.log(event);
-    // setFileState(event.target.files[0]);
     newImageState(event.target.files[0]);
-    // console.log(fileState);
   };
-
-  // console.log("@@@@@@@@@@@@@@FILE");
-  // console.log(fileState);
 
   let img = null;
   const profileClasses = [classes.Settings__profile];
@@ -221,21 +143,12 @@ const Settings = ({
     );
   }
 
-  // let errorMessage = null;
-  // if (authError) {
-  //   errorMessage = <Error errorMessage={authError} />;
-  // }
-
   let content;
   if (profile.isLoaded && !profile.isEmpty) {
     content = (
       <div className={classes.Settings__formContent}>
         {img}
-        {/* <div className={classes.Settings__profileImage}>
-          <img src={profile.profileImg} alt={profile.initials} />
-        </div> */}
-        {/* <p>{profile.firstName}</p> */}
-        {/* <Form className={classes.Settings__form}> */}
+
         <Form className={formClasses.join(" ")}>
           {errorMessage}
           <div>
@@ -329,7 +242,6 @@ const Settings = ({
             <FileInput file={newImage} fileHandler={fileHandler} />
           </div>
 
-          {/* <Button name={'Submit'} disabled={!isValid || isSubmitting} /> */}
           <Button name={"Submit"} disabled={checkButtonDisable()} />
         </Form>
         <div className={classes.Settings__deleteBtn}>
@@ -375,7 +287,6 @@ const Settings = ({
           <div
             className={(classes.Modal__button, classes.Settings__modal_button)}
           >
-            {/*<Button name="Confirm" click={deleteUser} />*/}
             <Button name="Confirm" click={deleteUserHandler} />
           </div>
         </div>
@@ -387,7 +298,6 @@ const Settings = ({
     <>
       <animated.div style={props} className={classes.Settings}>
         <Title title="Settings" />
-        {/* <div className={classes.Settings__profile}>{content}</div> */}
         <div className={profileClasses.join(" ")}>{content}</div>
       </animated.div>
       {modal}
@@ -430,9 +340,6 @@ const formikApp = withFormik({
     profile,
     auth,
   }) => {
-    console.log("PROPS");
-    console.log(profile.firstName);
-
     return {
       // Get the user profile as props but add '' to avoid yelling an error because is forcing to update the formik without nothing when
       // The data is not fetched yet
@@ -455,18 +362,11 @@ const formikApp = withFormik({
       9,
       "You password is not valid! Password contains 9 characters or more!"
     ),
-    //   .required("Password is required to login!"),
     repeatPassword: Yup.string().oneOf(
       [Yup.ref("password"), null],
       "Both password must be the same!"
     ),
-    //   .required("You should introduce your password again!"),
     firstName: Yup.string().required("You should introduce your first name!"),
-    //   .test("match", "Equal first name!", (profile) => {
-    //     const { firstName } = this.parent;
-    //     console.log(firstName);
-    //     return profile.firstName === Yup.ref("firstName");
-    //   }),
     lastName: Yup.string().required("You should introduce your last name!"),
   }),
   handleSubmit: async (
@@ -486,13 +386,6 @@ const formikApp = withFormik({
         lastName: values.lastName,
       };
     }
-
-    // if (values.lastName !== profile.lastName) {
-    //   data = {
-    //     ...data,
-    //     lastName: values.lastName,
-    //   };
-    // }
 
     if (values.email !== auth.email) {
       data = {
@@ -515,21 +408,12 @@ const formikApp = withFormik({
       };
     }
 
-    console.log("@@@@@@@@@@HANDLESUBMIT OBJECT");
-    console.log(data);
-
     // Set submitting to true when we are making an async action to disable the button
     setSubmitting(true);
     // Reset the form
     resetForm();
     // Sign up
     await props.changeProfile(data);
-    // await props.changeProfile({
-    //   firstName: values.firstName,
-    //   lastName: values.lastName,
-    //   email: values.email,
-    //   values.password ? password: values.password : null,
-    // });
   },
 })(Settings);
 
@@ -538,11 +422,8 @@ const mapStateToProps = (state) => {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
     authLoading: state.auth.loading,
-    // authError: state.auth.error,
     authError: state.auth.authError,
     newImage: state.auth.newImage,
-    // firebase: state.firebase,
-    // firestore: state.firestore
   };
 };
 
@@ -555,5 +436,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(formikApp);
-
-// export default Settings;

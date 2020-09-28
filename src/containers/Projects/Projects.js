@@ -27,11 +27,6 @@ import { titleReduce } from "../../shared/utility";
 
 //Stateless component
 const Projects = ({ projects, addNewProject }) => {
-  // TODO Add a isEmpty from redux-firebase to dont fire up an error when data is empty
-
-  console.log("PROJECTS");
-  console.log(projects);
-
   const [openModal, setOpenModal] = useState(false);
 
   // State to create the form dynamically
@@ -60,17 +55,10 @@ const Projects = ({ projects, addNewProject }) => {
     config: {
       duration: 600,
     },
-    // reset: true,
   });
 
-  // if (!isLoaded(projects) || isEmpty(projects)) {
   if (!isLoaded(projects)) {
-    // return <h2>Loading...</h2>;
-    return (
-      // <div className={classes.Projects__spinner}>
-      <Spinner />
-      // </div>
-    );
+    return <Spinner />;
   } else {
     const submitButtonHandler = (e, data) => {
       e.preventDefault();
@@ -82,8 +70,6 @@ const Projects = ({ projects, addNewProject }) => {
           touched: false,
         },
       });
-      console.log("Submitting...");
-      console.log(data);
       addNewProject(data.title.value);
       data.title.value = "";
     };
@@ -114,8 +100,6 @@ const Projects = ({ projects, addNewProject }) => {
       });
     }
 
-    // titleReduce("sakjhdwqkjgheaslukgdkwqubeg;ukqwd");
-
     return (
       <animated.div style={props} className={classes.Projects}>
         {/* TITLE */}
@@ -133,32 +117,6 @@ const Projects = ({ projects, addNewProject }) => {
                 </Link>
               ))
             : null}
-          {/* {projectsArray.map(el => <Cards text={el.title} date={moment(el.date.toDate()).format("MMM Do YY")} />)} */}
-          {/* <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' /> */}
-          {/* <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' />
-                <Cards text='My project title here' /> */}
         </div>
         {/* NEW BUTTON */}
         <RoundButton name="+" click={() => setOpenModal(!openModal)} />
@@ -179,7 +137,6 @@ Projects.propTypes = {
 const mapStateToProps = (state) => {
   return {
     userId: state.firebase.auth.uid,
-    // userData: state.firestore.data,
     projects: state.firestore.data.projects,
   };
 };
@@ -187,8 +144,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addNewProject: (data) => dispatch(actions.addProject(data)),
-    // toggleCheckedTodo: (id, actualData) => dispatch(actions.toggleChecked(id, actualData)),
-    // onEditSubmitHandler: (id, data) => dispatch(actions.editToDo(id, data)),
   };
 };
 
@@ -200,15 +155,7 @@ export default compose(
       collection: "userData",
       doc: props.userId,
       subcollections: [{ collection: "projects" }],
-      // queryParams: ['isClosed=false'],
       where: [["isClosed", "==", false]],
-      // where: [
-      //     [
-      //         'isClosed',
-      //         '==',
-      //         false,
-      //     ]
-      // ],
       // Will be stored by the name Todos on the state. Instead of using a path to get access to that, we use todos now on the mapStateToProps
       storeAs: "projects",
       // Order the todos by the timestamp filed on the server
@@ -216,4 +163,3 @@ export default compose(
     },
   ])
 )(Projects);
-// export default Projects;

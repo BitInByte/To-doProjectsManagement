@@ -13,7 +13,6 @@ const spinner = ({ color }) => {
   let classeSpinner = classes.Spinner;
   if (color === "blue") classeSpinner = classes.SpinnerBlue;
 
-  // return <Spinner classes={{ root: classes.Spinner }} />
   return <Spinner classes={{ root: classeSpinner }} />;
 };
 

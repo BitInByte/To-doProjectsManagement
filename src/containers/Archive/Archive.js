@@ -2,7 +2,7 @@
 import React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { firestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
+import { firestoreConnect, isLoaded } from "react-redux-firebase";
 import { useSpring, animated } from "react-spring";
 import PropTypes from "prop-types";
 
@@ -17,9 +17,6 @@ import classes from "./Archive.module.scss";
 
 //Stateless component
 const Archive = ({ archive }) => {
-  console.log("@@@@@@@PROJECTS");
-  console.log(archive);
-
   // Animation props
   const props = useSpring({
     from: { opacity: 0 },
@@ -27,11 +24,8 @@ const Archive = ({ archive }) => {
     config: {
       duration: 600,
     },
-    // reset: true,
   });
 
-  // If the data is not fetched yet from the server, then render a spinner
-  // if (!isLoaded(archive) || isEmpty(archive)) {
   if (!isLoaded(archive)) {
     return <Spinner />;
   } else {
@@ -46,17 +40,10 @@ const Archive = ({ archive }) => {
       });
     }
 
-    console.log(archive);
-    console.log(projectsArray);
-
-    for (let project in archive) {
-      console.log(new Date(archive[project].timestamp.toDate()));
-      // console.log(projects[project].timestamp);
-    }
-
-    // projects.map((item) => {
-    //   console.log(new Date(item.timestamp));
-    // });
+    // for (let project in archive) {
+    //   console.log(new Date(archive[project].timestamp.toDate()));
+    //   // console.log(projects[project].timestamp);
+    // }
 
     return (
       <animated.div style={props} className={classes.Archive}>
@@ -71,21 +58,6 @@ const Archive = ({ archive }) => {
                 dateArchived={el.closed && new Date(el.closed.toDate())}
               />
             ))}
-            {/* <ArchivedProjects />
-                        <ArchivedProjects />
-                        <ArchivedProjects />
-                        <ArchivedProjects />
-                        <ArchivedProjects />
-                        <ArchivedProjects />
-                        <ArchivedProjects />
-                        <ArchivedProjects />
-                        <ArchivedProjects />
-                        <ArchivedProjects />
-                        <ArchivedProjects />
-                        <ArchivedProjects />
-                        <ArchivedProjects />
-                        <ArchivedProjects />
-                        <ArchivedProjects /> */}
           </TodoWrapper>
         </div>
       </animated.div>
@@ -103,41 +75,23 @@ Archive.propTypes = {
 const mapStateToProps = (state) => {
   return {
     userId: state.firebase.auth.uid,
-    // userData: state.firestore.data,
     archive: state.firestore.data.archive,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // addNewProject: (data) => dispatch(actions.addProject(data)),
-    // toggleCheckedTodo: (id, actualData) => dispatch(actions.toggleChecked(id, actualData)),
-    // onEditSubmitHandler: (id, data) => dispatch(actions.editToDo(id, data)),
-  };
-};
-
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, null),
   // Get all the projects from the firebase
   firestoreConnect((props) => [
     {
       collection: "userData",
       doc: props.userId,
       subcollections: [{ collection: "projects" }],
-      // queryParams: ['isClosed=false'],
       where: [["isClosed", "==", true]],
-      // where: [
-      //     [
-      //         'isClosed',
-      //         '==',
-      //         false,
-      //     ]
-      // ],
-      // Will be stored by the name Todos on the state. Instead of using a path to get access to that, we use todos now on the mapStateToProps
+
       storeAs: "archive",
       // Order the todos by the timestamp filed on the server
       orderBy: ["timestamp", "desc"],
     },
   ])
 )(Archive);
-// export default Archive;

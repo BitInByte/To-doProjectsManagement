@@ -16,7 +16,6 @@ import Spinner from "./components/UI/SpinnerContainer/SpinnerContainer";
 
 // Styles imports
 import "./index.scss";
-// import './styles/shared.scss';
 
 // Config imports
 import store from "./store";

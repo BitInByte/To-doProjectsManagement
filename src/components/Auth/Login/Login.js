@@ -19,30 +19,13 @@ import * as actions from "../../../store/actions";
 const login = ({
   clicked,
   resClicked,
-  values,
   errors,
   touched,
   isSubmitting,
   isValid,
-  validateOnMount,
-  signIn,
   error,
   loading,
 }) => {
-  // console.log('Submitting');
-  // console.log(isSubmitting);
-  // console.log('Valid');
-  // console.log(!isValid);
-
-  // console.log('Button');
-  // console.log(!isValid || isSubmitting);
-  // console.log(isValid);
-  // console.log(isSubmitting);
-  // console.log(validateOnMount);
-
-  console.log("loading");
-  console.log(loading);
-
   // Check the validity of the input to scroll down the error
   const checkValidity = (error, touched) => {
     const errorMessageElement = [classes.Login__paragraph];
@@ -149,7 +132,6 @@ const formikApp = withFormik({
     };
   },
   isInitialValid: false,
-  // validateOnMount: true,
   validationSchema: Yup.object().shape({
     email: Yup.string()
       .email("Email not valid! Please introduce a valid email...")
@@ -165,7 +147,6 @@ const formikApp = withFormik({
     values,
     { props, resetForm, setErrors, setSubmitting }
   ) => {
-    // console.log('where in');
     // Reset the form
     resetForm();
     // Call the action to perform a firebase login
@@ -178,7 +159,6 @@ const formikApp = withFormik({
 })(login);
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     error: state.auth.authError,

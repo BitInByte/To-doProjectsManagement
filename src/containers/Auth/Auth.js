@@ -19,10 +19,6 @@ import classes from "./Auth.module.scss";
 
 //Stateless component
 const Auth = ({ emailVerified, token, resendEmail }) => {
-  console.log("Auth");
-  console.log(emailVerified);
-  console.log(token);
-
   const [isLogin, setIsLogin] = useState(true);
   const [isResPassword, setIsResPassword] = useState(false);
 
@@ -39,7 +35,6 @@ const Auth = ({ emailVerified, token, resendEmail }) => {
   let auth;
 
   if (isResPassword && isLogin) {
-    // setIsLogin(false);
     auth = (
       <RecoverPassword
         clicked={() => {
@@ -49,7 +44,6 @@ const Auth = ({ emailVerified, token, resendEmail }) => {
       />
     );
   } else if (isLogin && !isResPassword) {
-    // setIsResPassword(false);
     auth = (
       <Login
         clicked={() => setIsLogin(!isLogin)}
@@ -57,7 +51,6 @@ const Auth = ({ emailVerified, token, resendEmail }) => {
       />
     );
   } else if (!isLogin && !isResPassword) {
-    // setIsResPassword(false);
     auth = (
       <Signup
         clicked={() => {
@@ -74,22 +67,6 @@ const Auth = ({ emailVerified, token, resendEmail }) => {
       />
     );
   }
-
-  // let auth = isLogin ? (
-  //   <Login clicked={() => setIsLogin(!isLogin)} />
-  // ) : (
-  //   <Signup clicked={() => setIsLogin(!isLogin)} />
-  // );
-  //
-  // auth = isResPassword ? (
-  //   <RecoverPassword clicked={() => setIsLogin((prevState) => !prevState)} />
-  // ) : (
-  //   // <Login clicked={() => setIsLogin(!isLogin)} resClicked={() => setIsResPassword(prevState => !prevState)} />
-  //   <Login
-  //     clicked={() => setIsLogin((prevState) => !prevState)}
-  //     resClicked={() => setIsResPassword((prevState) => !prevState)}
-  //   />
-  // );
 
   if (!emailVerified && token) {
     auth = <VerifyEmail resendEmail={resendEmail} />;

@@ -15,42 +15,23 @@ import classes from "./Dashboard.module.scss";
 
 //Stateless component
 const Dashboard = ({ profile, auth }) => {
-  console.log("HOURS");
-  console.log(new Date().getHours());
-
   const [dashboard, setDashboard] = useState(null);
 
-  console.log("UID");
-  console.log(auth.uid);
   useEffect(() => {
-    // const result = await fetch(
-    //   `https://cors-anywhere.herokuapp.com/https://us-central1-todo-6eb5f.cloudfunctions.net/getDashboardCount?uid=${auth.uid}`
-    // ).then((resp) => {
-    //   console.log(resp.json());
-    // });
-    // console.log(result);
     loadData();
   }, []);
 
   const loadData = async () => {
     await fetch(
-      // `https://cors-anywhere.herokuapp.com/https://us-central1-todo-6eb5f.cloudfunctions.net/getDashboardCount?uid=${auth.uid}`
       `https://us-central1-todo-6eb5f.cloudfunctions.net/getDashboardCount?uid=${auth.uid}`
     ).then((resp) => {
       resp.json().then((data) => {
-        console.log(data);
         setDashboard(data);
       });
-      // const res = resp.json();
-      // console.log(res);
     });
   };
 
-  console.log("@@@@DASHBOARD");
-  console.log(profile);
-
   const today = new Date();
-  console.log(today);
 
   if (!isLoaded(profile)) {
     return <Spinner />;
@@ -66,9 +47,6 @@ const Dashboard = ({ profile, auth }) => {
           Today is {today.toDateString()}, and this is your Projects status:
         </p>
         <div className={classes.Dashboard__cards}>
-          {/*<Cards title="ToDos" count={5} archivedCount={3} completed />*/}
-          {/*<Cards title="Projects" count={105} archivedCount={6} completed />*/}
-          {/*<Cards title="Archived" count={15} completed={false} />*/}
           {dashboard ? (
             <>
               <Cards
@@ -115,8 +93,6 @@ const mapStateToProps = (state) => {
   return {
     profile: state.firebase.profile,
     auth: state.firebase.auth,
-    // userData: state.firestore.data,
-    // projects: state.firestore.data.projects,
   };
 };
 

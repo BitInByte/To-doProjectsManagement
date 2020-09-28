@@ -20,10 +20,8 @@ const Board = ({ title }) => {
 
   const handleDragStart = (e, params) => {
     // We receive the board, the event and the item id
-    console.log("drag starting...", params);
     // Store the item on the reference
     dragItem.current = params;
-    // console.log(dragItem);
     // Get the current Node
     dragNode.current = e.target;
     // Set an eventListener to the node
@@ -36,18 +34,15 @@ const Board = ({ title }) => {
     }, 0);
   };
 
-  const handleDragEnter = (e, params) => {
-    console.log("Entering drag...", params);
-    console.log("dragNode...", dragNode.current);
-    const currentItem = dragItem.current;
-    if (e.target !== dragNode.current) {
-      // If is not the same element we are entering, then apply it
-      console.log("TARGET IS NOT THE SAME!");
-    }
-  };
+  // const handleDragEnter = (e, params) => {
+  //   const currentItem = dragItem.current;
+  //   if (e.target !== dragNode.current) {
+  //     // If is not the same element we are entering, then apply it
+  //     console.log("TARGET IS NOT THE SAME!");
+  //   }
+  // };
 
   const handleDragEnd = (e) => {
-    console.log("Ending drag");
     // Reseting the references
     setDragging(false);
     dragNode.current.removeEventListener("dragend", handleDragEnd);
@@ -58,10 +53,7 @@ const Board = ({ title }) => {
   const getStyles = (params) => {
     // Get the current draga item
     const currentItem = dragItem.current;
-    // console.log(dragItem);
-    // console.log(params);
     if (currentItem.title === params.title && currentItem.id === params.id) {
-      console.log("Im moving now change my styles");
       return true;
     }
   };
@@ -102,10 +94,6 @@ const Board = ({ title }) => {
           // If is dragging, then change the class
           hasDragClass={dragging ? getStyles({ title, id: "2" }) : null}
         />
-        {/* <ToDo isDraggable={true} dragStart={(e) => handleDragStart(e, { title, id: '2' })} idDragging={dragging} /> */}
-        {/* <ToDo isDraggable={true} dragStart={handleDragStart} /> */}
-        {/* <ToDo isDraggable={true} /> */}
-        {/* <ToDo isDraggable={true} /> */}
       </div>
     </div>
   );

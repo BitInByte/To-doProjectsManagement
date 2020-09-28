@@ -14,40 +14,6 @@ import classes from "./AddNew.module.scss";
 
 //Stateless component
 const AddNew = ({ submitHandler, data, setData }) => {
-  // State to create the form dynamically
-  // const [addNewForm, setAddNewForm] = useState({
-  //     title: {
-  //         elementType: 'input',
-  //         elementConfig: {
-  //             type: 'text',
-  //             placeholder: 'Insert your title here...',
-  //         },
-  //         label: 'Title',
-  //         value: '',
-  //         validation: {
-  //             required: true,
-  //         },
-  //         isValid: false,
-  //         touched: false,
-  //         errorMessage: 'You should enter a valid Title!',
-  //     },
-  //     description: {
-  //         elementType: 'textarea',
-  //         elementConfig: {
-  //             type: 'textarea',
-  //             placeholder: 'Insert your description here...',
-  //         },
-  //         label: 'Description',
-  //         value: '',
-  //         validation: {
-  //             required: true,
-  //         },
-  //         isValid: false,
-  //         touched: false,
-  //         errorMessage: 'You should enter a valid description!',
-  //     },
-  // });
-
   // State to check when the form is valid or not
   const [formIsValid, setFormIsValid] = useState(false);
 
@@ -79,11 +45,9 @@ const AddNew = ({ submitHandler, data, setData }) => {
     setFormIsValid(formIsVal);
 
     setData(updateObject);
-    console.log(updateObject);
   };
 
   let form = (
-    // <form onSubmit={(e) => submitHandler(e, { title: data.title.value, desc: data.description.value })} className={classes.AddNew}>
     <form onSubmit={(e) => submitHandler(e, data)} className={classes.AddNew}>
       {formElementsArray.map((element, index) => (
         <Input
@@ -103,19 +67,7 @@ const AddNew = ({ submitHandler, data, setData }) => {
     </form>
   );
 
-  // let errorMessage = null;
-  // if (error) {
-  //     errorMessage = (
-  //         <p>{error.message}</p>
-  //     );
-  // };
-
-  return (
-    <>
-      {/* {errorMessage} */}
-      {form}
-    </>
-  );
+  return <>{form}</>;
 };
 
 AddNew.propTypes = {

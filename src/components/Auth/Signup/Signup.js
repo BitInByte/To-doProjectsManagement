@@ -18,12 +18,10 @@ import * as actions from "../../../store/actions";
 //Stateless component
 const signup = ({
   clicked,
-  values,
   errors,
   touched,
   isSubmitting,
   isValid,
-  validateOnMount,
   loading,
   error,
 }) => {
@@ -188,7 +186,6 @@ const formikApp = withFormik({
     };
   },
   isInitialValid: false,
-  // validateOnMount: true,
   validationSchema: Yup.object().shape({
     email: Yup.string()
       .email("Email not valid! Please introduce a valid email...")
@@ -224,7 +221,6 @@ const formikApp = withFormik({
 })(signup);
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     error: state.auth.authError,

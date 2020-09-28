@@ -1,5 +1,4 @@
 import * as actionTypes from "../actions/actionTypes";
-// import { deleteAccount } from "../actions";
 
 const initialState = {
   authError: null,
@@ -8,8 +7,6 @@ const initialState = {
 };
 
 const authStart = (state, action) => {
-  console.log("authStarted");
-  console.log(action);
   return {
     ...state,
     authError: null,
@@ -18,8 +15,6 @@ const authStart = (state, action) => {
 };
 
 const loginSucess = (state, action) => {
-  console.log("login success");
-  console.log(action);
   return {
     ...state,
     authError: null,
@@ -28,19 +23,14 @@ const loginSucess = (state, action) => {
 };
 
 const loginError = (state, action) => {
-  console.log("login failed");
-  console.log(action);
   return {
     ...state,
-    // authError: 'Login failed',
     authError: action.err.message,
     loading: false,
   };
 };
 
 const signUpSuccess = (state, action) => {
-  console.log("signup success");
-  console.log(action);
   return {
     ...state,
     authError: null,
@@ -49,7 +39,6 @@ const signUpSuccess = (state, action) => {
 };
 
 const signUpError = (state, action) => {
-  console.log("signup error");
   return {
     ...state,
     authError: action.err.message,
@@ -58,7 +47,6 @@ const signUpError = (state, action) => {
 };
 
 const signOut = (state, action) => {
-  console.log("signout success");
   return {
     ...state,
     loading: false,
@@ -66,7 +54,6 @@ const signOut = (state, action) => {
 };
 
 const resendEmailSuccess = (state, action) => {
-  console.log("Email successfuly sent");
   return {
     ...state,
     loading: false,
@@ -74,7 +61,6 @@ const resendEmailSuccess = (state, action) => {
 };
 
 const changeProfileSuccess = (state, action) => {
-  console.log("Changes made with success!");
   return {
     ...state,
     loading: false,
@@ -84,7 +70,6 @@ const changeProfileSuccess = (state, action) => {
 };
 
 const changeProfileError = (state, action) => {
-  console.log("Changes error!");
   return {
     ...state,
     loading: false,
@@ -109,8 +94,6 @@ const deleteAccountError = (state, action) => {
 };
 
 const recoverSuccess = (state, action) => {
-  // console.log("signup success");
-  console.log(action);
   return {
     ...state,
     authError: null,
@@ -119,7 +102,6 @@ const recoverSuccess = (state, action) => {
 };
 
 const recoverError = (state, action) => {
-  // console.log("signup error");
   return {
     ...state,
     authError: action.err.message,
@@ -128,8 +110,6 @@ const recoverError = (state, action) => {
 };
 
 const addNewImage = (state, action) => {
-  console.log("@@@@@@@@@@@@@@@@@@@@Image action");
-  console.log(action);
   return {
     ...state,
     newImage: action.image,

@@ -20,9 +20,6 @@ import classes from "./Navbar.module.scss";
 const navbar = (props) => {
   const { drawerClickHandler, initials, profileImage } = props;
 
-  console.log("INITIALS");
-  console.log(initials);
-
   return (
     <div className={classes.Navbar}>
       {/* Button to toggle SideDrawer */}
@@ -40,7 +37,6 @@ const navbar = (props) => {
         ) : (
           <div className={classes.User}>{initials}</div>
         )}
-        {/* <div className={classes.User}>{initials}</div> */}
       </Link>
       {/* ICONS */}
       <nav className={classes.Nav}>

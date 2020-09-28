@@ -9,12 +9,7 @@ import classes from "./Input.module.scss";
 
 //Stateless component
 const input = (props) => {
-  console.log("@@@@element config");
-  console.log(props.elementConfig);
-  console.log(props);
-
   let inputElement = null;
-  // let textAreaElement = null;
 
   let inputClasses = [classes.InputElement];
   let textAreaElement = [classes.Textarea];

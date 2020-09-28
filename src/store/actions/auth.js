@@ -46,7 +46,6 @@ export const signUp = (newUser) => async (dispatch, getState, getFirebase) => {
         const user = getFirebase().auth().currentUser;
         // Send an email to confirm the user
         user.sendEmailVerification();
-        console.log(user);
       })
       .then(() => {
         dispatch({ type: actionTypes.SIGNUP_SUCCESS });
@@ -67,7 +66,6 @@ export const signOut = () => async (dispatch, getState, getFirebase) => {
       .auth()
       .signOut()
       .then(() => {
-        // console.log('signout');
         dispatch({ type: actionTypes.SIGNOUT_SUCCESS });
       })
       .catch((err) => {
@@ -106,14 +104,7 @@ export const changeProfile = (data) => async (
   // validation to check which data should be stored and where
 
   if (data.firstName) {
-    console.log("I HAVE FIRST NAME");
-    console.log(data);
-    console.log(data.firstName[0] + data.lastName[0]);
     try {
-      // await getFirebase()
-      //   .firestore()
-      //   .collection("users")
-      //   .doc(user.uid)
       await userDbRef
         .update({
           firstName: data.firstName,
@@ -131,13 +122,7 @@ export const changeProfile = (data) => async (
   }
 
   if (data.lastName) {
-    console.log("I HAVE LAST NAME");
-    console.log(data.lastName[0]);
     try {
-      // await getFirebase()
-      //   .firestore()
-      //   .collection("users")
-      //   .doc(user.uid)
       await userDbRef
         .update({
           lastName: data.lastName,
@@ -158,8 +143,6 @@ export const changeProfile = (data) => async (
   //   https://medium.com/@ericmorgan1/change-user-email-password-in-firebase-and-react-native-d0abc8d21618
   // Website explaining why
   if (data.email) {
-    console.log("I HAVE EMAIL");
-    console.log(data.email);
     try {
       await user
         .updateEmail(data.email)
@@ -175,8 +158,6 @@ export const changeProfile = (data) => async (
   }
 
   if (data.password) {
-    console.log("I HAVE PASSWORD");
-    console.log(data.password);
     try {
       await user
         .updatePassword(data.password)
@@ -193,13 +174,9 @@ export const changeProfile = (data) => async (
 
   if (data.image) {
     if (data.image.type.split("/")[0] === "image") {
-      console.log("@@@@@@@STORAGE REFERENCES");
-
       // Delete the old Image
       const storageRef = await getFirebase().storage().ref();
       const filesRef = await storageRef.child(`profileImage/${user.uid}`);
-
-      console.log(storageRef, filesRef);
 
       try {
         await filesRef
@@ -217,30 +194,13 @@ export const changeProfile = (data) => async (
         console.error(err);
       }
 
-      console.log("I HAVE LAST NAME");
-      console.log(data.lastName);
-
-      // await getFirebase().storage().ref("Profile").put(data.image);
-
       try {
         // Upload new image
         const uploadedFile = await getFirebase()
-          .uploadFile(
-            `profileImage/${user.uid}`,
-            data.image
-            // ,`profileImage/${user.uid}`,
-            // { name: `profileImg.${data.image.name.split(".").pop()}` }
-          )
+          .uploadFile(`profileImage/${user.uid}`, data.image)
           .then((url) => {
             const imageUrl = url.uploadTaskSnapshot.ref.getDownloadURL();
-            // console.log(url.uploadTaskSnapshot.ref.getDownloadURL());
             imageUrl.then((url) => {
-              console.log("@@@@@@@@@@@Image Url");
-              console.log(url);
-              // return getFirebase()
-              //   .firestore()
-              //   .collection("users")
-              //   .doc(user.uid)
               return userDbRef
                 .update({
                   profileImg: url,
@@ -253,30 +213,9 @@ export const changeProfile = (data) => async (
           .catch((err) => {
             dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
           });
-        console.log("@@@@@@@@@@@Image Url");
-        // console.log(uploadedFile.uploadTaskSnapshot.ref.getDownloadURL());
-        console.log(uploadedFile);
       } catch (err) {
         console.error(err);
       }
-
-      // .child(`users/${user.uid}/${data.image.name}`)
-      // .put(data.image);
-      // await getFirebase()
-      //   // .storage()
-      //   .firestore()
-      //   .collection("users")
-      //   .doc(user.uid)
-      //   // .ref("/profile.jpg")
-      //   .update({
-      //     imageName: data.image.name,
-      //     image: data.image,
-      //   })
-      //   // .append(data.image)
-      //   .then(() => {})
-      //   .catch((err) => {
-      //     dispatch({ type: actionTypes.CHANGEPROFILE_ERROR, err });
-      //   });
 
       // send a dispatch to delete the loading
       dispatch({ type: actionTypes.CHANGEPROFILE_SUCCESS });
@@ -293,8 +232,6 @@ export const changeProfile = (data) => async (
 };
 
 export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
-  console.log("DELETING");
-
   // Current user logged in
   const user = getFirebase().auth().currentUser;
 
@@ -310,42 +247,11 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
   await user
     .delete()
     .then(async () => {
-      console.log("I will start to delete now!");
-
-      // Uncomment this
-      // await getFirebase()
-      //   .firestore()
-      //   .collection("users")
-      //   .doc(user.uid)
-      //   .delete()
-      //   // .then(async () => {
-      //   //   await userDbRef
-      //   //     .collection("todos")
-      //   //     .get()
-      //   //     .then((doc) => {
-      //   //       console.log("@@@@What to delete");
-      //   //       console.log(doc);
-      //   //       doc.forEach((element) => {
-      //   //         console.log(element);
-      //   //         element.ref.delete();
-      //   //       });
-      //   //     })
-      //   //     .catch((err) => {
-      //   //       console.error(err);
-      //   //     });
-      //   // })
-      //   .catch((err) => {
-      //     console.error(err);
-      //   });
-
       await userDbRef
         .collection("todos")
         .get()
         .then((doc) => {
-          console.log("@@@@What to delete");
-          console.log(doc);
           doc.forEach((element) => {
-            console.log(element);
             element.ref.delete();
           });
         })
@@ -357,10 +263,7 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
         .collection("projects")
         .get()
         .then((doc) => {
-          console.log("@@@@What to delete");
-          console.log(doc);
           doc.forEach((element) => {
-            console.log(element);
             element.ref.delete();
           });
         })
@@ -368,11 +271,8 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
           console.error(err);
         });
 
-      console.log("@@@@@@@STORAGE REFERENCES");
       const storageRef = await getFirebase().storage().ref();
       const filesRef = await storageRef.child(`profileImage/${user.uid}`);
-
-      console.log(storageRef, filesRef);
 
       await filesRef
         .listAll()
@@ -380,13 +280,10 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
           result.items.forEach((file) => {
             file.delete();
           });
-          // dispatch({ type: actionTypes.DELETEACCOUNT_SUCCESS });
         })
         .catch((err) => {
           console.error(err);
         });
-
-      // dispatch({ type: actionTypes.DELETEACCOUNT_SUCCESS });
     })
     .then(() => {
       dispatch({ type: actionTypes.DELETEACCOUNT_SUCCESS });
@@ -403,131 +300,6 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
     .catch((err) => {
       console.error(err);
     });
-
-  // // Uncomment this
-  // await getFirebase()
-  //   .firestore()
-  //   .collection("users")
-  //   .doc(user.uid)
-  //   .delete()
-  //   .catch((err) => {
-  //     console.error(err);
-  //   });
-  //
-  // // await getFirebase()
-  // //   .firestore()
-  // //   .collection("userData")
-  // //   .doc(user.uid)
-  // await userDbRef
-  //   .collection("todos")
-  //   .get()
-  //   .then((doc) => {
-  //     console.log("@@@@What to delete");
-  //     console.log(doc);
-  //     doc.forEach((element) => {
-  //       console.log(element);
-  //       element.ref.delete();
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     console.error(err);
-  //   });
-  //
-  // // await getFirebase()
-  // //   .firestore()
-  // //   .collection("userData")
-  // //   .doc(user.uid)
-  // await userDbRef
-  //   .collection("projects")
-  //   .get()
-  //   .then((doc) => {
-  //     console.log("@@@@What to delete");
-  //     console.log(doc);
-  //     doc.forEach((element) => {
-  //       console.log(element);
-  //       element.ref.delete();
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     console.error(err);
-  //   });
-  //
-  // // await getFirebase()
-  // //   .storage()
-  // //   .ref(`profileImage/${user.uid}`)
-  // //   .listAll()
-  // //   .then((dir) => {
-  // //     dir.items.forEach((fileRef) => {
-  // //       this.deleteFile(ref.fullPath, fileRef.name);
-  // //     });
-  // //   });
-  //
-  // console.log("@@@@@@@STORAGE REFERENCES");
-  // const storageRef = await getFirebase().storage().ref();
-  // const filesRef = await storageRef.child(`profileImage/${user.uid}`);
-  //
-  // console.log(storageRef, filesRef);
-  //
-  // await filesRef
-  //   .listAll()
-  //   .then((result) => {
-  //     result.items.forEach((file) => {
-  //       file.delete();
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     console.error(err);
-  //   });
-
-  // await getFirebase().deleteFile(`profileImage/${user.uid}`);
-
-  // await getFirebase()
-  //   .firestore()
-  //   .collection("userData")
-  //   .doc(user.uid)
-  //   .collection("todos")
-  //   .get()
-  //   .then((doc) => {
-  //     doc.ref.delete();
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  // await getFirebase()
-  //   .firestore()
-  //   .collection("userData")
-  //   .doc(user.uid)
-  //   .collection("projects")
-  //   .delete()
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-
-  // await getFirebase()
-  //   .firestore()
-  //   .collection("userData")
-  //   .doc(user.uid)
-  //   .collection("todos")
-  //   .delete()
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-
-  // Uncomment this
-  // await getFirebase()
-  //   .firestore()
-  //   .collection("userData")
-  //   .doc(user.uid)
-  //   .delete()
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-
-  // // Uncomment this
-  // await user.delete().then().catch();
-
-  // close loading
-  // dispatch({ type: actionTypes.DELETEACCOUNT_SUCCESS });
 };
 
 export const recoverPassword = (email) => async (
@@ -555,7 +327,3 @@ export const recoverPassword = (email) => async (
 export const addNewImageReducer = (image) => {
   return { type: actionTypes.ADD_NEW_IMAGE, image };
 };
-
-// export const uploadImage = () => async (dispatch, getState, getFirebase) => {
-//   console.log('Uploading image');
-// }
