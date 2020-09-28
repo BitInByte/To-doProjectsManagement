@@ -284,6 +284,15 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
         .catch((err) => {
           console.error(err);
         });
+
+      await getFirebase()
+        .firestore()
+        .collection("users")
+        .doc(user.uid)
+        .delete()
+        .catch((err) => {
+          console.error(err);
+        });
     })
     .then(() => {
       dispatch({ type: actionTypes.DELETEACCOUNT_SUCCESS });
@@ -292,14 +301,14 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
       dispatch({ type: actionTypes.DELETEACCOUNT_ERROR, err });
     });
 
-  await getFirebase()
-    .firestore()
-    .collection("users")
-    .doc(user.uid)
-    .delete()
-    .catch((err) => {
-      console.error(err);
-    });
+  // await getFirebase()
+  //   .firestore()
+  //   .collection("users")
+  //   .doc(user.uid)
+  //   .delete()
+  //   .catch((err) => {
+  //     console.error(err);
+  //   });
 };
 
 export const recoverPassword = (email) => async (
