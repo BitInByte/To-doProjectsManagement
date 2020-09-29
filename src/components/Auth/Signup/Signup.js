@@ -139,7 +139,7 @@ const Signup = ({
           </p>
         </div>
 
-        <Button value={"Signup"} disabled={!isValid || isSubmitting} />
+        <Button submit value={"Signup"} disabled={!isValid || isSubmitting} />
       </Form>
       <Button value={"Login"} changed={clicked} />
     </>

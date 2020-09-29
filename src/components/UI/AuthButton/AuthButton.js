@@ -9,26 +9,32 @@ import classes from "./AuthButton.module.scss";
 
 //Stateless component
 const authButton = ({ changed, value, disabled, submit }) => {
-  let button = (
-    <button disabled={disabled} onClick={changed} className={classes.Button}>
-      {value}
-    </button>
-  );
-  if (submit)
-    button = (
-      <button
-        type="submit"
-        disabled={disabled}
-        onClick={changed}
-        className={classes.Button}
-      >
-        {value}
-      </button>
-    );
+  // let button = (
+  //   <button disabled={disabled} onClick={changed} className={classes.Button}>
+  //     {value}
+  //   </button>
+  // );
+  // if (submit)
+  //   button = (
+  //     <button
+  //       type="submit"
+  //       disabled={disabled}
+  //       onClick={changed}
+  //       className={classes.Button}
+  //     >
+  //       {value}
+  //     </button>
+  //   );
   return (
-    <button disabled={disabled} onClick={changed} className={classes.Button}>
+    <button
+      type={submit ? "submit" : null}
+      disabled={disabled}
+      onClick={changed}
+      className={classes.Button}
+    >
       {value}
     </button>
+    // { button }
   );
 };
 
