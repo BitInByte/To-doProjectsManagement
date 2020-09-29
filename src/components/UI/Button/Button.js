@@ -8,8 +8,13 @@ import PropTypes from "prop-types";
 import classes from "./Button.module.scss";
 
 //Stateless component
-const button = ({ name, click, disabled }) => (
-  <button className={classes.Button} onClick={click} disabled={disabled}>
+const button = ({ name, click, disabled, submit }) => (
+  <button
+    type={submit ? "submit" : null}
+    className={classes.Button}
+    onClick={click}
+    disabled={disabled}
+  >
     {name}
   </button>
 );
@@ -21,6 +26,7 @@ button.propTypes = {
     PropTypes.oneOf([undefined]).isRequired,
   ]),
   disabled: PropTypes.bool.isRequired,
+  submit: PropTypes.bool,
 };
 
 button.defaultProps = {

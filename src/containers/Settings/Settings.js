@@ -242,7 +242,7 @@ const Settings = ({
             <FileInput file={newImage} fileHandler={fileHandler} />
           </div>
 
-          <Button name={"Submit"} disabled={checkButtonDisable()} />
+          <Button name={"Submit"} disabled={checkButtonDisable()} submit />
         </Form>
         <div className={classes.Settings__deleteBtn}>
           <Button
