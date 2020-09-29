@@ -38,21 +38,8 @@ const Dashboard = ({ profile, auth }) => {
 
     return () => {
       isMounted = false;
-      // console.log(isMounted);
     };
   }, []);
-
-  // const loadData = async () => {
-  //   const objData = await fetch(
-  //     `https://us-central1-todo-6eb5f.cloudfunctions.net/getDashboardCount?uid=${auth.uid}`
-  //   ).then((resp) => {
-  //     resp.json().then((data) => {
-  //       return data;
-  //     });
-  //   });
-  //
-  //   return objData;
-  // };
 
   const today = new Date();
 

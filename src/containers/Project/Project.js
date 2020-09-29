@@ -98,7 +98,6 @@ const Project = ({ match, updateTask, project, archiveProject, history }) => {
       // We receive the board, the event and the item id
       // Store the item on the reference
       dragItem.current = params;
-      // console.log(dragItem);
       // Get the current Node
       dragNode.current = e.target;
       // Set an eventListener to the node

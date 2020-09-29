@@ -353,7 +353,6 @@ const formikApp = withFormik({
     };
   },
   isInitialValid: false,
-  // validateOnMount: true,
   validationSchema: Yup.object().shape({
     email: Yup.string()
       .email("Email not valid! Please introduce a valid email...")

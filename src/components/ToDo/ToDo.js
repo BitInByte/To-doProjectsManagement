@@ -83,6 +83,7 @@ const ToDo = React.memo(
   },
   (prevProps, nextProps) => {
     return (
+      //  Only re-render if title or desc or isCheked changes and if the element is not draggable
       prevProps.title === nextProps.title &&
       prevProps.desc === nextProps.desc &&
       prevProps.isChecked === nextProps.isChecked &&
