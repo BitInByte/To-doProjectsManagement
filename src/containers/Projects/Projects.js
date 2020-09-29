@@ -68,6 +68,7 @@ const Projects = ({ projects, addNewProject }) => {
         title: {
           ...addNewForm.title,
           touched: false,
+          value: "",
         },
       });
       addNewProject(data.title.value);

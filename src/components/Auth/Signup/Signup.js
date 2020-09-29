@@ -176,7 +176,7 @@ Signup.propTypes = {
 };
 
 const formikApp = withFormik({
-  // Values that will be passed to the props for the form. The value will be attributed accordngly to the object name
+  // Values that will be passed to the props for the form. The value will be attributed accordingly to the object name
   mapPropsToValues: ({
     email,
     password,

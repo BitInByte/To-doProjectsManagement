@@ -29,7 +29,7 @@ const Board = ({ title }) => {
     // Apply the style to the element on the board and no to the element
     // dragging
     setTimeout(() => {
-      // Set the darring variable to true
+      // Set the dragging variable to true
       setDragging(true);
     }, 0);
   };
@@ -43,7 +43,7 @@ const Board = ({ title }) => {
   // };
 
   const handleDragEnd = (e) => {
-    // Reseting the references
+    // Resetting the references
     setDragging(false);
     dragNode.current.removeEventListener("dragend", handleDragEnd);
     dragItem.current = null;
@@ -51,7 +51,7 @@ const Board = ({ title }) => {
   };
 
   const getStyles = (params) => {
-    // Get the current draga item
+    // Get the current drag item
     const currentItem = dragItem.current;
     if (currentItem.title === params.title && currentItem.id === params.id) {
       return true;

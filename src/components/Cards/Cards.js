@@ -11,7 +11,6 @@ import classes from "./Cards.module.scss";
 //Stateless component
 const Cards = React.memo(
   ({ text, date }) => {
-    // console.log("Rendering");
     // Animation props
     const props = useSpring({
       from: { opacity: 0 },
@@ -29,7 +28,8 @@ const Cards = React.memo(
   },
   (prevProps, nextProps) => {
     return (
-      prevProps.date === nextProps.date && prevProps.date === nextProps.date
+      //  Only re-renders if date or text changes
+      prevProps.date === nextProps.date && prevProps.text === nextProps.text
     );
   }
 );
