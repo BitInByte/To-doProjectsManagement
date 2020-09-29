@@ -18,22 +18,45 @@ const Dashboard = ({ profile, auth }) => {
   const [dashboard, setDashboard] = useState(null);
 
   useEffect(() => {
-    loadData();
+    let isMounted = true;
+    const fetchData = async () => {
+      // console.log(isMounted);
+      try {
+        await fetch(
+          `https://us-central1-todo-6eb5f.cloudfunctions.net/getDashboardCount?uid=${auth.uid}`
+        ).then((resp) => {
+          resp.json().then((data) => {
+            if (isMounted) setDashboard(data);
+          });
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      isMounted = false;
+      // console.log(isMounted);
+    };
   }, []);
 
-  const loadData = async () => {
-    await fetch(
-      `https://us-central1-todo-6eb5f.cloudfunctions.net/getDashboardCount?uid=${auth.uid}`
-    ).then((resp) => {
-      resp.json().then((data) => {
-        setDashboard(data);
-      });
-    });
-  };
+  // const loadData = async () => {
+  //   const objData = await fetch(
+  //     `https://us-central1-todo-6eb5f.cloudfunctions.net/getDashboardCount?uid=${auth.uid}`
+  //   ).then((resp) => {
+  //     resp.json().then((data) => {
+  //       return data;
+  //     });
+  //   });
+  //
+  //   return objData;
+  // };
 
   const today = new Date();
 
-  if (!isLoaded(profile)) {
+  if (!isLoaded(profile) && dashboard) {
     return <Spinner />;
   } else {
     return (

@@ -7,6 +7,7 @@ export {
   deleteAccount,
   addNewImageReducer,
   recoverPassword,
+  cleanUp,
 } from "./auth";
 
 export { addTodo, toggleChecked, editToDo } from "./toDo";

@@ -1,5 +1,5 @@
 //Import libraries
-import React from "react";
+import React, { useEffect } from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
@@ -17,7 +17,7 @@ import classes from "./RecoverPassword.module.scss";
 import * as actions from "../../../store/actions";
 
 //Stateless component
-const recoverPassword = ({
+const RecoverPassword = ({
   clicked,
   errors,
   touched,
@@ -25,7 +25,14 @@ const recoverPassword = ({
   isValid,
   error,
   loading,
+  cleanUp,
 }) => {
+  useEffect(() => {
+    return () => {
+      cleanUp();
+    };
+  }, []);
+
   // Check the validity of the input to scroll down the error
   const checkValidity = (error, touched) => {
     const errorMessageElement = [classes.RecoverPassword__paragraph];
@@ -88,7 +95,7 @@ const recoverPassword = ({
   );
 };
 
-recoverPassword.propTypes = {
+RecoverPassword.propTypes = {
   clicked: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   touched: PropTypes.object.isRequired,
@@ -127,7 +134,7 @@ const formikApp = withFormik({
       setSubmitting(false);
     }
   },
-})(recoverPassword);
+})(RecoverPassword);
 
 const mapStateToProps = (state) => {
   return {
@@ -140,6 +147,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     recoverPassword: (email) => dispatch(actions.recoverPassword(email)),
+    cleanUp: () => dispatch(actions.cleanUp()),
   };
 };
 

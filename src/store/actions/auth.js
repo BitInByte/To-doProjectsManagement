@@ -256,6 +256,7 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
           });
         })
         .catch((err) => {
+          console.error("todos");
           console.error(err);
         });
 
@@ -268,6 +269,7 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
           });
         })
         .catch((err) => {
+          console.error("projects");
           console.error(err);
         });
 
@@ -300,15 +302,6 @@ export const deleteAccount = () => async (dispatch, getState, getFirebase) => {
     .catch((err) => {
       dispatch({ type: actionTypes.DELETEACCOUNT_ERROR, err });
     });
-
-  // await getFirebase()
-  //   .firestore()
-  //   .collection("users")
-  //   .doc(user.uid)
-  //   .delete()
-  //   .catch((err) => {
-  //     console.error(err);
-  //   });
 };
 
 export const recoverPassword = (email) => async (
@@ -335,4 +328,8 @@ export const recoverPassword = (email) => async (
 
 export const addNewImageReducer = (image) => {
   return { type: actionTypes.ADD_NEW_IMAGE, image };
+};
+
+export const cleanUp = () => {
+  return { type: actionTypes.CLEANUP };
 };

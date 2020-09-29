@@ -11,7 +11,7 @@ import classes from "./Cards.module.scss";
 //Stateless component
 const Cards = React.memo(
   ({ text, date }) => {
-    console.log("Rendering");
+    // console.log("Rendering");
     // Animation props
     const props = useSpring({
       from: { opacity: 0 },

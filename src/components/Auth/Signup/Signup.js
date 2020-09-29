@@ -1,5 +1,5 @@
 //Import libraries
-import React from "react";
+import React, { useEffect } from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
@@ -16,7 +16,7 @@ import classes from "./Signup.module.scss";
 import * as actions from "../../../store/actions";
 
 //Stateless component
-const signup = ({
+const Signup = ({
   clicked,
   errors,
   touched,
@@ -24,7 +24,14 @@ const signup = ({
   isValid,
   loading,
   error,
+  cleanUp,
 }) => {
+  useEffect(() => {
+    return () => {
+      cleanUp();
+    };
+  }, []);
+
   // Check the validity of the input to scroll down the error
   const checkValidity = (error, touched) => {
     const errorMessageElement = [classes.Signup__paragraph];
@@ -155,7 +162,7 @@ const signup = ({
   );
 };
 
-signup.propTypes = {
+Signup.propTypes = {
   clicked: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   touched: PropTypes.object.isRequired,
@@ -218,7 +225,7 @@ const formikApp = withFormik({
       setSubmitting(false);
     }
   },
-})(signup);
+})(Signup);
 
 const mapStateToProps = (state) => {
   return {
@@ -231,6 +238,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signUp: (newUser) => dispatch(actions.signUp(newUser)),
+    cleanUp: () => dispatch(actions.cleanUp()),
   };
 };
 

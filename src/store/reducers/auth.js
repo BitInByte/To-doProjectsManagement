@@ -116,6 +116,10 @@ const addNewImage = (state, action) => {
   };
 };
 
+const cleanUp = () => {
+  return initialState;
+};
+
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_START:
@@ -146,6 +150,8 @@ const authReducer = (state = initialState, action) => {
       return recoverSuccess(state, action);
     case actionTypes.ADD_NEW_IMAGE:
       return addNewImage(state, action);
+    case actionTypes.CLEANUP:
+      return cleanUp();
     default:
       return state;
   }

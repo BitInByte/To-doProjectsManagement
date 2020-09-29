@@ -9,9 +9,6 @@ import Checkbox from "../UI/Checkbox/Checkbox.js";
 //Import scoped class modules
 import classes from "./ToDo.module.scss";
 
-// Import utilities
-import { shouldUpdate } from "../../shared/utility";
-
 //Stateless component
 const ToDo = React.memo(
   ({
@@ -28,8 +25,6 @@ const ToDo = React.memo(
     hasCursor,
     desc,
   }) => {
-    console.log("Rendering");
-
     const todoClass = [classes.ToDo];
     if (hasDragClass) todoClass.push(classes.ToDo__current);
     if (hasCursor) todoClass.push(classes.ToDo__Cursor);
@@ -121,7 +116,5 @@ ToDo.defaultProps = {
   clicked: undefined,
   hasCursor: false,
 };
-
-const verifyEqual = () => {};
 
 export default ToDo;
