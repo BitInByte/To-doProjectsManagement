@@ -1,6 +1,6 @@
 # Project management App
 
-## [Check it here](https://www.jopecodes.com/)
+## [Check it here](https://todo-6eb5f.firebaseapp.com/)
 
 ![Dashboard](thumbnail1.png)
 Dashboard!
