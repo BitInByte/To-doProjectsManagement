@@ -9,7 +9,7 @@ Dashboard!
 ToDos
 
 ![ProjectView](thumbnail3.png)
-Project Views
+Project View
 
 ## Getting Started
 
