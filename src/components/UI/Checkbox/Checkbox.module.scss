@@ -20,13 +20,10 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        // top: 0%;
-        // left: 0%;
         width: 2.5rem;
         height: 2.5rem;
         background-color: transparent;
         border-radius: 50%;
-        // border: .2rem solid rgba($color: #686de0, $alpha: .8);
         border: .3rem solid $color-button;
         cursor: pointer;
         transform: translate(-50%, -50%);

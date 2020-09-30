@@ -1,7 +1,6 @@
 .Input {
     width: 100%;
     position: relative;
-    // z-index: 150;
 }
 
 .Label {
@@ -69,11 +68,6 @@
 .Input::-moz-placeholder {
     font-family: 'Rubik', sans-serif;
 }
-
-// .InputElement:focus {
-//     outline: none;
-//     border: ;
-// }
 
 .Invalid {
     border-bottom: .15rem solid #f00;

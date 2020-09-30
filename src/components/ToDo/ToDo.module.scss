@@ -3,7 +3,6 @@
 .ToDo {
     display: flex;
     width: 100%;
-    // height: auto;
     background-color: $color-white;
     text-align: left;
 
@@ -18,27 +17,15 @@
 
     &__content {
         width: 100%;
-        // width: 96%;
-        // flex-grow: 1;
     }
 
     &__controller {
-        // width: auto;
         margin-left: auto;
         margin-right: 1rem;
         width: 3rem;
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-
-    
-
-    
-
-    &__title {
-        // font-size: $font-h3;
-        // line-height: $lh-h3;
     }
 
     &__timestamp {
@@ -50,9 +37,6 @@
     }
 
     &__current {
-        // background-color: #000;
-        // background-color: rgba($color: #fff, $alpha: .5);
         opacity: .5;
-        // visibility: hidden;
     }
 }

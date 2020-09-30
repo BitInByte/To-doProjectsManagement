@@ -2,7 +2,6 @@
 
 .Modal {
   display: flex;
-  //flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
   position: fixed;
@@ -20,7 +19,6 @@
     height: 60vh;
   }
 
-  //   opacity: 0;
 
   transform: translate(-50%, -50%);
 
@@ -33,6 +31,5 @@
     position: fixed;
     top: 0;
     left: 0;
-    // z-index: 300;
   }
 }

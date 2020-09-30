@@ -5,12 +5,10 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  // margin-top: 12.5rem;
 
   &__profileImage {
     width: 100%;
 
-    // border-radius: 50%;
   }
 
   &__profileImg {
@@ -23,7 +21,6 @@
     transform: translateX(-50%);
     object-fit: cover;
     height: 25rem;
-    // margin-bottom: 12.5rem;
   }
 
   &__Spinner {
@@ -35,10 +32,8 @@
   &__profile {
     width: 65rem;
     padding: 3rem;
-    // height: 50rem;
     border-radius: 3rem;
     box-shadow: -0.01rem 0 1.4rem 0.01rem rgba(255, 255, 255, 0.5);
-    // background-color: rgba($color:#fff, $alpha: .3);
     background-color: $color-white;
     position: relative;
 
@@ -54,11 +49,7 @@
     justify-content: center;
     flex-wrap: wrap;
     position: relative;
-    // margin-top: 12.5rem;
-    // position: relative;
-    // top: 0%;
-    // left: 0%;
-    // transform: translate(-50%, -50%);
+
   }
 
   &__form {

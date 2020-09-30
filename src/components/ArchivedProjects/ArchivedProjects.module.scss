@@ -4,7 +4,6 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    // height: auto;
     background-color: $color-white;
     text-align: center;
     border-radius: 1rem;
@@ -16,7 +15,6 @@
 
     &__title {
         width: 100%;
-        // flex: 1;
     }
 
     &__dates {
